@@ -1,0 +1,40 @@
+MINI APPS - sitio estático
+==========================
+Subí TODO el contenido de esta carpeta a la raíz de micro-apps.com.ar.
+Para probarlo en tu PC:  python3 -m http.server 8000  (dentro de esta carpeta) y abrí http://localhost:8000
+
+Antes de publicar, cambiá:
+  1. Correo de contacto: contacto@micro-apps.com.ar   (buscá y reemplazá en todo el sitio)
+  2. ID de AdSense: ca-pub-XXXXXXXXXXXXXXXX  (en el <head> de cada página, dentro del comentario)
+  3. Bloques de anuncio: cada <aside class="ad" data-slot="N"> espera el código <ins> de AdSense.
+     Mientras esté vacío no ocupa espacio.
+  4. Cuando AdSense te apruebe, creá el archivo ads.txt en la raíz con la línea que te indican.
+
+Archivos:
+  index.html                 Home
+  <slug>/index.html          Una carpeta por herramienta (URLs limpias)
+  assets/style.css, app.js   Estilos y JS compartido (qrcode.js solo lo usa el generador de QR)
+  favicon.svg, assets/*.png  Logo e íconos
+  sitemap.xml, robots.txt    SEO. Enviá el sitemap en Search Console.
+
+Categoría Marketing (nueva):
+  calculadora-de-test-ab, calculadora-de-tamano-de-muestra-ab, calculadora-de-roi,
+  priorizacion-ice-rice, guia-de-formatos-meta-google-ads
+  La guía de formatos carga JSZip desde cdnjs (solo para descargar las plantillas en ZIP).
+  Los datos de la guía (medidas y pesos) son los de tu archivo original: verificalos
+  periódicamente en Meta y Google y actualizá la fecha de revisión.
+  Para actualizar la guía, editá los datos en assets/guia-formatos.js (ITEMS, KIT) y
+  regenerá el HTML estático de la página (o pedime que lo reconstruya).
+
+Categorías Radioafición e Impresión 3D (nuevas):
+  calculadora-de-antenas-y-longitud-de-onda, disenador-de-lamparas-3d, conversor-3mf-flashforge-ad5x
+  Cada página es una ficha con SEO y la app va embebida en un iframe del mismo sitio:
+  <slug>/app/index.html (marcada noindex, no está en el sitemap).
+  Librerías propias en assets/vendor (three.js 0.170 y r128, JSZip 3.10.2; todas MIT, sin CDN).
+  Para cambiar el texto de la app, editá <slug>/app/index.html; para el SEO, <slug>/index.html.
+
+Categoría Documentos y PDF (nueva):
+  unir-pdf, dividir-pdf, pdf-a-imagenes       -> corren en el navegador (pdf-lib y pdf.js en assets/vendor)
+  comprimir-pdf, word-a-pdf, excel-a-pdf      -> usan la API (carpeta pdf-api, fuera de este sitio)
+  Antes de publicar: desplegá la API (ver pdf-api/README.md) y poné su dirección en assets/config.js
+  (window.MA_API). Si la API no está en línea, esas tres herramientas muestran un error de conexión.

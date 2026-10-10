@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generador de números aleatorios y sorteos | Mini Apps</title>
+<meta name="description" content="Generá números aleatorios entre dos valores, sorteá ganadores de una lista de nombres, tirá dados y la moneda. Aleatoriedad real del navegador, sin repeticiones.">
+<link rel="canonical" href="https://micro-apps.com.ar/generador-de-numeros-aleatorios/">
+
+<meta name="theme-color" content="#12264A">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mini Apps">
+<meta property="og:locale" content="es_AR">
+<meta property="og:title" content="Generador de números aleatorios y sorteos | Mini Apps">
+<meta property="og:description" content="Generá números aleatorios entre dos valores, sorteá ganadores de una lista de nombres, tirá dados y la moneda. Aleatoriedad real del navegador, sin repeticiones.">
+<meta property="og:url" content="https://micro-apps.com.ar/generador-de-numeros-aleatorios/">
+<meta property="og:image" content="https://micro-apps.com.ar/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<!-- AdSense: descomentá y poné tu ID de editor cuando te aprueben la cuenta.
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Generador de números aleatorios y sorteos", "url": "https://micro-apps.com.ar/generador-de-numeros-aleatorios/", "description": "Generá números aleatorios entre dos valores, sorteá ganadores de una lista de nombres, tirá dados y la moneda. Aleatoriedad real del navegador, sin repeticiones.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "es-AR", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "ARS"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Los resultados son realmente aleatorios?", "acceptedAnswer": {"@type": "Answer", "text": "Usan el generador criptográfico de tu navegador, que obtiene su entropía del sistema operativo. Es mucho más impredecible que el Math.random común y adecuado para sorteos cotidianos."}}, {"@type": "Question", "name": "¿Puedo usarlo para sorteos con premios?", "acceptedAnswer": {"@type": "Answer", "text": "Técnicamente sí, pero los sorteos con premios o fines comerciales pueden tener requisitos legales según la jurisdicción, como autorizaciones o bases y condiciones. Verificá la normativa aplicable antes de organizarlo."}}, {"@type": "Question", "name": "¿Cómo sorteo varios ganadores sin que se repitan?", "acceptedAnswer": {"@type": "Answer", "text": "En \"Sorteo de una lista\" cada nombre solo puede salir una vez. En \"Número aleatorio\" marcá la opción \"Sin repetir\"."}}, {"@type": "Question", "name": "¿Qué significa d20 o d6?", "acceptedAnswer": {"@type": "Answer", "text": "Es la notación de los juegos de rol: la letra d es de dado y el número indica sus caras. Un d20 tiene 20 caras y un d6 es el dado común de 6."}}, {"@type": "Question", "name": "¿Se guardan los nombres que pego?", "acceptedAnswer": {"@type": "Answer", "text": "No. El sorteo se hace en tu navegador y la lista no se envía a ningún servidor."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Mini Apps", "item": "https://micro-apps.com.ar/"}, {"@type": "ListItem", "position": 2, "name": "Generadores", "item": "https://micro-apps.com.ar/#generadores"}, {"@type": "ListItem", "position": 3, "name": "Números aleatorios y sorteos", "item": "https://micro-apps.com.ar/generador-de-numeros-aleatorios/"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="site"><div class="wrap bar"><a class="brand" href="/" aria-label="Mini Apps, inicio"><svg width="36" height="36" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="4" y="4" width="26" height="26" rx="8" fill="#12264A"/><rect x="34" y="4" width="26" height="26" rx="8" fill="#74ACDF"/><rect x="4" y="34" width="26" height="26" rx="8" fill="#74ACDF"/><circle cx="47" cy="47" r="13" fill="#F5B41A"/></svg><span>Mini Apps</span></a><nav aria-label="Categorías"><a href="/#calculadoras">Calculadoras</a><a href="/#conversores">Conversores</a><a href="/#generadores">Generadores</a><a href="/#texto">Texto</a><a href="/#marketing">Marketing</a><a href="/#radioaficion">Radioafición</a><a href="/#impresion-3d">Impresión 3D</a><a href="/#documentos">Documentos y PDF</a></nav></div></header>
+<main id="main" class="wrap">
+<nav class="crumbs" aria-label="Ruta"><a href="/">Mini Apps</a><span class="sep">&rsaquo;</span><a href="/#generadores">Generadores</a></nav>
+<h1 class="page-h1">Generador de números aleatorios y sorteos</h1>
+<p class="lead">Números al azar, sorteo de nombres, dados y cara o ceca. Todo se resuelve en tu navegador.</p>
+<div class="panel" id="tool">
+<div class="calcs">
+<section class="calc" aria-labelledby="n1"><h2 id="n1">Número aleatorio</h2>
+<div class="row"><div class="field"><label for="nmin">Desde</label><input id="nmin" type="number" inputmode="decimal" step="any" value="1" step="1"></div><div class="field"><label for="nmax">Hasta</label><input id="nmax" type="number" inputmode="decimal" step="any" value="100" step="1"></div><div class="field"><label for="ncnt">Cantidad</label><input id="ncnt" type="number" inputmode="decimal" step="any" value="1" step="1" min="1" max="1000"></div></div>
+<div class="checks"><label class="check"><input type="checkbox" id="nuniq"> Sin repetir</label></div>
+<div class="btns" style="margin-top:0"><button type="button" class="btn" id="ngo">Generar</button></div>
+<div class="outs"><div class="out main wide"><small>Resultado</small><strong class="list" id="nres" aria-live="polite">—</strong></div></div></section>
+
+<section class="calc" aria-labelledby="n2"><h2 id="n2">Sorteo de una lista</h2>
+<div class="field"><label for="lst">Un nombre por línea</label><textarea id="lst" style="min-height:8rem" placeholder="Ana&#10;Bruno&#10;Carla&#10;Diego"></textarea></div>
+<div class="row" style="margin-top:.8rem"><div class="field"><label for="wn">Cantidad de ganadores</label><input id="wn" type="number" inputmode="decimal" step="any" value="1" step="1" min="1"></div></div>
+<div class="btns" style="margin-top:.8rem"><button type="button" class="btn" id="lgo">Sortear</button></div>
+<p class="err" id="lerr" role="alert"></p>
+<div class="outs"><div class="out main wide"><small>Ganadores</small><div id="lres" aria-live="polite"><strong>—</strong></div></div></div></section>
+
+<section class="calc" aria-labelledby="n3"><h2 id="n3">Dado</h2>
+<div class="row"><div class="field"><label for="dsd">Caras</label><select id="dsd"><option value="4">4</option><option value="6" selected>6</option><option value="8">8</option><option value="10">10</option><option value="12">12</option><option value="20">20</option><option value="100">100</option></select></div>
+<div class="field"><label for="dn">Cantidad de dados</label><input id="dn" type="number" inputmode="decimal" step="any" value="1" step="1" min="1" max="20"></div></div>
+<div class="btns" style="margin-top:.8rem"><button type="button" class="btn" id="dgo">Tirar</button></div>
+<div class="outs"><div class="out main wide"><small id="dsum">Resultado</small><strong class="dice" id="dres" aria-live="polite">—</strong></div></div></section>
+
+<section class="calc" aria-labelledby="n4"><h2 id="n4">Cara o ceca</h2>
+<div class="btns" style="margin-top:0"><button type="button" class="btn" id="cgo">Tirar la moneda</button></div>
+<div class="outs"><div class="out main wide"><small>Salió</small><strong class="dice" id="cres" aria-live="polite">—</strong></div></div></section>
+</div>
+</div>
+<aside class="ad" aria-label="Publicidad" data-slot="1"><!-- ADSENSE SLOT 1 --></aside>
+<article class="prose">
+<h2>Cómo funciona</h2>
+<p>Los números se generan con <code>crypto.getRandomValues</code>, el generador criptográfico del navegador, y se transforman al rango pedido con un método que evita el sesgo (los valores que sobrarían de la división se descartan). Así, cada número del rango tiene exactamente la misma probabilidad.</p>
+<p>Cuando activás "Sin repetir", la herramienta usa el algoritmo de Fisher-Yates: elige un número, lo retira del conjunto y sigue con los que quedan. Para el sorteo de nombres mezcla la lista completa con el mismo método y toma los primeros.</p>
+<p class="formula">Cantidad de números en el rango = hasta − desde + 1</p>
+<h2>Ejemplo</h2>
+<p>Para sortear 3 ganadores entre 200 participantes, pegá los nombres (uno por línea), poné 3 en "Cantidad de ganadores" y apretá <strong>Sortear</strong>. Para simular un dado de rol de 20 caras, elegí 20 en "Caras" y apretá <strong>Tirar</strong>.</p>
+<aside class="ad" aria-label="Publicidad" data-slot="2"><!-- ADSENSE SLOT 2 --></aside>
+<h2>Preguntas frecuentes</h2>
+<h3>¿Los resultados son realmente aleatorios?</h3><p>Usan el generador criptográfico de tu navegador, que obtiene su entropía del sistema operativo. Es mucho más impredecible que el Math.random común y adecuado para sorteos cotidianos.</p><h3>¿Puedo usarlo para sorteos con premios?</h3><p>Técnicamente sí, pero los sorteos con premios o fines comerciales pueden tener requisitos legales según la jurisdicción, como autorizaciones o bases y condiciones. Verificá la normativa aplicable antes de organizarlo.</p><h3>¿Cómo sorteo varios ganadores sin que se repitan?</h3><p>En "Sorteo de una lista" cada nombre solo puede salir una vez. En "Número aleatorio" marcá la opción "Sin repetir".</p><h3>¿Qué significa d20 o d6?</h3><p>Es la notación de los juegos de rol: la letra d es de dado y el número indica sus caras. Un d20 tiene 20 caras y un d6 es el dado común de 6.</p><h3>¿Se guardan los nombres que pego?</h3><p>No. El sorteo se hace en tu navegador y la lista no se envía a ningún servidor.</p>
+<p class="updated">Última revisión: octubre de 2026.</p>
+</article>
+<h2 class="sec-h">Otras herramientas</h2>
+<div class="tiles small"><a class="tile tone-celeste" href="/generador-de-contrasenas/" data-s="Generador de contraseñas Contraseñas seguras y aleatorias, creadas en tu navegador. Generadores"><span class="g" aria-hidden="true">••••</span><h3>Generador de contraseñas</h3><p>Contraseñas seguras y aleatorias, creadas en tu navegador.</p></a><a class="tile tone-sol" href="/calculadora-de-propinas/" data-s="Calculadora de propinas Calculá la propina y dividí la cuenta entre todos. Calculadoras"><span class="g" aria-hidden="true">÷</span><h3>Calculadora de propinas</h3><p>Calculá la propina y dividí la cuenta entre todos.</p></a><a class="tile tone-white" href="/generador-de-qr/" data-s="Generador de códigos QR QR para enlaces, WiFi y WhatsApp. Descarga en PNG o SVG. Generadores"><span class="g" aria-hidden="true">QR</span><h3>Generador de códigos QR</h3><p>QR para enlaces, WiFi y WhatsApp. Descarga en PNG o SVG.</p></a></div>
+</main>
+<footer class="foot"><div class="wrap"><div class="cols">
+<div><a class="brand" href="/"><svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="4" y="4" width="26" height="26" rx="8" fill="#12264A"/><rect x="34" y="4" width="26" height="26" rx="8" fill="#74ACDF"/><rect x="4" y="34" width="26" height="26" rx="8" fill="#74ACDF"/><circle cx="47" cy="47" r="13" fill="#F5B41A"/></svg><span>Mini Apps</span></a>
+<p>Herramientas gratuitas, sin registro. Los resultados son orientativos y no reemplazan el asesoramiento profesional.</p></div>
+<ul><li><a href="/sobre-mini-apps/">Sobre Mini Apps</a></li><li><a href="/privacidad/">Privacidad</a></li><li><a href="/terminos/">Términos de uso</a></li><li><a href="/contacto/">Contacto</a></li></ul></div>
+<p>&copy; 2026 Mini Apps. Todos los derechos reservados.</p></div></footer>
+<script src="/assets/app.js"></script>
+<script>
+(function(){
+
+var $=MA.$;
+function esc(s){return s.replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
+$('#ngo').addEventListener('click',function(){
+  var a=MA.num($('#nmin')),b=MA.num($('#nmax')),n=MA.num($('#ncnt')),o=$('#nres');
+  if(a==null||b==null||n==null){o.textContent='Completá los tres campos.';return}
+  a=Math.round(a);b=Math.round(b);n=Math.min(1000,Math.max(1,Math.round(n)));
+  if(a>b){var t=a;a=b;b=t}
+  var range=b-a+1;
+  if(range>4294967296){o.textContent='El rango es demasiado grande.';return}
+  var uniq=$('#nuniq').checked;
+  if(uniq&&n>range){o.textContent='Pediste '+n+' números distintos pero el rango solo tiene '+range+'.';return}
+  var out=[];
+  if(uniq){
+    var map=new Map();
+    for(var i=0;i<n;i++){var j=i+MA.randInt(range-i);var vi=map.has(i)?map.get(i):i;var vj=map.has(j)?map.get(j):j;map.set(j,vi);out.push(vj+a)}
+  }else{for(var k=0;k<n;k++)out.push(a+MA.randInt(range))}
+  o.textContent=out.map(function(x){return MA.fmt(x,0)}).join(', ');
+});
+$('#lgo').addEventListener('click',function(){
+  var names=$('#lst').value.split('\n').map(function(s){return s.trim()}).filter(Boolean);
+  var n=Math.round(MA.num($('#wn'))||0),e=$('#lerr'),o=$('#lres');
+  e.textContent='';
+  if(!names.length){e.textContent='Cargá al menos un nombre.';return}
+  if(n<1){e.textContent='La cantidad de ganadores debe ser 1 o más.';return}
+  if(n>names.length){e.textContent='Hay '+names.length+' nombres y pediste '+n+' ganadores.';return}
+  var w=MA.shuffle(names.slice()).slice(0,n);
+  o.innerHTML='<ol class="win">'+w.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ol>';
+});
+$('#dgo').addEventListener('click',function(){
+  var s=Number($('#dsd').value),n=Math.min(20,Math.max(1,Math.round(MA.num($('#dn'))||1))),r=[],sum=0;
+  for(var i=0;i<n;i++){var v=MA.randInt(s)+1;r.push(v);sum+=v}
+  $('#dres').textContent=r.join(' \u00b7 ');
+  $('#dsum').textContent=n>1?'Suma: '+sum:'Resultado';
+});
+$('#cgo').addEventListener('click',function(){$('#cres').textContent=MA.randInt(2)?'Cara':'Ceca'});
+
+})();
+</script>
+</body>
+</html>

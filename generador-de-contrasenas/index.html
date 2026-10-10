@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generador de contraseñas seguras | Mini Apps</title>
+<meta name="description" content="Generá contraseñas aleatorias y seguras de hasta 64 caracteres. Elegí largo y tipos de caracteres. Se crean en tu navegador y no se guardan ni se envían.">
+<link rel="canonical" href="https://micro-apps.com.ar/generador-de-contrasenas/">
+
+<meta name="theme-color" content="#12264A">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mini Apps">
+<meta property="og:locale" content="es_AR">
+<meta property="og:title" content="Generador de contraseñas seguras | Mini Apps">
+<meta property="og:description" content="Generá contraseñas aleatorias y seguras de hasta 64 caracteres. Elegí largo y tipos de caracteres. Se crean en tu navegador y no se guardan ni se envían.">
+<meta property="og:url" content="https://micro-apps.com.ar/generador-de-contrasenas/">
+<meta property="og:image" content="https://micro-apps.com.ar/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<!-- AdSense: descomentá y poné tu ID de editor cuando te aprueben la cuenta.
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Generador de contraseñas seguras", "url": "https://micro-apps.com.ar/generador-de-contrasenas/", "description": "Generá contraseñas aleatorias y seguras de hasta 64 caracteres. Elegí largo y tipos de caracteres. Se crean en tu navegador y no se guardan ni se envían.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "es-AR", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "ARS"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Es seguro generar contraseñas acá?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. La contraseña se crea dentro de tu navegador con funciones criptográficas del sistema. No se envía a ningún servidor, no se guarda y desaparece al cerrar o recargar la página."}}, {"@type": "Question", "name": "¿Qué largo conviene elegir?", "acceptedAnswer": {"@type": "Answer", "text": "Para cuentas comunes, 14 a 16 caracteres es un buen punto de partida. Para cuentas críticas, como el correo o el banco, conviene 20 o más y siempre con verificación en dos pasos."}}, {"@type": "Question", "name": "¿Qué es la entropía de una contraseña?", "acceptedAnswer": {"@type": "Answer", "text": "Es una medida de cuán impredecible es. Se expresa en bits: a más bits, más combinaciones posibles y más difícil adivinarla por fuerza bruta."}}, {"@type": "Question", "name": "¿Conviene cambiar las contraseñas cada tantos meses?", "acceptedAnswer": {"@type": "Answer", "text": "Las guías actuales, como las del NIST, recomiendan cambiarlas solo ante sospecha de filtración, y priorizar contraseñas largas, únicas y con doble verificación."}}, {"@type": "Question", "name": "¿Dónde guardo las contraseñas generadas?", "acceptedAnswer": {"@type": "Answer", "text": "En un gestor de contraseñas, que las cifra y las completa por vos. Evitá guardarlas en notas sin protección o en el mismo documento donde anotás otros datos."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Mini Apps", "item": "https://micro-apps.com.ar/"}, {"@type": "ListItem", "position": 2, "name": "Generadores", "item": "https://micro-apps.com.ar/#generadores"}, {"@type": "ListItem", "position": 3, "name": "Generador de contraseñas", "item": "https://micro-apps.com.ar/generador-de-contrasenas/"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="site"><div class="wrap bar"><a class="brand" href="/" aria-label="Mini Apps, inicio"><svg width="36" height="36" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="4" y="4" width="26" height="26" rx="8" fill="#12264A"/><rect x="34" y="4" width="26" height="26" rx="8" fill="#74ACDF"/><rect x="4" y="34" width="26" height="26" rx="8" fill="#74ACDF"/><circle cx="47" cy="47" r="13" fill="#F5B41A"/></svg><span>Mini Apps</span></a><nav aria-label="Categorías"><a href="/#calculadoras">Calculadoras</a><a href="/#conversores">Conversores</a><a href="/#generadores">Generadores</a><a href="/#texto">Texto</a><a href="/#marketing">Marketing</a><a href="/#radioaficion">Radioafición</a><a href="/#impresion-3d">Impresión 3D</a><a href="/#documentos">Documentos y PDF</a></nav></div></header>
+<main id="main" class="wrap">
+<nav class="crumbs" aria-label="Ruta"><a href="/">Mini Apps</a><span class="sep">&rsaquo;</span><a href="/#generadores">Generadores</a></nav>
+<h1 class="page-h1">Generador de contraseñas seguras</h1>
+<p class="lead">Elegí el largo y los tipos de caracteres. La contraseña se genera en tu navegador y no viaja por internet.</p>
+<div class="panel" id="tool">
+<div class="field"><label for="pw">Tu contraseña</label><input id="pw" class="pw" readonly aria-live="polite"></div>
+<div class="btns"><button type="button" class="btn" id="gen">Generar otra</button><button type="button" class="btn alt" data-copy="#pw">Copiar</button></div>
+<div class="meter" aria-hidden="true"><i id="mt"></i></div>
+<p style="margin:.2rem 0 1rem"><strong id="lvl">—</strong> <span class="muted" id="bits"></span></p>
+<div class="field"><label for="len">Largo: <strong id="len-out">16</strong> caracteres</label><input id="len" type="range" min="8" max="64" value="16"></div>
+<div class="checks">
+<label class="check"><input type="checkbox" id="c-lower" checked> Minúsculas</label>
+<label class="check"><input type="checkbox" id="c-upper" checked> Mayúsculas</label>
+<label class="check"><input type="checkbox" id="c-digits" checked> Números</label>
+<label class="check"><input type="checkbox" id="c-symbols" checked> Símbolos</label>
+<label class="check"><input type="checkbox" id="amb"> Evitar caracteres parecidos (I, l, 1, O, 0, o)</label></div>
+<p class="err" id="perr" role="alert"></p>
+</div>
+<aside class="ad" aria-label="Publicidad" data-slot="1"><!-- ADSENSE SLOT 1 --></aside>
+<article class="prose">
+<h2>Cómo funciona</h2>
+<p>El generador usa la API criptográfica del navegador (<code>crypto.getRandomValues</code>), pensada para producir números aleatorios aptos para seguridad. Cada carácter se elige al azar sin sesgo y después se mezclan las posiciones, de modo que la contraseña incluye al menos un carácter de cada tipo que marcaste.</p>
+<p>La fortaleza se estima con la entropía, que mide cuántas combinaciones posibles existen:</p>
+<p class="formula">Entropía (bits) = largo × log₂(cantidad de caracteres posibles)</p>
+<p>Cada bit extra duplica el trabajo de quien intente adivinar la clave. Por eso el largo pesa más que agregar símbolos raros.</p>
+<h3>Buenas prácticas</h3>
+<ul><li>Usá una contraseña distinta para cada servicio.</li><li>Guardalas en un gestor de contraseñas en lugar de memorizarlas.</li><li>Activá la verificación en dos pasos en tus cuentas importantes.</li></ul>
+<h2>Ejemplo</h2>
+<p>Una contraseña de 16 caracteres que combina minúsculas, mayúsculas, números y símbolos (unos 84 caracteres posibles) tiene alrededor de <strong>102 bits</strong> de entropía, un nivel muy fuerte frente a ataques de fuerza bruta.</p>
+<aside class="ad" aria-label="Publicidad" data-slot="2"><!-- ADSENSE SLOT 2 --></aside>
+<h2>Preguntas frecuentes</h2>
+<h3>¿Es seguro generar contraseñas acá?</h3><p>Sí. La contraseña se crea dentro de tu navegador con funciones criptográficas del sistema. No se envía a ningún servidor, no se guarda y desaparece al cerrar o recargar la página.</p><h3>¿Qué largo conviene elegir?</h3><p>Para cuentas comunes, 14 a 16 caracteres es un buen punto de partida. Para cuentas críticas, como el correo o el banco, conviene 20 o más y siempre con verificación en dos pasos.</p><h3>¿Qué es la entropía de una contraseña?</h3><p>Es una medida de cuán impredecible es. Se expresa en bits: a más bits, más combinaciones posibles y más difícil adivinarla por fuerza bruta.</p><h3>¿Conviene cambiar las contraseñas cada tantos meses?</h3><p>Las guías actuales, como las del NIST, recomiendan cambiarlas solo ante sospecha de filtración, y priorizar contraseñas largas, únicas y con doble verificación.</p><h3>¿Dónde guardo las contraseñas generadas?</h3><p>En un gestor de contraseñas, que las cifra y las completa por vos. Evitá guardarlas en notas sin protección o en el mismo documento donde anotás otros datos.</p>
+<p class="updated">Última revisión: octubre de 2026.</p>
+</article>
+<h2 class="sec-h">Otras herramientas</h2>
+<div class="tiles small"><a class="tile tone-celeste" href="/generador-de-qr/" data-s="Generador de códigos QR QR para enlaces, WiFi y WhatsApp. Descarga en PNG o SVG. Generadores"><span class="g" aria-hidden="true">QR</span><h3>Generador de códigos QR</h3><p>QR para enlaces, WiFi y WhatsApp. Descarga en PNG o SVG.</p></a><a class="tile tone-sol" href="/generador-de-numeros-aleatorios/" data-s="Números aleatorios y sorteos Números al azar, sorteos de una lista, dados y moneda. Generadores"><span class="g" aria-hidden="true">?</span><h3>Números aleatorios y sorteos</h3><p>Números al azar, sorteos de una lista, dados y moneda.</p></a><a class="tile tone-white" href="/contador-de-palabras-y-caracteres/" data-s="Contador de palabras Palabras, caracteres, oraciones y tiempo de lectura. Texto"><span class="g" aria-hidden="true">¶</span><h3>Contador de palabras</h3><p>Palabras, caracteres, oraciones y tiempo de lectura.</p></a></div>
+</main>
+<footer class="foot"><div class="wrap"><div class="cols">
+<div><a class="brand" href="/"><svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="4" y="4" width="26" height="26" rx="8" fill="#12264A"/><rect x="34" y="4" width="26" height="26" rx="8" fill="#74ACDF"/><rect x="4" y="34" width="26" height="26" rx="8" fill="#74ACDF"/><circle cx="47" cy="47" r="13" fill="#F5B41A"/></svg><span>Mini Apps</span></a>
+<p>Herramientas gratuitas, sin registro. Los resultados son orientativos y no reemplazan el asesoramiento profesional.</p></div>
+<ul><li><a href="/sobre-mini-apps/">Sobre Mini Apps</a></li><li><a href="/privacidad/">Privacidad</a></li><li><a href="/terminos/">Términos de uso</a></li><li><a href="/contacto/">Contacto</a></li></ul></div>
+<p>&copy; 2026 Mini Apps. Todos los derechos reservados.</p></div></footer>
+<script src="/assets/app.js"></script>
+<script>
+(function(){
+
+var $=MA.$;
+var SETS={lower:'abcdefghijklmnopqrstuvwxyz',upper:'ABCDEFGHIJKLMNOPQRSTUVWXYZ',digits:'0123456789',symbols:'!@#$%&*()-_=+[]{}:;,.?'};
+function gen(){
+  var len=Number($('#len').value);$('#len-out').textContent=len;
+  var amb=$('#amb').checked,sets=[];
+  ['lower','upper','digits','symbols'].forEach(function(k){
+    if($('#c-'+k).checked){var s=SETS[k];if(amb)s=s.replace(/[Il1O0o]/g,'');sets.push(s)}
+  });
+  if(!sets.length){$('#perr').textContent='Elegí al menos un tipo de carácter.';$('#pw').value='';$('#lvl').textContent='\u2014';$('#bits').textContent='';$('#mt').style.width='0';return}
+  $('#perr').textContent='';
+  var all=sets.join(''),out=[];
+  sets.forEach(function(s){out.push(s.charAt(MA.randInt(s.length)))});
+  while(out.length<len){out.push(all.charAt(MA.randInt(all.length)))}
+  MA.shuffle(out);
+  $('#pw').value=out.join('');
+  var bits=len*Math.log(all.length)/Math.LN2;
+  var lv=bits<40?['Débil',1]:bits<60?['Aceptable',2]:bits<80?['Fuerte',3]:['Muy fuerte',4];
+  $('#lvl').textContent=lv[0];$('#bits').textContent='(\u2248 '+Math.round(bits)+' bits de entropía)';
+  var m=$('#mt');m.style.width=Math.min(100,bits/1.28)+'%';m.className='w'+lv[1];
+}
+$('#gen').addEventListener('click',gen);
+$('#tool').addEventListener('input',function(e){if(e.target.id!=='pw')gen()});
+gen();
+
+})();
+</script>
+</body>
+</html>

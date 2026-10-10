@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://micro-apps.com.ar/sitemap.xml

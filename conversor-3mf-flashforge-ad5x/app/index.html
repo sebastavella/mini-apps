@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conversor 3MF para Flashforge AD5X (app)</title>
+<meta name="robots" content="noindex,follow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap">
+<style>
+
+:root{
+  --bg:#ffffff; --surface:#F6F8FA; --ink:#0E1A2B; --ink-2:#4A5B73; --line:#D3DDE8;
+  --accent:#12264A; --on-accent:#FFFFFF; --src:#7A8E99; --warn:#9A5A00; --ok:#1B7F4B; --bad:#B3261E;
+  --glow:rgba(116,172,223,.18);
+  --f1:#22C7DB; --f2:#E8479B; --f3:#F5B83D; --f4:#8BD450;
+  --display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --text:'Figtree','Segoe UI',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:72px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background-color:var(--bg);background-image:radial-gradient(760px 420px at 82% 120px,var(--glow),transparent 70%);background-repeat:no-repeat;color:var(--ink);font:400 16px/1.55 var(--text)}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+h1{font:800 clamp(2.1rem,6.4vw,3.8rem)/1.02 var(--display);letter-spacing:-.03em;margin:0 0 16px;max-width:17ch}
+h2{font:800 clamp(1.5rem,4vw,2.1rem)/1.08 var(--display);letter-spacing:-.02em;margin:0 0 14px;max-width:24ch}
+h3{font:700 1rem/1.25 var(--display);margin:0 0 8px}
+p{margin:0 0 12px}
+.muted{color:var(--ink-2)}
+.lead{color:var(--ink-2);max-width:58ch;font-size:1.06rem}
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+@supports (background:color-mix(in srgb,red,blue)){.nav{background:color-mix(in srgb,var(--bg) 86%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}}
+.nav .wrap{display:flex;align-items:center;gap:22px;min-height:60px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 1.35rem/1 var(--display);letter-spacing:-.03em}
+.brand svg{color:var(--ink);flex:none}
+.links{display:none;gap:22px;margin-left:12px}
+.links a{text-decoration:none;color:var(--ink-2);font-weight:500;font-size:.95rem}
+.links a:hover{color:var(--ink)}
+.nav .btn{margin-left:auto}
+@media (min-width:760px){.links{display:flex}}
+/* hero */
+.hero{padding:clamp(32px,6vw,72px) 0 clamp(24px,4vw,44px)}
+.ticks{display:flex;flex-wrap:wrap;gap:8px 22px;list-style:none;padding:0;margin:22px 0 0;color:var(--ink-2);font-size:.95rem}
+.ticks li{display:flex;align-items:center;gap:8px}
+.ticks li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.chip{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:.92rem;color:var(--ink-2);margin:0 0 22px}
+.chip b{color:var(--ink);font-weight:600}
+.ifs{display:inline-flex;gap:4px}
+.ifs i{width:9px;height:9px;border-radius:50%;display:block}
+.ifs i:nth-child(1){background:var(--f1)}.ifs i:nth-child(2){background:var(--f2)}.ifs i:nth-child(3){background:var(--f3)}.ifs i:nth-child(4){background:var(--f4)}
+/* herramienta */
+.grid{display:grid;gap:clamp(22px,4vw,56px);grid-template-columns:minmax(0,1fr)}
+@media (min-width:860px){
+  .grid{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:start}
+  .plate-col{position:sticky;top:84px}
+}
+.plate{position:relative;isolation:isolate;aspect-ratio:1/1;width:100%;border-radius:6px;outline:2px dashed transparent;outline-offset:6px;transition:outline-color .15s}
+.plate::before{content:"";position:absolute;inset:-10%;z-index:-1;background:radial-gradient(closest-side,var(--glow),transparent)}
+.plate.drag{outline-color:var(--accent)}
+.plate svg{width:100%;height:100%;display:block}
+.bed-src{fill:none;stroke:var(--src);stroke-width:1.25;stroke-dasharray:5 4}
+.bed-ad5x{fill:var(--surface);stroke:var(--accent);stroke-width:2}
+.grid-l{stroke:var(--line);stroke-width:.75}
+.lbl{font:600 12px var(--text);fill:var(--ink-2)}
+.lbl.a{fill:var(--ink)}
+.dot-a{fill:var(--accent)} .dot-s{fill:var(--src)}
+.foot{fill:var(--accent);fill-opacity:.3;stroke:var(--accent);stroke-width:1.5}
+.foot.out{fill:var(--warn);stroke:var(--warn);stroke-dasharray:4 3}
+.foot-g{transform-origin:180px 180px}
+.foot-g.in{animation:land .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes land{from{opacity:0;transform:scale(1.08)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.foot-g.in{animation:none}}
+.cta{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px}
+.cta[hidden]{display:none}
+.cta-t{font:700 clamp(1.15rem,3.6vw,1.5rem)/1.15 var(--display);margin:0;max-width:14ch}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0}
+.tabs[hidden]{display:none}
+.tabs button{font:600 .9rem/1 var(--text);padding:9px 14px;border-radius:6px;border:1.5px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;min-height:38px}
+.tabs button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tabs button:hover{border-color:var(--accent)}
+.tabs button:active{transform:translateY(1px)}
+.tabs button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.plate-cap{margin:14px 0 0;color:var(--ink-2);font-size:.92rem;max-width:52ch}
+/* botones */
+.btn{font:600 .95rem/1 var(--text);padding:13px 18px;border-radius:6px;border:1.5px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;min-height:44px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.btn:hover{border-color:var(--ink-2)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{border-color:var(--line)}
+.btn.sm{min-height:38px;padding:9px 14px;font-size:.9rem}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.btn:focus-visible,input:focus-visible+span,summary:focus-visible,.links a:focus-visible,.brand:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.btn.big{width:100%;font-size:1.05rem;padding:16px 18px}
+/* bloques de la herramienta */
+.blk{padding:0 0 22px;margin:0 0 22px;border-bottom:1px solid var(--line)}
+.blk:last-child{border-bottom:0;margin-bottom:0}
+.blk h2{font-size:1.15rem;margin-bottom:10px;max-width:none}
+.opt{display:flex;gap:12px;align-items:flex-start;margin:0 0 12px;cursor:pointer}
+.opt input{margin:4px 0 0;width:18px;height:18px;accent-color:var(--accent);flex:none}
+.opt small{display:block;color:var(--ink-2);font-size:.88rem}
+.opt.off{opacity:.5;cursor:default}
+fieldset{border:0;padding:0;margin:0 0 16px}
+legend{font-weight:600;padding:0;margin-bottom:8px}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg label{position:relative}
+.seg input{position:absolute;opacity:0;inset:0;margin:0}
+.seg span{display:inline-block;min-width:64px;text-align:center;padding:10px 14px;border:1.5px solid var(--line);border-radius:6px;font-weight:600;cursor:pointer}
+.seg input:checked+span{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.seg input:disabled+span{opacity:.4;cursor:not-allowed}
+.base-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0 14px}
+.base-name{font-weight:600;overflow-wrap:anywhere}
+.verdict{font:700 1.5rem/1.15 var(--display);letter-spacing:-.01em;margin:0 0 4px;display:flex;gap:10px;align-items:center}
+.verdict i{width:14px;height:14px;border-radius:50%;background:var(--src);flex:none}
+.verdict.ok i{background:var(--ok)} .verdict.bad i{background:var(--bad)} .verdict.warn i{background:var(--warn)}
+.sub{color:var(--ink-2);margin:0 0 16px}
+ul.list{margin:0 0 16px;padding-left:20px}
+ul.list li{margin:0 0 6px}
+#result h3{margin:16px 0 8px}
+ul.warn li::marker{color:var(--warn)}
+.status{min-height:1.4em;color:var(--ink-2);font-size:.92rem;margin:10px 0 0}
+.status.err{color:var(--bad)}
+.note{color:var(--ink-2);font-size:.88rem;margin-top:8px;max-width:60ch}
+/* secciones informativas */
+.sec{border-top:1px solid var(--line);padding:clamp(40px,7vw,84px) 0}
+.two{display:grid;gap:clamp(20px,4vw,48px);grid-template-columns:minmax(0,1fr)}
+@media (min-width:760px){.two{grid-template-columns:1fr 1fr}.two.vs>div+div{border-left:1px solid var(--line);padding-left:clamp(20px,4vw,48px)}}
+.two ul,.tri ul{list-style:none;padding:0;margin:0}
+.two li,.tri li{padding:8px 0;border-bottom:1px solid var(--line)}
+.two li:last-child,.tri li:last-child{border-bottom:0}
+.tag{font:700 .95rem/1 var(--display);display:flex;align-items:center;gap:8px;margin:0 0 10px}
+.tag::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--src)}
+.tag.ok::before{background:var(--ok)} .tag.acc::before{background:var(--accent)}
+.steps{list-style:none;counter-reset:s;padding:0;margin:26px 0 0;display:grid;gap:22px}
+@media (min-width:760px){.steps{grid-template-columns:repeat(3,1fr);gap:36px}}
+.steps li{counter-increment:s;border-top:2px solid var(--accent);padding-top:14px}
+.steps li::before{content:counter(s,decimal-leading-zero);font:800 1.6rem/1 var(--display);color:var(--accent);display:block;margin-bottom:10px}
+.tri{display:grid;gap:28px;margin-top:26px}
+@media (min-width:860px){.tri{grid-template-columns:repeat(3,1fr);gap:40px}}
+.tri>div{border-top:1px solid var(--line);padding-top:14px}
+.tri p{color:var(--ink-2);font-size:.92rem;margin-top:10px}
+.callout{margin-top:24px}
+.callout .do{border-left:3px solid var(--ok);padding-left:16px}
+.callout .dont{border-left:3px solid var(--bad);padding-left:16px}
+.callout b{display:block;font:700 .95rem/1.2 var(--display);margin-bottom:4px}
+details{border-bottom:1px solid var(--line)}
+details:first-of-type{border-top:1px solid var(--line)}
+summary{cursor:pointer;list-style:none;padding:18px 40px 18px 0;font:700 1.05rem/1.3 var(--display);position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:6px;top:14px;font:500 1.6rem/1 var(--text);color:var(--accent)}
+details[open] summary::after{content:"−"}
+details p{color:var(--ink-2);max-width:66ch;padding-bottom:16px;margin:0}
+footer{border-top:1px solid var(--line);padding:32px 0 44px;color:var(--ink-2);font-size:.9rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between}
+footer .brand{font-size:1.15rem;color:var(--ink)}
+
+/* vista 3D, comparar y purga */
+.v3d{position:absolute;inset:0;touch-action:none;cursor:grab;border-radius:6px}
+.v3d[hidden]{display:none}
+.v3d:active{cursor:grabbing}
+.plate.is3d svg{visibility:hidden}
+.vt{margin:16px 0 0}
+.small{font-size:.88rem}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.fld{display:flex;flex-direction:column;gap:6px;font-weight:600;margin:14px 0;max-width:240px}
+input[type=number],input[type=search],select{font:400 1rem var(--text);color:var(--ink);background:var(--surface);border:1.5px solid var(--line);border-radius:6px;padding:9px 10px;min-height:40px;max-width:100%}
+input[type=number]:focus-visible,input[type=search]:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.tblwrap{overflow-x:auto}
+.cmp-pick{display:grid;gap:22px;grid-template-columns:minmax(0,1fr);margin-top:26px}
+@media (min-width:760px){.cmp-pick{grid-template-columns:1fr 1fr;gap:40px}}
+.cmp-slot{border-top:1px solid var(--line);padding-top:14px}
+.cmp-name{font-weight:600;margin:0;overflow-wrap:anywhere}
+.cmp-t{width:100%;border-collapse:collapse;font-size:.92rem}
+.cmp-t th,.cmp-t td{text-align:left;vertical-align:top;padding:9px 12px 9px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+.cmp-t thead th{color:var(--ink-2);font-weight:600;white-space:nowrap}
+.cmp-t tbody th{font-weight:600;min-width:150px}
+.cmp-t code,.mods code{font:500 .84rem ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.cmp-t small{display:block;color:var(--ink-2);font-weight:400}
+.rows tr.chg th{box-shadow:inset 3px 0 var(--accent);padding-left:10px}
+.rows tr.onlyA th{box-shadow:inset 3px 0 var(--warn);padding-left:10px}
+.rows tr.onlyB th{box-shadow:inset 3px 0 var(--ok);padding-left:10px}
+.cmp-t details summary{padding:0;font:400 .84rem ui-monospace,Menlo,Consolas,monospace;cursor:pointer;color:var(--ink-2)}
+.cmp-t details{border:0}
+.cmp-t pre{white-space:pre-wrap;margin:8px 0 0;font:400 .8rem/1.4 ui-monospace,Menlo,Consolas,monospace;max-height:260px;overflow:auto}
+.mods{display:grid;gap:20px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:760px){.mods{grid-template-columns:1fr 1fr;gap:40px}}
+.mods h4{font:700 .95rem/1.2 var(--display);margin:0 0 8px}
+.mods p{margin:0 0 8px}
+.mods code{display:inline-block;background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:1px 6px;margin:2px 2px 2px 0}
+.cmp-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:12px 0}
+.cmp-cnt{display:flex;flex-wrap:wrap;gap:6px 22px;color:var(--ink-2);margin:0 0 12px}
+.cmp-cnt b{color:var(--ink)}
+.pg-grid{display:grid;gap:clamp(22px,4vw,48px);grid-template-columns:minmax(0,1fr);margin-top:24px}
+@media (min-width:900px){.pg-grid{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}}
+.mtx-wrap{overflow-x:auto;margin:10px 0}
+.mtx{border-collapse:collapse}
+.mtx th,.mtx td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}
+.mtx th span{font-weight:600}
+.mtx .corner{color:var(--ink-2);font-weight:500;font-size:.85rem;text-align:left}
+.mtx input{width:78px}
+.mtx td.diag{color:var(--ink-2)}
+.sw{display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid var(--line);vertical-align:-2px;margin-right:6px}
+.res{margin:0 0 12px}
+.res div{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid var(--line)}
+.res dt{color:var(--ink-2)}
+.res dd{margin:0;font-weight:600;text-align:right}
+.res dd small{font-weight:400;color:var(--ink-2)}
+.res .sv dd{color:var(--accent)}
+
+[hidden]{display:none!important}
+body{background-image:none}
+.wrap{padding:0 18px}
+.hero{padding:18px 0 18px}
+.sec{padding:26px 0;margin-top:8px}
+.plate-col{position:static!important}
+.chip{margin-bottom:18px}
+h2{max-width:none}
+</style>
+</head>
+<body>
+<main id="top">
+<section class="hero" id="convertir">
+  <div class="wrap">
+    <p class="chip">Impresora <b>Flashforge AD5X</b> <span class="ifs" aria-label="IFS de 4 colores"><i></i><i></i><i></i><i></i></span></p>
+    <div style="height:14px"></div><div class="grid">
+      <section class="plate-col" aria-label="Vista de la cama de impresión">
+        <div class="plate" id="plate" tabindex="-1">
+          <svg id="svg" viewBox="0 0 360 360" role="img" aria-label="Cama de la AD5X de 220 por 220 milímetros"></svg>
+          <div class="v3d" id="v3d" hidden></div>
+          <div class="cta" id="cta">
+            <p class="cta-t" id="ctaT">Soltá tu archivo .3mf sobre la cama</p>
+            <button type="button" class="btn primary" id="pick">Elegir archivo</button>
+          </div>
+        </div>
+        <div class="seg vt" id="viewSet" role="group" aria-label="Tipo de vista">
+          <label><input type="radio" name="view" value="2d" checked><span>2D</span></label>
+          <label><input type="radio" name="view" value="3d"><span>3D</span></label>
+        </div>
+        <div class="tabs" id="tabs" role="tablist" aria-label="Placas del proyecto" hidden></div>
+        <p class="plate-cap" id="plateCap">Los dos contornos están a escala: la cama de Bambu (punteada) y la de la AD5X.</p>
+        <input type="file" id="file" accept=".3mf" hidden>
+        <input type="file" id="baseFile" accept=".3mf" hidden>
+      </section>
+
+      <div class="side">
+        <section class="blk" aria-labelledby="h-file">
+          <h2 id="h-file">Archivo</h2>
+          <p id="fileLine" class="muted">Todavía no elegiste ningún archivo.</p>
+          <button type="button" class="btn ghost sm" id="pick2" hidden>Cambiar archivo</button>
+        </section>
+
+        <section class="blk" aria-labelledby="h-set">
+          <h2 id="h-set">Ajustes</h2>
+          <fieldset id="nzSet">
+            <legend>Boquilla (mm)</legend>
+            <div class="seg">
+              <label><input type="radio" name="nz" value="0.25"><span>0,25</span></label>
+              <label><input type="radio" name="nz" value="0.4" checked><span>0,4</span></label>
+              <label><input type="radio" name="nz" value="0.6"><span>0,6</span></label>
+              <label><input type="radio" name="nz" value="0.8"><span>0,8</span></label>
+            </div>
+          </fieldset>
+          <label class="opt" id="recWrap"><input type="checkbox" id="oRecenter" checked><span>Recentrar los objetos en la cama de 220 × 220 mm<small>La cama de Bambu es más grande y su origen queda en otro lugar.</small></span></label>
+          <fieldset id="arrSet">
+            <legend>Acomodar piezas</legend>
+            <div class="seg">
+              <label><input type="radio" name="arr" value="off" checked><span>No</span></label>
+              <label><input type="radio" name="arr" value="move"><span>Solo mover</span></label>
+              <label><input type="radio" name="arr" value="rotate"><span>Mover y rotar</span></label>
+            </div>
+            <p class="muted small" id="arrNote" style="margin:8px 0 0"></p>
+          </fieldset>
+          <label class="opt"><input type="checkbox" id="oStrip" checked><span>Quitar el G-code y los datos de laminado de Bambu<small>Corresponden a otra máquina y no sirven en la AD5X.</small></span></label>
+
+          <label class="opt" id="genWrap"><input type="checkbox" id="oGeneric" checked><span>Usar filamento genérico del mismo tipo<small>Por ejemplo, “Generic PETG @BBL A1M” pasa a “Generic PETG”. Con perfil base se usa el filamento de tu perfil.</small></span></label>
+
+          <h3 style="margin-top:20px">Perfil base de tu laminador</h3>
+          <p class="muted" style="margin-bottom:0">Recomendado. Elegí un .3mf guardado desde Orca-Flashforge con tu AD5X y se copian tus ajustes reales de impresora, filamento y proceso.</p>
+          <div class="base-row">
+            <button type="button" class="btn sm" id="pickBase">Elegir perfil base</button>
+            <span class="base-name" id="baseName"></span>
+            <button type="button" class="btn ghost sm" id="clearBase" hidden>Quitar</button>
+          </div>
+          <label class="opt off" id="keepWrap"><input type="checkbox" id="oKeep" checked disabled><span>Conservar lo que eligió el creador<small>Altura de capa, paredes, relleno y soportes.</small></span></label>
+        </section>
+
+        <section class="blk" aria-labelledby="h-res">
+          <h2 id="h-res">Resultado</h2>
+          <div id="result"><p class="muted">Cuando elijas un archivo vas a ver acá si entra en la cama y qué se va a cambiar.</p></div>
+          <button type="button" class="btn primary big" id="dl" disabled>Descargar 3MF para AD5X</button>
+          <p class="status" id="status" role="status" aria-live="polite"></p>
+          <p class="note">Abrilo como proyecto (Archivo → Abrir proyecto) y revisá cama, boquilla y filamentos antes de laminar.</p>
+        </section>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="comparar">
+  <div class="wrap">
+    <h2>Comparar dos 3MF</h2>
+    <p class="lead">Elegí dos proyectos y mirá qué ajustes cambian. Sirve para entender por qué tu laminador ignora algo, o para ver qué le hizo la conversión a tu archivo.</p>
+    <div class="cmp-pick">
+      <div class="cmp-slot"><h3>Archivo A</h3><p class="cmp-name" id="cmpAName">Sin elegir</p>
+        <div class="btns"><button type="button" class="btn sm" id="cmpAPick">Elegir archivo</button><button type="button" class="btn ghost sm" id="cmpAUse">Usar el original cargado arriba</button></div></div>
+      <div class="cmp-slot"><h3>Archivo B</h3><p class="cmp-name" id="cmpBName">Sin elegir</p>
+        <div class="btns"><button type="button" class="btn sm" id="cmpBPick">Elegir archivo</button><button type="button" class="btn ghost sm" id="cmpBUse">Usar el resultado de la conversión</button></div></div>
+    </div>
+    <input type="file" id="cmpAFile" accept=".3mf" hidden><input type="file" id="cmpBFile" accept=".3mf" hidden>
+    <p class="status" id="cmpMsg" role="status" aria-live="polite"></p>
+    <div id="cmpOut" hidden>
+      <div id="cmpMeta" class="tblwrap"></div>
+      <h3 style="margin-top:28px">Ajustes marcados como modificados</h3>
+      <p class="muted small">El laminador solo respeta los ajustes de esta lista: los demás los toma del perfil de sistema. Si un ajuste distinto no está acá, puede ser ignorado.</p>
+      <div id="cmpMods" class="mods"></div>
+      <h3 style="margin-top:28px">Diferencias</h3>
+      <div class="cmp-tools">
+        <div class="seg" role="group" aria-label="Qué mostrar">
+          <label><input type="radio" name="cmpf" value="chg" checked><span>Distintos</span></label>
+          <label><input type="radio" name="cmpf" value="onlyA"><span>Solo A</span></label>
+          <label><input type="radio" name="cmpf" value="onlyB"><span>Solo B</span></label>
+          <label><input type="radio" name="cmpf" value="all"><span>Todos</span></label>
+        </div>
+        <select id="cmpCat" aria-label="Categoría"><option value="all">Todas las categorías</option><option>Impresora</option><option>Filamento</option><option>Proceso</option></select>
+        <input type="search" id="cmpQ" placeholder="Buscar ajuste o valor" aria-label="Buscar">
+      </div>
+      <p class="cmp-cnt" id="cmpCnt"></p>
+      <div id="cmpRows" class="tblwrap"></div>
+      <button type="button" class="btn ghost sm" id="cmpMore" hidden style="margin-top:14px">Mostrar más</button>
+      <p class="muted small" style="margin-top:14px">Las categorías se deducen por el nombre del ajuste y son aproximadas. Los archivos de versiones distintas del laminador tienen muchos ajustes que existen solo en uno.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="purga">
+  <div class="wrap">
+    <h2>Calculadora de purga</h2>
+    <p class="lead">En multicolor, cada cambio de filamento descarta material en la torre de purga. Editá la matriz, mirá cuántos gramos se van y, si querés, aplicá tu matriz al archivo convertido.</p>
+    <div id="purgeOut"><p class="muted">Elegí un archivo en el conversor de arriba y la calculadora usa sus colores y su matriz de purga.</p></div>
+  </div>
+</section>
+
+
+</main>
+<script src="/assets/vendor/jszip-3.10.2.min.js"></script>
+<script src="/assets/vendor/three-r128.min.js"></script>
+<script src="app.js"></script>
+<script>
+(function(){
+  var last=0;
+  function post(){
+    var v=Math.ceil(document.body.getBoundingClientRect().height);
+    if(!v||Math.abs(v-last)<2)return;last=v;
+    try{parent.postMessage({ma:'h',slug:'conversor-3mf-flashforge-ad5x',h:v},location.origin)}catch(e){}
+  }
+  if(window.ResizeObserver)new ResizeObserver(post).observe(document.body);
+  addEventListener('load',post);addEventListener('resize',post);setInterval(post,700);post();
+})();
+</script>
+</body></html>

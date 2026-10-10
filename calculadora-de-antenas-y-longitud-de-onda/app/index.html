@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Toolkit de radioafición (app)</title><meta name="robots" content="noindex,follow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap">
+<style>
+:root{
+  --bg:#ffffff;--panel:#ffffff;--panel2:#F1F5F9;--text:#0E1A2B;--muted:#4A5B73;--line:#D3DDE8;
+  --accent:#12264A;--accent-ink:#ffffff;--warn-bg:#FFF4D6;--warn:#7A5200;--ok:#1D7A4F;
+  --bp-bg:#12264A;--bp-grid:rgba(116,172,223,.14);--bp-line:#9CC3EA;--bp-text:#EAF3FB;--bp-wire:#F5B41A;--bp-coax:#E9EEF2;--bp-mut:#8FB0CF;
+  --sans:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --cond:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --disp:"Bricolage Grotesque","Figtree",system-ui,sans-serif;
+  box-sizing:border-box;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.5;font-variant-numeric:tabular-nums}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1200px;margin:0 auto;padding:18px 18px 22px}
+
+header{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:12px;margin-bottom:14px}
+h1{font-family:var(--cond);font-weight:700;font-size:2.1rem;line-height:1;margin:0;letter-spacing:.01em}
+h1 small{font-family:var(--sans);font-weight:500;font-size:.85rem;color:var(--muted);margin-left:8px;letter-spacing:0}
+.hright{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.utc{font-family:var(--cond);font-size:1.25rem;font-weight:600}
+.utc span{font-family:var(--sans);font-size:.8rem;font-weight:500;color:var(--muted);margin-left:4px}
+
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--panel)}
+.seg button{border:0;background:transparent;padding:6px 12px;cursor:pointer;color:var(--muted)}
+.seg button.on{background:var(--accent);color:var(--accent-ink)}
+
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--line);margin-bottom:16px;overflow-x:auto}
+.tabs button{border:0;background:none;padding:10px 14px;cursor:pointer;font-family:var(--disp);font-size:1rem;font-weight:700;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap}
+.tabs button.on{color:var(--text);border-bottom-color:var(--accent)}
+
+.layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:18px;align-items:start}
+.antlist{display:flex;flex-direction:column;gap:6px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px)}
+.ant{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:1px;padding:10px 12px;border:1px solid var(--line);border-left:4px solid var(--line);border-radius:6px;background:var(--panel);cursor:pointer}
+.ant .an{font-family:var(--disp);font-weight:700;font-size:1rem;line-height:1.15}
+.ant .at{font-size:.8rem;color:var(--muted)}
+.ant.on{border-left-color:var(--accent);background:var(--panel2)}
+.ant.on .an{color:var(--accent)}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
+.main{display:flex;flex-direction:column;gap:14px;min-width:0}
+.title h2{font-family:var(--disp);font-weight:800;font-size:1.6rem;margin:0;line-height:1.1;letter-spacing:-.02em}
+.title p{margin:4px 0 0;color:var(--muted);max-width:70ch}
+
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.f{display:flex;flex-direction:column;gap:4px;font-size:.85rem;color:var(--muted);font-weight:500}
+.f input[type=number],.f select{padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel2);width:100%;font-size:1rem;color:var(--text)}
+.f .hint{font-size:.78rem;font-weight:400}
+.trim{display:flex;align-items:center;gap:8px;color:var(--text)}
+.trim input[type=number]{width:80px}
+.trim label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.full{grid-column:1/-1}
+.bandchk{display:flex;flex-wrap:wrap;gap:6px}
+.bandchk label{display:flex;align-items:center;gap:6px;padding:5px 10px;border:1px solid var(--line);border-radius:20px;background:var(--panel2);cursor:pointer;color:var(--text);font-size:.9rem}
+.bandchk label.on{border-color:var(--accent)}
+.bandchk i{width:10px;height:10px;border-radius:50%;display:inline-block}
+
+.sketch{background-color:var(--bp-bg);background-image:linear-gradient(var(--bp-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bp-grid) 1px,transparent 1px);background-size:20px 20px;border-radius:10px;padding:8px;overflow-x:auto}
+.sketch svg{display:block;width:100%;min-width:520px;height:auto}
+.sketch svg text{font-family:var(--cond);font-weight:500}
+.lbl{fill:var(--bp-text);font-size:14px;paint-order:stroke;stroke:var(--bp-bg);stroke-width:5px;stroke-linejoin:round}
+.lbl.sm{font-size:12px}
+.lbl.mut{fill:var(--bp-mut)}
+.lbl.dk{fill:#17385a;stroke:none;font-weight:700}
+.tiny{fill:var(--bp-mut);font-size:11px}
+.wire{stroke:var(--bp-wire);stroke-width:3;fill:none;stroke-linecap:round}
+.wire.thin{stroke-width:2}
+.coax{stroke:var(--bp-coax);stroke-width:3;fill:none;stroke-linecap:round}
+.mast{stroke:var(--bp-line);stroke-width:5;stroke-linecap:round;opacity:.75}
+.boom{stroke:var(--bp-line);stroke-width:6;stroke-linecap:round;opacity:.7}
+.rope{stroke:var(--bp-mut);stroke-width:1.5;stroke-dasharray:4 3}
+.ground{stroke:var(--bp-mut);stroke-width:1.5;stroke-dasharray:2 5}
+.dim line{stroke:var(--bp-line);stroke-width:1}
+.ins{fill:var(--bp-bg);stroke:var(--bp-text);stroke-width:2}
+.feed{fill:var(--bp-wire);stroke:none}
+.box{fill:var(--bp-wire);stroke:none}
+.choke{fill:none;stroke:var(--bp-coax);stroke-width:1.8}
+.arc{fill:none;stroke:var(--bp-text);stroke-width:1.2}
+.arrowhead{fill:var(--bp-text)}
+.dot{fill:var(--bp-text)}
+
+.cols{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:14px}
+h3{font-family:var(--disp);font-weight:700;font-size:1.1rem;margin:0 0 8px}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.82rem;color:var(--muted);font-weight:500}
+td.num{font-weight:600;white-space:nowrap}
+td.cut{color:var(--accent);font-weight:600;white-space:nowrap}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:0}
+.kv dt{color:var(--muted);font-size:.9rem}
+.kv dd{margin:0;font-weight:500}
+ul.clean{margin:0;padding-left:18px}
+ul.clean li{margin:4px 0}
+.warn{background:var(--warn-bg);color:var(--warn);border-radius:8px;padding:10px 12px;font-size:.95rem}
+.warn p{margin:2px 0}
+.stack{display:flex;flex-direction:column;gap:14px}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.chips button{border:1px solid var(--line);background:var(--panel2);border-radius:20px;padding:5px 12px;cursor:pointer}
+.chips button.on{border-color:var(--accent);color:var(--accent);font-weight:600}
+.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:6px}
+.out div{background:var(--panel2);border-radius:8px;padding:10px 12px}
+.out b{display:block;font-family:var(--cond);font-size:1.6rem;font-weight:600;line-height:1.1}
+.out span{font-size:.85rem;color:var(--muted)}
+.bandtag{font-weight:600;color:var(--ok)}
+.bandtag.none{color:var(--muted);font-weight:500}
+footer{margin-top:24px;font-size:.85rem;color:var(--muted);max-width:80ch}
+
+@media (max-width:860px){
+  .layout{grid-template-columns:1fr}
+  .antlist{position:static;flex-direction:row;overflow-x:auto;padding-bottom:4px}
+  .ant{min-width:150px;flex:0 0 auto}
+  .cols{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="hright">
+      <div class="utc" id="utc">--:--:--<span>UTC</span></div>
+      <div class="seg" id="units" aria-label="Unidades">
+        <button data-u="m">m</button><button data-u="cm">cm</button><button data-u="in">pulg.</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button data-tab="ant" class="on" role="tab">Constructor de antenas</button>
+    <button data-tab="conv" role="tab">Frecuencia y longitud de onda</button>
+  </nav>
+
+  <section id="tab-ant">
+    <div class="layout">
+      <div class="antlist" id="antlist"></div>
+      <div class="main">
+        <div class="title"><h2 id="aname"></h2><p id="adesc"></p></div>
+        <div class="card"><div class="controls" id="controls"></div></div>
+        <div class="sketch" id="sketch"></div>
+        <div id="warn"></div>
+        <div class="cols">
+          <div class="card">
+            <h3>Medidas</h3>
+            <table><thead><tr><th>Elemento</th><th>Medida final</th><th id="cuth">Corte inicial</th></tr></thead><tbody id="dims"></tbody></table>
+            <h3 style="margin-top:16px">Características</h3>
+            <dl class="kv" id="info"></dl>
+          </div>
+          <div class="stack">
+            <div class="card"><h3>Materiales</h3><ul class="clean" id="mat"></ul></div>
+            <div class="card"><h3>Ajuste y armado</h3><ul class="clean" id="notes"></ul></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-conv" hidden>
+    <div class="stack">
+      <div class="card">
+        <h3>De frecuencia a longitud</h3>
+        <div class="controls">
+          <label class="f">Frecuencia (MHz)<input id="cf" type="number" step="0.001" min="0.01" value="14.2"></label>
+          <label class="f">Medio o línea (factor de velocidad)
+            <select id="cvf">
+              <option value="1">Espacio libre (1,00)</option>
+              <option value="0.95">Elemento de antena real (0,95)</option>
+              <option value="0.66">Coax dieléctrico sólido, RG-58 / RG-213 (0,66)</option>
+              <option value="0.78">Coax dieléctrico espuma (0,78)</option>
+              <option value="0.85">LMR-400 (0,85)</option>
+              <option value="0.82">Cinta bifilar 300 Ω (0,82)</option>
+              <option value="0.91">Línea escalera 450 Ω (0,91)</option>
+            </select>
+          </label>
+        </div>
+        <div class="chips" id="cbands"></div>
+        <p style="margin:0 0 6px">Banda: <span id="cband"></span></p>
+        <div class="out" id="cout"></div>
+      </div>
+      <div class="card">
+        <h3>De longitud a frecuencia</h3>
+        <p style="margin:0 0 10px;color:var(--muted)">Ingresá lo que mide un cable o elemento y qué fracción de onda representa. Usa el factor de velocidad elegido arriba.</p>
+        <div class="controls">
+          <label class="f">Longitud física (m)<input id="rlen" type="number" step="0.001" min="0.001" value="10"></label>
+          <label class="f">Representa
+            <select id="rfrac">
+              <option value="0.25">λ/4</option>
+              <option value="0.5" selected>λ/2</option>
+              <option value="0.625">5/8 λ</option>
+              <option value="0.75">3/4 λ</option>
+              <option value="1">1 λ</option>
+            </select>
+          </label>
+        </div>
+        <div class="out" id="rout"></div>
+      </div>
+    </div>
+  </section>
+
+  </div>
+
+<script>
+const C = 299.792458;
+const BANDS = [
+  {id:'160',n:'160 m',lo:1.8,hi:2.0,c:1.85},
+  {id:'80',n:'80 m',lo:3.5,hi:4.0,c:3.65},
+  {id:'40',n:'40 m',lo:7.0,hi:7.3,c:7.1},
+  {id:'30',n:'30 m',lo:10.1,hi:10.15,c:10.125},
+  {id:'20',n:'20 m',lo:14.0,hi:14.35,c:14.2},
+  {id:'17',n:'17 m',lo:18.068,hi:18.168,c:18.12},
+  {id:'15',n:'15 m',lo:21.0,hi:21.45,c:21.2},
+  {id:'12',n:'12 m',lo:24.89,hi:24.99,c:24.94},
+  {id:'10',n:'10 m',lo:28.0,hi:29.7,c:28.5},
+  {id:'6',n:'6 m',lo:50,hi:54,c:50.15},
+  {id:'2',n:'2 m',lo:144,hi:148,c:146},
+  {id:'70',n:'70 cm',lo:430,hi:440,c:435}
+];
+const BCOL = ['#f2b632','#6fd0ff','#ff8a7a','#8ef0a8','#d7a6ff','#ffd6a0','#7ae0d6','#f7a8d0','#c6d86a'];
+const bandOf = f => BANDS.find(b => f >= b.lo && f <= b.hi);
+const $ = s => document.querySelector(s);
+
+const DEF = {ant:'dipolo',unit:'m',k:0.95,trim:true,margin:3,tab:'ant',
+  freq:{dipolo:7.1,invv:7.1,efhw:7.1,jpole:146,yagi:146},p:{}};
+let S = load();
+function load(){
+  try{const s = JSON.parse(localStorage.getItem('radiotoolkit-v01')||'null');
+    if(s && s.freq){const d = JSON.parse(JSON.stringify(DEF));return Object.assign(d,s,{freq:Object.assign(d.freq,s.freq),p:s.p||{}});}
+  }catch(e){}
+  return JSON.parse(JSON.stringify(DEF));
+}
+function save(){try{localStorage.setItem('radiotoolkit-v01',JSON.stringify(S))}catch(e){}}
+
+function fmt(m){
+  if(!isFinite(m)) return '—';
+  if(S.unit==='cm') return (m*100).toFixed(1).replace('.',',')+' cm';
+  if(S.unit==='in') return (m/0.0254).toFixed(1).replace('.',',')+' pulg.';
+  return (Math.abs(m)<1 ? m.toFixed(3) : m.toFixed(2)).replace('.',',')+' m';
+}
+const num = (x,d=3) => Number(x).toFixed(d).replace('.',',');
+const cutv = m => S.trim ? m*(1+S.margin/100) : m;
+const rad = d => d*Math.PI/180;
+
+/* ---------- SVG helpers ---------- */
+const lbl = (x,y,t,a='middle',c='lbl') => `<text x="${x}" y="${y}" text-anchor="${a}" class="${c}">${t}</text>`;
+function dimH(x1,x2,y,t){return `<g class="dim"><line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}"/><line x1="${x1}" y1="${y-5}" x2="${x1}" y2="${y+5}"/><line x1="${x2}" y1="${y-5}" x2="${x2}" y2="${y+5}"/></g>`+lbl((x1+x2)/2,y-7,t)}
+function dimV(x,y1,y2,t,side='end'){return `<g class="dim"><line x1="${x}" y1="${y1}" x2="${x}" y2="${y2}"/><line x1="${x-5}" y1="${y1}" x2="${x+5}" y2="${y1}"/><line x1="${x-5}" y1="${y2}" x2="${x+5}" y2="${y2}"/></g>`+lbl(side==='end'?x-8:x+8,(y1+y2)/2+5,t,side)}
+const ins = (x,y) => `<circle class="ins" cx="${x}" cy="${y}" r="4.5"/>`;
+const choke = (x,y) => `<g class="choke">${[0,7,14].map(d=>`<ellipse cx="${x}" cy="${y+d}" rx="11" ry="3.5"/>`).join('')}</g>`;
+const svgWrap = (inner,aria) => `<svg viewBox="0 0 600 300" role="img" aria-label="${aria}"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="arrowhead"/></marker></defs>${inner}<text x="594" y="296" text-anchor="end" class="tiny">croquis</text></svg>`;
+
+/* ---------- Antenas ---------- */
+const ANT = {
+  dipolo:{
+    name:'Dipolo λ/2', tag:'HF, alambre, monobanda', k:true,
+    desc:'Dos ramas iguales alimentadas al centro. Simple, predecible y el mejor punto de partida para cualquier banda.',
+    params:[{id:'h',label:'Altura de montaje (m)',type:'num',def:10,step:0.5,min:1}],
+    calc(f,p,k){
+      const lam=C/f, L=lam/2*k, leg=L/2, hl=p.h/lam, warn=[];
+      if(hl<0.2) warn.push(`Altura baja (${num(hl,2)} λ): la radiación sale muy vertical. Rinde bien en contactos cercanos (NVIS) y pierde para DX.`);
+      const y=120;
+      let s=`<line class="ground" x1="10" y1="282" x2="590" y2="282"/>`
+        +`<line class="mast" x1="40" y1="${y-12}" x2="40" y2="282"/><line class="mast" x1="560" y1="${y-12}" x2="560" y2="282"/>`
+        +`<line class="rope" x1="40" y1="${y}" x2="72" y2="${y}"/><line class="rope" x1="528" y1="${y}" x2="560" y2="${y}"/>`
+        +`<line class="wire" x1="77" y1="${y}" x2="291" y2="${y}"/><line class="wire" x1="309" y1="${y}" x2="523" y2="${y}"/>`
+        +ins(76,y)+ins(524,y)+`<rect class="feed" x="291" y="${y-7}" width="18" height="14" rx="3"/>`
+        +`<line class="coax" x1="300" y1="${y+7}" x2="300" y2="282"/>`+choke(300,172)
+        +dimH(76,291,y-26,'Rama '+fmt(leg))+dimH(309,524,y-26,'Rama '+fmt(leg))+dimH(76,524,y-68,'Total '+fmt(L))
+        +lbl(318,184,'Choke 1:1','start','lbl sm')+lbl(310,240,'Coax 50 Ω','start','lbl sm')
+        +lbl(50,210,`Altura ${num(p.h,1)} m`,'start','lbl mut');
+      return {
+        rows:[{l:'Largo total',v:L,c:true},{l:'Cada rama',v:leg,c:true},{l:'Longitud de onda λ',v:lam}],
+        info:[['Impedancia','≈ 50 a 75 Ω según la altura'],['Altura eléctrica',num(hl,2)+' λ'],['Diagrama','Bidireccional, máximo perpendicular al cable']],
+        warn,
+        mat:[`Cable de cobre: 2 tramos de ${fmt(cutv(leg)+0.3)} (incluye 30 cm para amarres)`,'3 aisladores: 2 en las puntas y 1 central','Balun choke 1:1 (por ejemplo, 6 a 8 vueltas de RG-58 en un FT240-43)','Coax 50 Ω (RG-58 para tramos cortos, RG-213 para más de 20 m)','Soga dieléctrica para las puntas y 2 soportes'],
+        notes:['Cortá con el margen y recortá de a 1 o 2 cm por rama, siempre simétrico.','Si la ROE mínima cae por debajo de la frecuencia buscada, la antena está larga: recortá. Si cae por encima, está corta: agregá cable.','Medí con la antena en su altura definitiva; subirla o bajarla corre la resonancia.'],
+        svg:svgWrap(s,'Croquis de dipolo de media onda')
+      };
+    }
+  },
+
+  invv:{
+    name:'V invertida', tag:'HF, un solo mástil', k:true,
+    desc:'Un dipolo con las ramas caídas desde un mástil central. Ocupa menos espacio y queda muy cerca de 50 Ω.',
+    params:[{id:'h',label:'Altura del ápice (m)',type:'num',def:10,step:0.5,min:2},{id:'angle',label:'Ángulo entre ramas (°)',type:'num',def:110,step:5,min:60,max:170}],
+    calc(f,p,k){
+      const lam=C/f, L=lam/2*k*0.97, leg=L/2, a=Math.max(60,Math.min(170,p.angle));
+      const drop=leg*Math.cos(rad(a/2)), span=2*leg*Math.sin(rad(a/2)), endH=p.h-drop, warn=[];
+      if(endH<0) warn.push('Con esa altura y ese ángulo las ramas llegarían al piso. Subí el ápice o abrí el ángulo.');
+      else if(endH<2.5) warn.push(`Las puntas quedan a ${num(endH,1)} m del piso. Con potencia hay tensión alta en las puntas: dejalas fuera del alcance de personas y mascotas.`);
+      if(a<90) warn.push('Con menos de 90° entre ramas los campos se cancelan en parte y cae el rendimiento.');
+      const ax=300,ay=46,Lp=215, ex=Lp*Math.sin(rad(a/2)), ey=Lp*Math.cos(rad(a/2));
+      const lx=ax-ex, rx=ax+ex, ly=Math.min(ay+ey,276), r=38;
+      const sx=ax-r*Math.sin(rad(a/2)), sy=ay+r*Math.cos(rad(a/2)), qx=ax+r*Math.sin(rad(a/2));
+      const dx=Math.min(rx+40,588);
+      let s=`<line class="ground" x1="10" y1="282" x2="590" y2="282"/>`
+        +`<line class="mast" x1="${ax}" y1="${ay-8}" x2="${ax}" y2="282"/>`
+        +`<line class="wire" x1="${ax}" y1="${ay}" x2="${lx}" y2="${ly}"/><line class="wire" x1="${ax}" y1="${ay}" x2="${rx}" y2="${ly}"/>`
+        +ins(lx,ly)+ins(rx,ly)
+        +`<line class="rope" x1="${lx}" y1="${ly}" x2="${lx-16}" y2="282"/><line class="rope" x1="${rx}" y1="${ly}" x2="${rx+16}" y2="282"/>`
+        +`<path class="arc" d="M${sx},${sy} A${r},${r} 0 0 0 ${qx},${sy}"/>`+lbl(ax,ay+r+18,a+'°','middle','lbl sm')
+        +`<rect class="feed" x="${ax-8}" y="${ay-7}" width="16" height="14" rx="3"/>`
+        +`<line class="coax" x1="${ax+8}" y1="${ay+8}" x2="${ax+8}" y2="282"/>`
+        +lbl((ax+lx)/2-12,(ay+ly)/2-4,fmt(leg),'end')+lbl((ax+rx)/2+12,(ay+ly)/2-4,fmt(leg),'start')
+        +dimV(24,ay,282,`Ápice ${num(p.h,1)} m`,'start')
+        +(endH>0 && ly<272 ? dimV(dx,ly,282,'Puntas '+fmt(endH),'end') : '');
+      return {
+        rows:[{l:'Largo total',v:L,c:true},{l:'Cada rama',v:leg,c:true},{l:'Separación entre puntas',v:span},{l:'Altura de las puntas',v:endH},{l:'Longitud de onda λ',v:lam}],
+        info:[['Impedancia','≈ 50 Ω, se conecta directo al coax'],['Diagrama','Casi omnidireccional, algo más fuerte hacia los costados del plano de la V'],['Soportes','1 mástil central y 2 estacas']],
+        warn,
+        mat:[`Cable de cobre: 2 tramos de ${fmt(cutv(leg)+0.3)}`,'Pieza central (placa o caja estanca con SO-239) y 2 aisladores de punta',`Mástil de ${num(p.h,1)} m o más, con riendas`,'Balun choke 1:1 en el punto de alimentación','Coax 50 Ω y soga dieléctrica para las puntas'],
+        notes:['La V queda un 3 a 5 % más corta que un dipolo recto: la tabla ya lo considera.','Ajustá subiendo o bajando las puntas antes de cortar; cambiar el ángulo también mueve la resonancia.','Entre 90° y 120° está el mejor equilibrio entre espacio y rendimiento.'],
+        svg:svgWrap(s,'Croquis de antena V invertida')
+      };
+    }
+  },
+
+  efhw:{
+    name:'EFHW', tag:'HF, alimentada por la punta', k:true,
+    desc:'Media onda alimentada por un extremo con transformador de alta relación. Un solo cable, un soporte lejano y trabaja en las armónicas.',
+    params:[{id:'xf',label:'Transformador',type:'sel',def:'49:1',opts:['49:1','64:1']}],
+    calc(f,p,k){
+      const lam=C/f, L=lam/2*k, cp=0.05*lam, warn=[];
+      const harm=[];
+      for(let n=2;n<=8;n++){const nf=n*f;const b=BANDS.find(b=>nf>=b.lo*0.985&&nf<=b.hi*1.015&&b.lo<60);if(b&&!harm.includes(b.n))harm.push(b.n);}
+      const turns=p.xf==='64:1'?'3 vueltas de primario y 24 de secundario (1:8)':'2 vueltas de primario y 14 de secundario (1:7)';
+      const ang=Math.atan2(62-206,520-104)*180/Math.PI;
+      let s=`<line class="ground" x1="10" y1="282" x2="590" y2="282"/>`
+        +`<line class="mast" x1="566" y1="48" x2="566" y2="282"/><line class="rope" x1="529" y1="60" x2="566" y2="56"/>`
+        +`<line class="wire" x1="104" y1="206" x2="520" y2="62"/>`+ins(524,60)
+        +`<rect class="box" x="56" y="192" width="48" height="32" rx="4"/>`+lbl(80,213,p.xf,'middle','lbl dk')
+        +`<line class="wire thin" x1="104" y1="220" x2="232" y2="248"/>`+lbl(168,264,'Contrapeso '+fmt(cp),'middle','lbl sm')
+        +`<path class="coax" d="M80,224 L80,276 L20,276"/>`+choke(80,238)+lbl(24,268,'al equipo','start','lbl sm')
+        +`<text transform="translate(318,122) rotate(${ang})" text-anchor="middle" class="lbl">Radiador λ/2  ${fmt(L)}</text>`
+        +(harm.length?lbl(20,34,'También resuena en '+harm.join(', '),'start','lbl mut'):'');
+      return {
+        rows:[{l:'Radiador',v:L,c:true},{l:'Contrapeso',v:cp,c:true},{l:'Longitud de onda λ',v:lam}],
+        info:[['Impedancia en la punta','≈ 2.500 a 3.500 Ω'],['Transformador',p.xf+' a 50 Ω'],['Armónicas',harm.length?harm.join(', '):'Ninguna banda de HF coincide']],
+        warn,
+        mat:[`Cable de cobre para el radiador: ${fmt(cutv(L)+0.3)}`,`Cable para contrapeso: ${fmt(cutv(cp))}`,`Toroide FT140-43 (hasta 100 W en SSB) con ${turns}`,'Capacitor de 100 a 150 pF / 3 kV en paralelo con el primario','Caja estanca con SO-239, 1 aislador de punta y soga dieléctrica'],
+        notes:['Ajustá el largo en la banda fundamental primero. En las armónicas la resonancia queda levemente alta: es normal.','El coax suele trabajar como parte del contrapeso. Poné un choke de modo común cerca del equipo para que la RF no vuelva al shack.','Instalada en sloper, con el transformador abajo, es la forma más cómoda de ajustar.'],
+        svg:svgWrap(s,'Croquis de antena EFHW')
+      };
+    }
+  },
+
+  jpole:{
+    name:'J-Pole', tag:'VHF / UHF, vertical', k:true,
+    desc:'Media onda vertical con un stub de λ/4 que adapta a 50 Ω. El clásico casero en caño de cobre.',
+    params:[{id:'vf',label:'Factor de velocidad del stub',type:'num',def:0.95,step:0.01,min:0.6,max:1,hint:'0,95 para caño de cobre'}],
+    calc(f,p,k){
+      const lam=C/f, radL=lam/2*k, stub=lam/4*p.vf, long=radL+stub, tap=lam/40, sp=lam*0.017, warn=[];
+      if(f<28) warn.push(`A ${num(f,3)} MHz la J-Pole mide ${fmt(long)}: poco práctica. Rinde mejor desde 6 m hacia arriba.`);
+      const top=28, base=262, H=base-top, spx=H*stub/long, tpx=Math.max(H*tap/long,10), X1=280, X2=314, ty=base-tpx;
+      let s=`<line class="mast" x1="297" y1="${base+6}" x2="297" y2="298"/>`
+        +`<line class="wire" x1="${X1}" y1="${top}" x2="${X1}" y2="${base}"/>`
+        +`<line class="wire" x1="${X2}" y1="${base-spx}" x2="${X2}" y2="${base}"/>`
+        +`<line class="wire" x1="${X1}" y1="${base}" x2="${X2}" y2="${base}"/>`
+        +`<line class="coax" x1="${X2}" y1="${ty}" x2="430" y2="${ty}"/><line class="wire thin" x1="${X1}" y1="${ty}" x2="${X2}" y2="${ty}"/>`
+        +`<circle class="dot" cx="${X1}" cy="${ty}" r="4"/><circle class="dot" cx="${X2}" cy="${ty}" r="4"/>`
+        +lbl(436,ty+5,'Tap 50 Ω a '+fmt(tap)+' de la base','start','lbl sm')
+        +lbl(436,ty-14,'vivo al largo, malla al corto','start','lbl mut sm')
+        +dimV(250,top,base-spx,'Radiador λ/2 '+fmt(radL),'end')
+        +dimV(110,top,base,'Total '+fmt(long),'start')
+        +dimV(346,base-spx,base,'Stub λ/4 '+fmt(stub),'start')
+        +lbl(320,base+20,'sep. '+fmt(sp),'start','lbl sm');
+      return {
+        rows:[{l:'Elemento largo (total)',v:long,c:true},{l:'Sección radiante λ/2',v:radL},{l:'Elemento corto (stub λ/4)',v:stub,c:true},{l:'Alimentación desde la base',v:tap},{l:'Separación entre elementos',v:sp},{l:'Longitud de onda λ',v:lam}],
+        info:[['Impedancia','50 Ω en el punto de alimentación'],['Ganancia','≈ 2 a 3 dBi'],['Diagrama','Omnidireccional, polarización vertical']],
+        warn,
+        mat:[`Caño de cobre de 1/2": ${fmt(cutv(long))} + ${fmt(cutv(stub))} + base de ${fmt(sp+0.05)}`,'1 codo y 1 T de cobre de 1/2" para la base','2 abrazaderas tipo sinfín para el punto de alimentación (ajustable)','Conector N o SO-239 y coax 50 Ω','Estaño o soldadura de plata, soporte aislante para el mástil'],
+        notes:['Primero mové el punto de alimentación hacia arriba o abajo hasta minimizar la ROE. Después recortá la punta del radiador para centrar la frecuencia.','Hacé un choke de 5 o 6 vueltas de coax justo debajo de la base: la J-Pole tiende a meter RF en la malla.','Para una versión portátil, la Slim Jim en cinta bifilar de 300 Ω usa el mismo principio.'],
+        svg:svgWrap(s,'Croquis de antena J-Pole')
+      };
+    }
+  },
+
+  yagi:{
+    name:'Yagi 3 elementos', tag:'VHF / UHF, direccional', k:false,
+    desc:'Reflector, excitado y director sobre un boom. Ganancia y rechazo trasero para repetidoras lejanas o satélites.',
+    params:[],
+    calc(f){
+      const lam=C/f, R=0.5*lam, DE=0.47*lam, D=0.44*lam, sR=0.2*lam, sD=0.15*lam, boom=sR+sD+0.1*lam, warn=[];
+      if(f<28) warn.push(`A ${num(f,3)} MHz el reflector mide ${fmt(R)}: es una Yagi de HF, pesada y con rotor grande. Revisá que sea viable.`);
+      const cy=150, xR=110, xD=480, xE=xR+(xD-xR)*sR/(sR+sD), px=l=>200*l/R;
+      const el=(x,l,split)=>{const h=px(l)/2;return split?`<line class="wire" x1="${x}" y1="${cy-h}" x2="${x}" y2="${cy-5}"/><line class="wire" x1="${x}" y1="${cy+5}" x2="${x}" y2="${cy+h}"/><rect class="feed" x="${x-6}" y="${cy-5}" width="12" height="10" rx="2"/>`:`<line class="wire" x1="${x}" y1="${cy-h}" x2="${x}" y2="${cy+h}"/>`};
+      let s=`<line class="boom" x1="${xR-25}" y1="${cy}" x2="${xD+25}" y2="${cy}"/>`
+        +el(xR,R)+el(xE,DE,true)+el(xD,D)
+        +lbl(xR,cy-px(R)/2-10,'Reflector')+lbl(xE,cy-px(DE)/2-10,'Excitado')+lbl(xD,cy-px(D)/2-10,'Director')
+        +lbl(xR,cy+px(R)/2+18,fmt(R),'middle','lbl sm')+lbl(xE,cy+px(DE)/2+18,fmt(DE),'middle','lbl sm')+lbl(xD,cy+px(D)/2+18,fmt(D),'middle','lbl sm')
+        +dimH(xR,xE,288,fmt(sR))+dimH(xE,xD,288,fmt(sD))
+        +`<line class="arc" x1="${xD+34}" y1="${cy}" x2="585" y2="${cy}" marker-end="url(#ar)"/>`+lbl(585,cy-10,'Máxima radiación','end','lbl sm')
+        +lbl(20,24,'Boom '+fmt(boom)+', vista superior','start','lbl mut');
+      return {
+        rows:[{l:'Reflector',v:R,c:true},{l:'Excitado (total)',v:DE,c:true},{l:'Director',v:D,c:true},{l:'Reflector a excitado',v:sR},{l:'Excitado a director',v:sD},{l:'Largo del boom',v:boom},{l:'Longitud de onda λ',v:lam}],
+        info:[['Ganancia','≈ 7 a 7,5 dBi'],['Relación frente/espalda','≈ 15 a 20 dB'],['Impedancia','≈ 20 a 30 Ω, necesita adaptación'],['Polarización','Vertical u horizontal según cómo la montes']],
+        warn,
+        mat:[`Varilla o tubo de aluminio de 6 a 10 mm: ${fmt(cutv(R)+cutv(DE)+cutv(D))} en total`,`Boom de ${fmt(boom)} (madera, PVC o aluminio cuadrado)`,'Adaptación gamma o horquilla (hairpin) para llevar a 50 Ω','Soporte aislante para el excitado, conector N o SO-239','Abrazaderas en U para el mástil'],
+        notes:['Estas medidas valen con elementos aislados del boom o boom no metálico. Si los elementos atraviesan un boom de aluminio con contacto, hay que alargarlos (corrección de boom).','Elementos más gruesos resuenan más bajo: con tubo de 10 mm o más, recortá un poco el excitado.','Ajustá primero la adaptación del excitado para la ROE; reflector y director casi no se tocan.'],
+        svg:svgWrap(s,'Croquis de antena Yagi de 3 elementos, vista superior')
+      };
+    }
+  },
+
+  bigote:{
+    name:'Bigote de gato', tag:'HF, multibanda en abanico', k:true, bands:true,
+    desc:'Varios dipolos en paralelo sobre un mismo coax, abiertos como bigotes de gato. Multibanda sin sintonizador. También se la conoce como fan dipole.',
+    params:[{id:'bands',label:'Bandas',type:'bands',def:['40','20','10'],opts:['80','40','30','20','17','15','12','10','6']}],
+    calc(f,p,k){
+      const list=BANDS.filter(b=>p.bands.includes(b.id)).sort((a,b)=>a.c-b.c), warn=[];
+      if(!list.length) return {rows:[],info:[],warn:['Elegí al menos una banda para calcular los bigotes.'],mat:[],notes:[],svg:svgWrap(lbl(300,150,'Elegí bandas para ver el croquis','middle','lbl mut'),'Sin bandas')};
+      if(list.length>4) warn.push('Con más de 4 pares el ajuste se complica mucho, porque cada rama corre la resonancia de las demás.');
+      for(const lo of list) for(const hi of list){ if(hi.c<=lo.c) continue;
+        for(const n of [3,5]){const nf=lo.c*n;if(nf>=hi.lo*0.985&&nf<=hi.hi*1.015) warn.push(`El par de ${lo.n} ya resuena cerca de ${hi.n} (armónica ${n}). Podés sacar la rama de ${hi.n}, o esperá una interacción fuerte entre ambas.`);}
+      }
+      const legs=list.map(b=>C/b.c/2*k/2), maxL=legs[0], n=list.length, cx=300, cy=56;
+      let s=`<line class="ground" x1="10" y1="282" x2="590" y2="282"/><line class="mast" x1="${cx}" y1="${cy-10}" x2="${cx}" y2="282"/>`;
+      list.forEach((b,i)=>{
+        const th=rad(n===1?12:9+i*(38/(n-1))), Lp=Math.max(60,258*legs[i]/maxL), dx=Lp*Math.cos(th), dy=Lp*Math.sin(th), col=BCOL[i%BCOL.length];
+        s+=`<line class="wire" style="stroke:${col}" x1="${cx}" y1="${cy}" x2="${cx-dx}" y2="${cy+dy}"/><line class="wire" style="stroke:${col}" x1="${cx}" y1="${cy}" x2="${cx+dx}" y2="${cy+dy}"/>`
+          +`<circle cx="${cx-dx}" cy="${cy+dy}" r="4" style="fill:${col}"/><circle cx="${cx+dx}" cy="${cy+dy}" r="4" style="fill:${col}"/>`;
+      });
+      s+=`<rect class="feed" x="${cx-9}" y="${cy-8}" width="18" height="16" rx="3"/><line class="coax" x1="${cx+10}" y1="${cy+8}" x2="${cx+10}" y2="282"/>`+choke(cx+10,196)
+        +lbl(cx+26,212,'Choke 1:1','start','lbl sm');
+      const y0=282-(n-1)*19-8;
+      list.forEach((b,i)=>{const y=y0+i*19;s+=`<rect x="24" y="${y-10}" width="12" height="12" rx="2" style="fill:${BCOL[i%BCOL.length]}"/>`+lbl(44,y,`${b.n}: rama de ${fmt(legs[i])}`,'start','lbl sm');});
+      const totalWire=legs.reduce((a,l)=>a+2*(cutv(l)+0.3),0);
+      return {
+        rows:list.flatMap((b,i)=>[{l:`${b.n} (${num(b.c,3)} MHz), cada rama`,v:legs[i],c:true}]),
+        info:[['Impedancia','≈ 50 a 70 Ω en cada banda resonante'],['Alimentación','Un solo coax para todas las bandas'],['Bandas',list.map(b=>b.n).join(', ')]],
+        warn,
+        mat:[`Cable de cobre: ${fmt(totalWire)} en total (${n} pares, con 30 cm de amarre por rama)`,`${n*2} aisladores de punta y 1 pieza central`,'Separadores de PVC de 10 a 15 cm entre pares, cada 2 o 3 m','Balun choke 1:1 en el centro','Coax 50 Ω, soga dieléctrica y soportes para las puntas más largas'],
+        notes:['Ajustá en orden, de la banda más baja a la más alta: la rama más larga primero.','Las ramas se influyen entre sí. Después de ajustar todas, volvé a revisar la primera.','Mantené los pares separados con los separadores o abiertos en ángulo como en el croquis: si se tocan, se acoplan y se corre todo.','Los centros de banda usados son orientativos. Si operás en otro segmento, cambiá el factor K o ajustá en campo.'],
+        svg:svgWrap(s,'Croquis de antena bigote de gato multibanda')
+      };
+    }
+  }
+};
+
+function pv(id){
+  const a=ANT[id], o=S.p[id]||(S.p[id]={});
+  a.params.forEach(q=>{if(o[q.id]===undefined) o[q.id]=Array.isArray(q.def)?q.def.slice():q.def;});
+  return o;
+}
+
+/* ---------- Render antenas ---------- */
+function renderAntList(){
+  $('#antlist').innerHTML=Object.entries(ANT).map(([id,a])=>`<button class="ant ${id===S.ant?'on':''}" data-id="${id}" aria-pressed="${id===S.ant}"><span class="an">${a.name}</span><span class="at">${a.tag}</span></button>`).join('');
+}
+function renderControls(){
+  const a=ANT[S.ant], p=pv(S.ant); let h='';
+  if(!a.bands){
+    const f=S.freq[S.ant], b=bandOf(f);
+    h+=`<label class="f">Banda<select id="band"><option value="">Personalizada</option>${BANDS.map(x=>`<option value="${x.id}" ${b&&b.id===x.id?'selected':''}>${x.n}</option>`).join('')}</select></label>`;
+    h+=`<label class="f">Frecuencia (MHz)<input id="freq" type="number" step="0.001" min="0.1" value="${f}"></label>`;
+  }
+  if(a.k) h+=`<label class="f">Factor K<input id="k" type="number" step="0.005" min="0.85" max="1" value="${S.k}"><span class="hint">Acortamiento por efecto de puntas</span></label>`;
+  a.params.forEach(q=>{
+    if(q.type==='num') h+=`<label class="f">${q.label}<input data-p="${q.id}" type="number" step="${q.step}" ${q.min!==undefined?`min="${q.min}"`:''} ${q.max!==undefined?`max="${q.max}"`:''} value="${p[q.id]}">${q.hint?`<span class="hint">${q.hint}</span>`:''}</label>`;
+    else if(q.type==='sel') h+=`<label class="f">${q.label}<select data-p="${q.id}">${q.opts.map(o=>`<option ${o===p[q.id]?'selected':''}>${o}</option>`).join('')}</select></label>`;
+    else if(q.type==='bands'){
+      const sel=BANDS.filter(b=>p.bands.includes(b.id)).sort((x,y)=>x.c-y.c).map(b=>b.id);
+      h+=`<div class="f full">${q.label}<div class="bandchk">${q.opts.map(id=>{const b=BANDS.find(x=>x.id===id),on=p.bands.includes(id),i=sel.indexOf(id);return `<label class="${on?'on':''}"><input type="checkbox" data-band="${id}" ${on?'checked':''}>${on?`<i style="background:${BCOL[i%BCOL.length]}"></i>`:''}${b.n}</label>`}).join('')}</div></div>`;
+    }
+  });
+  h+=`<div class="f">Margen para recortar<div class="trim"><label><input type="checkbox" id="trim" ${S.trim?'checked':''}> Sumar</label><input id="margin" type="number" step="0.5" min="0" max="15" value="${S.margin}" ${S.trim?'':'disabled'}> %</div></div>`;
+  $('#controls').innerHTML=h;
+}
+function render(){
+  const a=ANT[S.ant], p=pv(S.ant), f=S.freq[S.ant]||1;
+  $('#aname').textContent=a.name; $('#adesc').textContent=a.desc;
+  const r=a.calc(f,p,a.k?S.k:1);
+  $('#sketch').innerHTML=r.svg;
+  $('#warn').innerHTML=r.warn.length?`<div class="warn">${r.warn.map(w=>`<p>${w}</p>`).join('')}</div>`:'';
+  $('#cuth').style.display=S.trim?'':'none';
+  $('#dims').innerHTML=r.rows.map(x=>`<tr><td>${x.l}</td><td class="num">${fmt(x.v)}</td>${S.trim?`<td class="${x.c?'cut':''}">${x.c?fmt(cutv(x.v)):'—'}</td>`:''}</tr>`).join('');
+  $('#info').innerHTML=r.info.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('');
+  $('#mat').innerHTML=r.mat.map(m=>`<li>${m}</li>`).join('');
+  $('#notes').innerHTML=r.notes.map(m=>`<li>${m}</li>`).join('');
+  save();
+}
+
+$('#antlist').addEventListener('click',e=>{const b=e.target.closest('.ant');if(!b)return;S.ant=b.dataset.id;renderAntList();renderControls();render();});
+$('#controls').addEventListener('input',e=>{
+  const t=e.target, v=parseFloat(t.value);
+  if(t.id==='band'){const b=BANDS.find(x=>x.id===t.value);if(b){S.freq[S.ant]=b.c;$('#freq').value=b.c;}}
+  else if(t.id==='freq'){if(v>0){S.freq[S.ant]=v;const b=bandOf(v);$('#band').value=b?b.id:'';}else return;}
+  else if(t.id==='k'){if(v>=0.8&&v<=1)S.k=v;else return;}
+  else if(t.id==='trim'){S.trim=t.checked;$('#margin').disabled=!t.checked;}
+  else if(t.id==='margin'){if(v>=0)S.margin=v;else return;}
+  else if(t.dataset.p){const p=pv(S.ant), q=ANT[S.ant].params.find(x=>x.id===t.dataset.p);if(q.type==='num'){if(isNaN(v))return;p[q.id]=v;}else p[q.id]=t.value;}
+  else if(t.dataset.band){const p=pv(S.ant);p.bands=t.checked?[...p.bands,t.dataset.band]:p.bands.filter(x=>x!==t.dataset.band);renderControls();}
+  render();
+});
+
+/* ---------- Conversor ---------- */
+let CF=14.2;
+function renderConv(){
+  const f=parseFloat($('#cf').value), vf=parseFloat($('#cvf').value), b=bandOf(f);
+  $('#cbands').innerHTML=BANDS.map(x=>`<button data-c="${x.c}" class="${b&&b.id===x.id?'on':''}">${x.n}</button>`).join('');
+  $('#cband').innerHTML=f>0?(b?`<span class="bandtag">${b.n} (${num(b.lo,3)} a ${num(b.hi,3)} MHz)</span>`:'<span class="bandtag none">Fuera de las bandas de aficionado listadas</span>'):'';
+  if(!(f>0)){$('#cout').innerHTML='';}
+  else{
+    const lam=C/f;
+    const items=[['λ',1],['λ/2',0.5],['λ/4',0.25],['5/8 λ',0.625],['3/4 λ',0.75]];
+    $('#cout').innerHTML=items.map(([n,m])=>`<div><b>${fmt(lam*m*vf)}</b><span>${n}${vf<1?' física':''}</span></div>`).join('')+`<div><b>${fmt(lam*1.02)}</b><span>Loop de onda completa (≈ 1,02 λ)</span></div>`;
+  }
+  const len=parseFloat($('#rlen').value), fr=parseFloat($('#rfrac').value);
+  if(len>0){
+    const rf=C/(len/(fr*vf)), rb=bandOf(rf);
+    $('#rout').innerHTML=`<div><b>${num(rf,3)} MHz</b><span>Frecuencia de resonancia</span></div><div><b>${rb?rb.n:'—'}</b><span>${rb?'Banda':'Fuera de banda'}</span></div>`;
+  } else $('#rout').innerHTML='';
+}
+['cf','cvf','rlen','rfrac'].forEach(id=>$('#'+id).addEventListener('input',renderConv));
+$('#cbands').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;$('#cf').value=b.dataset.c;renderConv();});
+
+/* ---------- Global ---------- */
+function setUnit(u){S.unit=u;document.querySelectorAll('#units button').forEach(b=>b.classList.toggle('on',b.dataset.u===u));render();renderConv();}
+$('#units').addEventListener('click',e=>{const b=e.target.closest('button');if(b)setUnit(b.dataset.u);});
+function setTab(t){S.tab=t;document.querySelectorAll('.tabs button').forEach(b=>{b.classList.toggle('on',b.dataset.tab===t);b.setAttribute('aria-selected',b.dataset.tab===t);});$('#tab-ant').hidden=t!=='ant';$('#tab-conv').hidden=t!=='conv';save();}
+document.querySelector('.tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(b)setTab(b.dataset.tab);});
+function tick(){const d=new Date();$('#utc').innerHTML=d.toISOString().slice(11,19)+'<span>UTC</span>';}
+setInterval(tick,1000);tick();
+
+renderAntList();renderControls();setUnit(S.unit);setTab(S.tab||'ant');renderConv();
+</script>
+<script>
+(function(){
+  var last=0;
+  function post(){
+    var v=Math.ceil(document.body.getBoundingClientRect().height);
+    if(!v||Math.abs(v-last)<2)return;last=v;
+    try{parent.postMessage({ma:'h',slug:'calculadora-de-antenas-y-longitud-de-onda',h:v},location.origin)}catch(e){}
+  }
+  if(window.ResizeObserver)new ResizeObserver(post).observe(document.body);
+  addEventListener('load',post);addEventListener('resize',post);setInterval(post,700);post();
+})();
+</script></body>
+</html>

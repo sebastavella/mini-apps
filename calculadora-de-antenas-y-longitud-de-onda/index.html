@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora de antenas de radioaficionado y longitud de onda | Mini Apps</title>
+<meta name="description" content="Calculá las medidas de un dipolo, V invertida, EFHW, J-Pole, Yagi o bigote de gato por banda, con lista de materiales y croquis. Convertí frecuencia a longitud de onda.">
+<link rel="canonical" href="https://micro-apps.com.ar/calculadora-de-antenas-y-longitud-de-onda/">
+
+<meta name="theme-color" content="#12264A">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mini Apps">
+<meta property="og:locale" content="es_AR">
+<meta property="og:title" content="Calculadora de antenas de radioaficionado y longitud de onda | Mini Apps">
+<meta property="og:description" content="Calculá las medidas de un dipolo, V invertida, EFHW, J-Pole, Yagi o bigote de gato por banda, con lista de materiales y croquis. Convertí frecuencia a longitud de onda.">
+<meta property="og:url" content="https://micro-apps.com.ar/calculadora-de-antenas-y-longitud-de-onda/">
+<meta property="og:image" content="https://micro-apps.com.ar/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<!-- AdSense: descomentá y poné tu ID de editor cuando te aprueben la cuenta.
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Calculadora de antenas y longitud de onda", "url": "https://micro-apps.com.ar/calculadora-de-antenas-y-longitud-de-onda/", "description": "Calculá las medidas de un dipolo, V invertida, EFHW, J-Pole, Yagi o bigote de gato por banda, con lista de materiales y croquis. Convertí frecuencia a longitud de onda.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "es-AR", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "ARS"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Qué es el factor K?", "acceptedAnswer": {"@type": "Answer", "text": "Es el coeficiente que acorta el largo teórico de media onda para obtener el largo real del cable. Con 0,95 se llega a un buen punto de partida; el valor exacto depende del diámetro del conductor, de los aisladores y de la altura."}}, {"@type": "Question", "name": "¿Por qué hay un corte inicial más largo que la medida final?", "acceptedAnswer": {"@type": "Answer", "text": "Porque conviene cortar un poco de más y recortar de a 1 o 2 cm por rama mientras medís la ROE. Si cortás justo y queda corta, hay que agregar cable. El margen es configurable o se puede desactivar."}}, {"@type": "Question", "name": "¿Qué es el factor de velocidad?", "acceptedAnswer": {"@type": "Answer", "text": "La fracción de la velocidad de la luz a la que viaja la señal por un cable o línea. En coaxial de dieléctrico sólido (RG-58, RG-213) es cerca de 0,66, y en espacio libre es 1. Se usa para cortar tramos de cable con una longitud eléctrica determinada."}}, {"@type": "Question", "name": "¿Los segmentos de banda son los de Argentina?", "acceptedAnswer": {"@type": "Answer", "text": "La tabla de bandas es una referencia general de las bandas de aficionados. Los segmentos habilitados dependen de tu categoría: verificalos en la reglamentación vigente de ENACOM antes de transmitir."}}, {"@type": "Question", "name": "¿Puedo usar otras unidades?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Podés ver las medidas en metros, centímetros o pulgadas con el selector de la parte superior de la herramienta."}}, {"@type": "Question", "name": "¿Se guardan mis datos?", "acceptedAnswer": {"@type": "Answer", "text": "Solo en este navegador, para que al volver encuentres la misma antena y la misma frecuencia. No se envían a ningún servidor."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Mini Apps", "item": "https://micro-apps.com.ar/"}, {"@type": "ListItem", "position": 2, "name": "Radioafición", "item": "https://micro-apps.com.ar/#radioaficion"}, {"@type": "ListItem", "position": 3, "name": "Calculadora de antenas y longitud de onda", "item": "https://micro-apps.com.ar/calculadora-de-antenas-y-longitud-de-onda/"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="site"><div class="wrap bar"><a class="brand" href="/" aria-label="Mini Apps, inicio"><svg width="36" height="36" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="4" y="4" width="26" height="26" rx="8" fill="#12264A"/><rect x="34" y="4" width="26" height="26" rx="8" fill="#74ACDF"/><rect x="4" y="34" width="26" height="26" rx="8" fill="#74ACDF"/><circle cx="47" cy="47" r="13" fill="#F5B41A"/></svg><span>Mini Apps</span></a><nav aria-label="Categorías"><a href="/#calculadoras">Calculadoras</a><a href="/#conversores">Conversores</a><a href="/#generadores">Generadores</a><a href="/#texto">Texto</a><a href="/#marketing">Marketing</a><a href="/#radioaficion">Radioafición</a><a href="/#impresion-3d">Impresión 3D</a><a href="/#documentos">Documentos y PDF</a></nav></div></header>
+<main id="main" class="wrap">
+<nav class="crumbs" aria-label="Ruta"><a href="/">Mini Apps</a><span class="sep">&rsaquo;</span><a href="/#radioaficion">Radioafición</a></nav>
+<h1 class="page-h1">Calculadora de antenas y longitud de onda para radioaficionados</h1>
+<p class="lead">Elegí el tipo de antena y la banda: te da las medidas finales, el corte inicial, los materiales y un croquis con cotas.</p>
+<div class="panel flush" id="tool">
+<iframe id="appframe" class="appframe" src="/calculadora-de-antenas-y-longitud-de-onda/app/" title="Calculadora de antenas y longitud de onda" style="height:1500px" loading="eager"></iframe>
+<noscript><p style="padding:1.2rem">Esta herramienta necesita JavaScript activado.</p></noscript>
+</div>
+<p class="appnote">Funciona en el navegador. Tus ajustes quedan guardados en este dispositivo.</p>
+<aside class="ad" aria-label="Publicidad" data-slot="1"><!-- ADSENSE SLOT 1 --></aside>
+<article class="prose">
+<h2>Cómo funciona</h2>
+<p>Elegís el tipo de antena, la banda (o una frecuencia propia) y el factor K. La herramienta calcula las medidas de cada elemento, el corte inicial con un margen para recortar, la lista de materiales, algunas notas de armado y un croquis con las cotas.</p>
+<p class="formula">λ (m) = 299,792458 ÷ f (MHz)<br>Dipolo λ/2: largo total = λ ÷ 2 × K<br>Cada rama = largo total ÷ 2</p>
+<p>El factor K (por defecto 0,95) representa el acortamiento real del cable frente al largo teórico, por el efecto de las puntas y el aislamiento. Se ajusta con la antena instalada.</p>
+<h3>Antenas incluidas</h3>
+<ul>
+<li><strong>Dipolo λ/2:</strong> dos ramas iguales alimentadas al centro, el punto de partida para cualquier banda de HF.</li>
+<li><strong>V invertida:</strong> un dipolo con las ramas caídas desde un mástil central; calcula la altura de las puntas según el ángulo.</li>
+<li><strong>EFHW:</strong> media onda alimentada por un extremo con transformador 49:1 o 64:1; indica en qué otras bandas resuena.</li>
+<li><strong>J-Pole:</strong> vertical de VHF/UHF con stub de λ/4, con el punto de alimentación y la separación entre elementos.</li>
+<li><strong>Yagi de 3 elementos:</strong> reflector, excitado y director para VHF/UHF, con la longitud del boom.</li>
+<li><strong>Bigote de gato:</strong> varios dipolos en abanico sobre un mismo punto de alimentación, para operar en varias bandas.</li>
+</ul>
+<h3>Frecuencia y longitud de onda</h3>
+<p>La segunda pestaña convierte en los dos sentidos. De frecuencia a longitud muestra λ, λ/2, λ/4, 5/8 λ y el loop de onda completa, y aplica el factor de velocidad del medio (coaxial, cinta bifilar, escalera, elemento real).</p>
+<p class="formula">Longitud física = λ × fracción × factor de velocidad<br>f (MHz) = 299,792458 × fracción × factor de velocidad ÷ longitud (m)</p>
+<p class="note">Las medidas son un punto de partida. El ajuste final se hace siempre con analizador de antenas o medidor de ROE, en el lugar de instalación y a la altura definitiva.</p>
+<h2>Ejemplo</h2>
+<p>Un dipolo para 40 m a 7,1 MHz con K = 0,95. La longitud de onda es 299,792458 ÷ 7,1 = 42,22 m. El dipolo mide 42,22 ÷ 2 × 0,95 = <strong>20,06 m en total</strong>, es decir 10,03 m por rama. Con un margen de 3 % para recortar, el corte inicial es de 10,33 m por rama.</p>
+<p>Para un stub de λ/4 con coaxial RG-58 (factor de velocidad 0,66) a 14,2 MHz: λ = 21,11 m, λ/4 = 5,28 m y el largo físico es 5,28 × 0,66 = <strong>3,48 m</strong>.</p>
+<aside class="ad" aria-label="Publicidad" data-slot="2"><!-- ADSENSE SLOT 2 --></aside>
+<h2>Preguntas frecuentes</h2>
+<h3>¿Qué es el factor K?</h3><p>Es el coeficiente que acorta el largo teórico de media onda para obtener el largo real del cable. Con 0,95 se llega a un buen punto de partida; el valor exacto depende del diámetro del conductor, de los aisladores y de la altura.</p><h3>¿Por qué hay un corte inicial más largo que la medida final?</h3><p>Porque conviene cortar un poco de más y recortar de a 1 o 2 cm por rama mientras medís la ROE. Si cortás justo y queda corta, hay que agregar cable. El margen es configurable o se puede desactivar.</p><h3>¿Qué es el factor de velocidad?</h3><p>La fracción de la velocidad de la luz a la que viaja la señal por un cable o línea. En coaxial de dieléctrico sólido (RG-58, RG-213) es cerca de 0,66, y en espacio libre es 1. Se usa para cortar tramos de cable con una longitud eléctrica determinada.</p><h3>¿Los segmentos de banda son los de Argentina?</h3><p>La tabla de bandas es una referencia general de las bandas de aficionados. Los segmentos habilitados dependen de tu categoría: verificalos en la reglamentación vigente de ENACOM antes de transmitir.</p><h3>¿Puedo usar otras unidades?</h3><p>Sí. Podés ver las medidas en metros, centímetros o pulgadas con el selector de la parte superior de la herramienta.</p><h3>¿Se guardan mis datos?</h3><p>Solo en este navegador, para que al volver encuentres la misma antena y la misma frecuencia. No se envían a ningún servidor.</p>
+<p class="updated">Última revisión: octubre de 2026.</p>
+</article>
+<h2 class="sec-h">Otras herramientas</h2>
+<div class="tiles small"><a class="tile tone-celeste" href="/conversor-de-unidades/" data-s="Conversor de unidades Longitud, peso, temperatura, volumen, área y más. Conversores"><span class="g" aria-hidden="true">⇄</span><h3>Conversor de unidades</h3><p>Longitud, peso, temperatura, volumen, área y más.</p></a><a class="tile tone-sol" href="/conversor-de-colores-hex-rgb-hsl/" data-s="Conversor de colores HEX, RGB y HSL, con control de contraste. Conversores"><span class="g" aria-hidden="true">#</span><h3>Conversor de colores</h3><p>HEX, RGB y HSL, con control de contraste.</p></a><a class="tile tone-navy" href="/calculadora-de-porcentajes/" data-s="Calculadora de porcentajes Cuánto es el X %, qué porcentaje es, variación y descuentos. Calculadoras"><span class="g" aria-hidden="true">%</span><h3>Calculadora de porcentajes</h3><p>Cuánto es el X %, qué porcentaje es, variación y descuentos.</p></a></div>
+</main>
+<footer class="foot"><div class="wrap"><div class="cols">
+<div><a class="brand" href="/"><svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="4" y="4" width="26" height="26" rx="8" fill="#12264A"/><rect x="34" y="4" width="26" height="26" rx="8" fill="#74ACDF"/><rect x="4" y="34" width="26" height="26" rx="8" fill="#74ACDF"/><circle cx="47" cy="47" r="13" fill="#F5B41A"/></svg><span>Mini Apps</span></a>
+<p>Herramientas gratuitas, sin registro. Los resultados son orientativos y no reemplazan el asesoramiento profesional.</p></div>
+<ul><li><a href="/sobre-mini-apps/">Sobre Mini Apps</a></li><li><a href="/privacidad/">Privacidad</a></li><li><a href="/terminos/">Términos de uso</a></li><li><a href="/contacto/">Contacto</a></li></ul></div>
+<p>&copy; 2026 Mini Apps. Todos los derechos reservados.</p></div></footer>
+<script src="/assets/app.js"></script>
+<script>
+(function(){var f=document.getElementById("appframe");addEventListener("message",function(e){if(e.origin!==location.origin||!e.data||e.data.ma!=="h"||e.source!==f.contentWindow)return;f.style.height=Math.max(320,e.data.h)+"px"})})();
+</script>
+</body></html>

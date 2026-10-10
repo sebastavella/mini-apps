@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora de promedio de notas (simple y ponderado) | Mini Apps</title>
+<meta name="description" content="Calculá tu promedio de notas, simple o ponderado, y averiguá qué nota necesitás sacar en el próximo examen para llegar al promedio que querés.">
+<link rel="canonical" href="https://micro-apps.com.ar/calculadora-de-promedio-de-notas/">
+
+<meta name="theme-color" content="#12264A">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mini Apps">
+<meta property="og:locale" content="es_AR">
+<meta property="og:title" content="Calculadora de promedio de notas (simple y ponderado) | Mini Apps">
+<meta property="og:description" content="Calculá tu promedio de notas, simple o ponderado, y averiguá qué nota necesitás sacar en el próximo examen para llegar al promedio que querés.">
+<meta property="og:url" content="https://micro-apps.com.ar/calculadora-de-promedio-de-notas/">
+<meta property="og:image" content="https://micro-apps.com.ar/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<!-- AdSense: descomentá y poné tu ID de editor cuando te aprueben la cuenta.
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Calculadora de promedio de notas", "url": "https://micro-apps.com.ar/calculadora-de-promedio-de-notas/", "description": "Calculá tu promedio de notas, simple o ponderado, y averiguá qué nota necesitás sacar en el próximo examen para llegar al promedio que querés.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "es-AR", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "ARS"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Cómo se calcula el promedio de notas?", "acceptedAnswer": {"@type": "Answer", "text": "Se suman todas las notas y se divide por la cantidad de notas. Si tienen distinto peso, se multiplica cada nota por su peso y se divide por la suma de los pesos."}}, {"@type": "Question", "name": "¿Qué es un promedio ponderado?", "acceptedAnswer": {"@type": "Answer", "text": "Es un promedio en el que no todas las notas valen lo mismo. Se usa cuando un examen final o un parcial tiene más importancia que un trabajo práctico."}}, {"@type": "Question", "name": "¿Con cuánto se aprueba?", "acceptedAnswer": {"@type": "Answer", "text": "Depende de la institución y del nivel. Consultá el reglamento de tu escuela o facultad para saber la nota mínima de aprobación y cómo se redondea el promedio."}}, {"@type": "Question", "name": "¿Cómo calculo cuánto necesito en el final?", "acceptedAnswer": {"@type": "Answer", "text": "Cargá las notas que ya tenés, escribí el promedio que querés lograr y el peso que tiene el final. La herramienta te dice la nota mínima necesaria."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Mini Apps", "item": "https://micro-apps.com.ar/"}, {"@type": "ListItem", "position": 2, "name": "Calculadoras", "item": "https://micro-apps.com.ar/#calculadoras"}, {"@type": "ListItem", "position": 3, "name": "Calculadora de promedio", "item": "https://micro-apps.com.ar/calculadora-de-promedio-de-notas/"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="site"><div class="wrap bar"><a class="brand" href="/" aria-label="Mini Apps, inicio"><svg width="36" height="36" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="4" y="4" width="26" height="26" rx="8" fill="#12264A"/><rect x="34" y="4" width="26" height="26" rx="8" fill="#74ACDF"/><rect x="4" y="34" width="26" height="26" rx="8" fill="#74ACDF"/><circle cx="47" cy="47" r="13" fill="#F5B41A"/></svg><span>Mini Apps</span></a><nav aria-label="Categorías"><a href="/#calculadoras">Calculadoras</a><a href="/#conversores">Conversores</a><a href="/#generadores">Generadores</a><a href="/#texto">Texto</a><a href="/#marketing">Marketing</a><a href="/#radioaficion">Radioafición</a><a href="/#impresion-3d">Impresión 3D</a><a href="/#documentos">Documentos y PDF</a></nav></div></header>
+<main id="main" class="wrap">
+<nav class="crumbs" aria-label="Ruta"><a href="/">Mini Apps</a><span class="sep">&rsaquo;</span><a href="/#calculadoras">Calculadoras</a></nav>
+<h1 class="page-h1">Calculadora de promedio de notas</h1>
+<p class="lead">Cargá tus notas (y su peso, si no todas valen lo mismo). Después fijá un objetivo y te decimos cuánto necesitás en la próxima.</p>
+<div class="panel" id="tool">
+<div class="grade-head"><span>Nota</span><span>Peso</span><span></span></div>
+<div id="rows"></div>
+<div class="btns"><button type="button" class="btn alt" id="add">Agregar nota</button></div>
+<div class="outs"><div class="out main"><small>Promedio ponderado</small><strong id="o-pond" aria-live="polite">—</strong></div>
+<div class="out"><small>Promedio simple</small><strong id="o-simple">—</strong></div>
+<div class="out"><small>Notas cargadas</small><strong id="o-n">—</strong></div></div>
+<h2 style="margin-top:1.6rem">¿Qué nota necesito en la próxima?</h2>
+<div class="row">
+<div class="field"><label for="tg">Promedio que quiero lograr</label><input id="tg" type="number" inputmode="decimal" step="any" value="7"></div>
+<div class="field"><label for="nw">Peso de la próxima nota</label><input id="nw" type="number" inputmode="decimal" step="any" value="1" min="0"></div>
+<div class="field"><label for="mx">Nota máxima de la escala</label><input id="mx" type="number" inputmode="decimal" step="any" value="10"></div></div>
+<div class="outs"><div class="out wide"><small>Necesitás sacar</small><strong id="o-need" aria-live="polite" style="font-size:1.3rem">—</strong></div></div>
+</div>
+<aside class="ad" aria-label="Publicidad" data-slot="1"><!-- ADSENSE SLOT 1 --></aside>
+<article class="prose">
+<h2>Cómo funciona</h2>
+<p>El promedio simple suma todas las notas y divide por la cantidad. El ponderado le da más importancia a las notas con mayor peso, por ejemplo un parcial que vale el doble que un trabajo práctico:</p>
+<p class="formula">Promedio simple = suma de notas ÷ cantidad de notas<br>Promedio ponderado = suma de (nota × peso) ÷ suma de pesos</p>
+<p>Para saber qué nota necesitás, la herramienta despeja la incógnita de la fórmula del ponderado:</p>
+<p class="formula">Nota necesaria = (objetivo × (suma de pesos + peso nuevo) − suma de nota × peso) ÷ peso nuevo</p>
+<p>Si el resultado supera la nota máxima de la escala, el objetivo no es alcanzable con esa evaluación.</p>
+<h2>Ejemplo</h2>
+<p>Tenés un 7 y un 8 con peso 1, y un 6 con peso 2. El promedio ponderado es (7 + 8 + 12) ÷ 4 = <strong>6,75</strong>, y el simple es 7. Si querés llegar a 7 con una nota que pesa 2, necesitás (7 × 6 − 27) ÷ 2 = <strong>7,5</strong>.</p>
+<aside class="ad" aria-label="Publicidad" data-slot="2"><!-- ADSENSE SLOT 2 --></aside>
+<h2>Preguntas frecuentes</h2>
+<h3>¿Cómo se calcula el promedio de notas?</h3><p>Se suman todas las notas y se divide por la cantidad de notas. Si tienen distinto peso, se multiplica cada nota por su peso y se divide por la suma de los pesos.</p><h3>¿Qué es un promedio ponderado?</h3><p>Es un promedio en el que no todas las notas valen lo mismo. Se usa cuando un examen final o un parcial tiene más importancia que un trabajo práctico.</p><h3>¿Con cuánto se aprueba?</h3><p>Depende de la institución y del nivel. Consultá el reglamento de tu escuela o facultad para saber la nota mínima de aprobación y cómo se redondea el promedio.</p><h3>¿Cómo calculo cuánto necesito en el final?</h3><p>Cargá las notas que ya tenés, escribí el promedio que querés lograr y el peso que tiene el final. La herramienta te dice la nota mínima necesaria.</p>
+<p class="updated">Última revisión: octubre de 2026.</p>
+</article>
+<h2 class="sec-h">Otras herramientas</h2>
+<div class="tiles small"><a class="tile tone-celeste" href="/calculadora-de-porcentajes/" data-s="Calculadora de porcentajes Cuánto es el X %, qué porcentaje es, variación y descuentos. Calculadoras"><span class="g" aria-hidden="true">%</span><h3>Calculadora de porcentajes</h3><p>Cuánto es el X %, qué porcentaje es, variación y descuentos.</p></a><a class="tile tone-sol" href="/calculadora-de-edad/" data-s="Calculadora de edad y fechas Edad exacta y días entre dos fechas. Calculadoras"><span class="g" aria-hidden="true">31</span><h3>Calculadora de edad y fechas</h3><p>Edad exacta y días entre dos fechas.</p></a><a class="tile tone-white" href="/contador-de-palabras-y-caracteres/" data-s="Contador de palabras Palabras, caracteres, oraciones y tiempo de lectura. Texto"><span class="g" aria-hidden="true">¶</span><h3>Contador de palabras</h3><p>Palabras, caracteres, oraciones y tiempo de lectura.</p></a></div>
+</main>
+<footer class="foot"><div class="wrap"><div class="cols">
+<div><a class="brand" href="/"><svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="4" y="4" width="26" height="26" rx="8" fill="#12264A"/><rect x="34" y="4" width="26" height="26" rx="8" fill="#74ACDF"/><rect x="4" y="34" width="26" height="26" rx="8" fill="#74ACDF"/><circle cx="47" cy="47" r="13" fill="#F5B41A"/></svg><span>Mini Apps</span></a>
+<p>Herramientas gratuitas, sin registro. Los resultados son orientativos y no reemplazan el asesoramiento profesional.</p></div>
+<ul><li><a href="/sobre-mini-apps/">Sobre Mini Apps</a></li><li><a href="/privacidad/">Privacidad</a></li><li><a href="/terminos/">Términos de uso</a></li><li><a href="/contacto/">Contacto</a></li></ul></div>
+<p>&copy; 2026 Mini Apps. Todos los derechos reservados.</p></div></footer>
+<script src="/assets/app.js"></script>
+<script>
+(function(){
+
+var $=MA.$,rows=$('#rows');
+function addRow(n,w){
+  var d=document.createElement('div');d.className='grade-row';
+  d.innerHTML='<input type="number" inputmode="decimal" step="any" class="gn" aria-label="Nota" placeholder="Ej: 8" value="'+(n==null?'':n)+'"><input type="number" inputmode="decimal" step="any" min="0" class="gw" aria-label="Peso" value="'+w+'"><button type="button" class="btn alt rm" aria-label="Quitar esta nota">Quitar</button>';
+  rows.appendChild(d);
+}
+function calc(){
+  var sum=0,W=0,s=0,c=0;
+  MA.$$('.grade-row').forEach(function(r){
+    var n=MA.num($('.gn',r)),w=MA.num($('.gw',r));
+    if(n==null)return;if(w==null)w=1;if(w<0)return;
+    sum+=n*w;W+=w;s+=n;c++;
+  });
+  $('#o-n').textContent=String(c);
+  $('#o-simple').textContent=c?MA.fmt(s/c,2):'\u2014';
+  $('#o-pond').textContent=(c&&W>0)?MA.fmt(sum/W,2):'\u2014';
+  var tg=MA.num($('#tg')),nw=MA.num($('#nw')),mx=MA.num($('#mx')),o=$('#o-need');
+  if(tg==null||nw==null||nw<=0||!c){o.textContent='\u2014';return}
+  var need=(tg*(W+nw)-sum)/nw;
+  if(need<=0)o.textContent='Ya llegás al objetivo: alcanza con cualquier nota.';
+  else if(mx!=null&&need>mx)o.textContent='Con '+MA.fmt(mx,2)+' no alcanzaría: te haría falta un '+MA.fmt(need,2)+'.';
+  else o.textContent='Un '+MA.fmt(need,2)+' o más.';
+}
+$('#add').addEventListener('click',function(){addRow(null,1);calc();var l=MA.$$('.gn');l[l.length-1].focus()});
+rows.addEventListener('click',function(e){var b=e.target.closest('.rm');if(!b)return;if(MA.$$('.grade-row').length>1){b.parentNode.remove()}else{MA.$$('input',b.parentNode)[0].value=''}calc()});
+$('#tool').addEventListener('input',calc);
+addRow(7,1);addRow(8,1);addRow(6,2);
+calc();
+
+})();
+</script>
+</body>
+</html>

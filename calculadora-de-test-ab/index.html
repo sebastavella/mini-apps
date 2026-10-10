@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora de test A/B: significancia estadística | Mini Apps</title>
+<meta name="description" content="Calculá si tu test A/B tiene un ganador: significancia estadística, uplift, intervalo de confianza y control de reparto de tráfico (SRM). Hasta 5 variantes.">
+<link rel="canonical" href="https://micro-apps.com.ar/calculadora-de-test-ab/">
+
+<meta name="theme-color" content="#12264A">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mini Apps">
+<meta property="og:locale" content="es_AR">
+<meta property="og:title" content="Calculadora de test A/B: significancia estadística | Mini Apps">
+<meta property="og:description" content="Calculá si tu test A/B tiene un ganador: significancia estadística, uplift, intervalo de confianza y control de reparto de tráfico (SRM). Hasta 5 variantes.">
+<meta property="og:url" content="https://micro-apps.com.ar/calculadora-de-test-ab/">
+<meta property="og:image" content="https://micro-apps.com.ar/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<!-- AdSense: descomentá y poné tu ID de editor cuando te aprueben la cuenta.
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Calculadora de test A/B (significancia estadística)", "url": "https://micro-apps.com.ar/calculadora-de-test-ab/", "description": "Calculá si tu test A/B tiene un ganador: significancia estadística, uplift, intervalo de confianza y control de reparto de tráfico (SRM). Hasta 5 variantes.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "es-AR", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "ARS"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Qué es la significancia estadística en un test A/B?", "acceptedAnswer": {"@type": "Answer", "text": "Es la probabilidad de que la diferencia observada no se deba solo al azar. Con 95 % de confianza aceptás un 5 % de riesgo de declarar un ganador cuando en realidad no hay diferencia."}}, {"@type": "Question", "name": "¿Qué nivel de confianza conviene usar?", "acceptedAnswer": {"@type": "Answer", "text": "El 95 % es el estándar de la industria. Usá 99 % si implementar un falso ganador tiene un costo alto y 90 % solo para decisiones de bajo riesgo o exploratorias."}}, {"@type": "Question", "name": "¿Cuánto tiempo tiene que correr un test?", "acceptedAnswer": {"@type": "Answer", "text": "Lo que tarde en alcanzar la muestra calculada de antemano y, como mínimo, dos ciclos semanales completos (14 días), para que el comportamiento de lunes a domingo esté bien representado."}}, {"@type": "Question", "name": "¿Qué significa SRM y por qué invalida el test?", "acceptedAnswer": {"@type": "Answer", "text": "Es una desviación en el reparto de visitantes entre grupos respecto de lo esperado (por ejemplo, 50/50). Suele indicar un error técnico de asignación o de medición, y vuelve poco confiables las conclusiones."}}, {"@type": "Question", "name": "¿Puedo mirar los resultados antes de que termine el test?", "acceptedAnswer": {"@type": "Answer", "text": "Mirar no es problema; decidir en base a lo que ves sí. Frenar el test apenas aparece significancia infla los falsos positivos. Definí la muestra y la duración antes de empezar."}}, {"@type": "Question", "name": "¿Esta calculadora sirve para métricas que no son tasas de conversión?", "acceptedAnswer": {"@type": "Answer", "text": "No. Está pensada para métricas binarias (convirtió o no convirtió). Para métricas continuas, como ingreso por visitante, hace falta otro método."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Mini Apps", "item": "https://micro-apps.com.ar/"}, {"@type": "ListItem", "position": 2, "name": "Marketing", "item": "https://micro-apps.com.ar/#marketing"}, {"@type": "ListItem", "position": 3, "name": "Calculadora de test A/B", "item": "https://micro-apps.com.ar/calculadora-de-test-ab/"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="site"><div class="wrap bar"><a class="brand" href="/" aria-label="Mini Apps, inicio"><svg width="36" height="36" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="4" y="4" width="26" height="26" rx="8" fill="#12264A"/><rect x="34" y="4" width="26" height="26" rx="8" fill="#74ACDF"/><rect x="4" y="34" width="26" height="26" rx="8" fill="#74ACDF"/><circle cx="47" cy="47" r="13" fill="#F5B41A"/></svg><span>Mini Apps</span></a><nav aria-label="Categorías"><a href="/#calculadoras">Calculadoras</a><a href="/#conversores">Conversores</a><a href="/#generadores">Generadores</a><a href="/#texto">Texto</a><a href="/#marketing">Marketing</a><a href="/#radioaficion">Radioafición</a><a href="/#impresion-3d">Impresión 3D</a><a href="/#documentos">Documentos y PDF</a></nav></div></header>
+<main id="main" class="wrap">
+<nav class="crumbs" aria-label="Ruta"><a href="/">Mini Apps</a><span class="sep">&rsaquo;</span><a href="/#marketing">Marketing</a><a href="/#radioaficion">Radioafición</a><a href="/#impresion-3d">Impresión 3D</a><a href="/#documentos">Documentos y PDF</a></nav>
+<h1 class="page-h1">Calculadora de test A/B (significancia estadística)</h1>
+<p class="lead">Cargá visitantes y conversiones de cada grupo. Te decimos si la diferencia es estadísticamente significativa y si el test se puede interpretar.</p>
+<div class="panel" id="tool">
+<div class="row" style="margin-bottom:1.1rem">
+<div class="field"><label for="conf">Nivel de confianza</label><select id="conf"><option value="90">90 %</option><option value="95" selected>95 %</option><option value="99">99 %</option></select></div>
+<div class="field"><label for="days">Días que corrió el test (opcional)</label><input id="days" type="number" inputmode="numeric" step="1" min="0" placeholder="Ej: 14"></div></div>
+<div class="ab-head"><span>Grupo</span><span>Visitantes</span><span>Conversiones</span><span></span></div>
+<div id="groups"></div>
+<div class="btns"><button type="button" class="btn alt" id="addv">Agregar variante</button></div>
+<div id="out" aria-live="polite" style="margin-top:1.2rem"></div>
+</div>
+<aside class="ad" aria-label="Publicidad" data-slot="1"><!-- ADSENSE SLOT 1 --></aside>
+<article class="prose">
+<h2>Cómo funciona</h2>
+<p>La calculadora compara la tasa de conversión de cada variante contra el control con un <strong>test z de dos proporciones</strong>, el método habitual para tasas de conversión con muestras grandes:</p>
+<p class="formula">Tasa pooled = (conv. control + conv. variante) ÷ (visitantes control + visitantes variante)<br>Error estándar = √(pooled × (1 − pooled) × (1/n₁ + 1/n₂))<br>z = (CR variante − CR control) ÷ error estándar</p>
+<p>Con el valor z se obtiene el valor p (bilateral). La confianza es 1 − valor p: si es mayor al umbral que elegiste, la diferencia es significativa.</p>
+<h3>Qué más controla</h3>
+<ul><li><strong>Uplift relativo:</strong> cuánto mejora (o empeora) la variante respecto del control, en porcentaje del CR del control.</li>
+<li><strong>Intervalo de confianza:</strong> el rango plausible de la diferencia real, en puntos porcentuales. Si incluye el cero, no hay evidencia de diferencia.</li>
+<li><strong>Varias variantes:</strong> cada comparación se evalúa contra un umbral más exigente (corrección de Bonferroni: el nivel de error se divide por la cantidad de variantes) para no declarar ganadores por azar.</li>
+<li><strong>SRM (sample ratio mismatch):</strong> un test chi-cuadrado verifica que los visitantes se hayan repartido de forma pareja entre grupos. Si el valor p es menor a 0,001, algo falló en la asignación y el resultado no es confiable.</li>
+<li><strong>Duración:</strong> si cargás los días, avisa cuando son menos de 14, para cubrir al menos dos ciclos semanales.</li></ul>
+<p class="note">Esta calculadora asume que cada visitante se cuenta una sola vez y que el reparto esperado es parejo entre grupos. Mirar los resultados todos los días y frenar apenas aparece significancia aumenta los falsos positivos: definí la muestra antes con la <a href="/calculadora-de-tamano-de-muestra-ab/">calculadora de tamaño de muestra</a>.</p>
+<h2>Ejemplo</h2>
+<p>El control tuvo 10.000 visitantes y 500 conversiones (5 %). La variante B tuvo 10.000 visitantes y 570 conversiones (5,7 %). La diferencia es de 0,7 puntos porcentuales, un <strong>uplift relativo de +14 %</strong>. El valor z es 2,2 y el valor p es 0,028, es decir 97,2 % de confianza: supera el umbral del 95 %, así que la variante B es ganadora.</p>
+<aside class="ad" aria-label="Publicidad" data-slot="2"><!-- ADSENSE SLOT 2 --></aside>
+<h2>Preguntas frecuentes</h2>
+<h3>¿Qué es la significancia estadística en un test A/B?</h3><p>Es la probabilidad de que la diferencia observada no se deba solo al azar. Con 95 % de confianza aceptás un 5 % de riesgo de declarar un ganador cuando en realidad no hay diferencia.</p><h3>¿Qué nivel de confianza conviene usar?</h3><p>El 95 % es el estándar de la industria. Usá 99 % si implementar un falso ganador tiene un costo alto y 90 % solo para decisiones de bajo riesgo o exploratorias.</p><h3>¿Cuánto tiempo tiene que correr un test?</h3><p>Lo que tarde en alcanzar la muestra calculada de antemano y, como mínimo, dos ciclos semanales completos (14 días), para que el comportamiento de lunes a domingo esté bien representado.</p><h3>¿Qué significa SRM y por qué invalida el test?</h3><p>Es una desviación en el reparto de visitantes entre grupos respecto de lo esperado (por ejemplo, 50/50). Suele indicar un error técnico de asignación o de medición, y vuelve poco confiables las conclusiones.</p><h3>¿Puedo mirar los resultados antes de que termine el test?</h3><p>Mirar no es problema; decidir en base a lo que ves sí. Frenar el test apenas aparece significancia infla los falsos positivos. Definí la muestra y la duración antes de empezar.</p><h3>¿Esta calculadora sirve para métricas que no son tasas de conversión?</h3><p>No. Está pensada para métricas binarias (convirtió o no convirtió). Para métricas continuas, como ingreso por visitante, hace falta otro método.</p>
+<p class="updated">Última revisión: octubre de 2026.</p>
+</article>
+<h2 class="sec-h">Otras herramientas</h2>
+<div class="tiles small"><a class="tile tone-celeste" href="/calculadora-de-tamano-de-muestra-ab/" data-s="Tamaño de muestra y MDE Cuántos visitantes necesitás y qué efecto podés detectar. Marketing"><span class="g" aria-hidden="true">n</span><h3>Tamaño de muestra y MDE</h3><p>Cuántos visitantes necesitás y qué efecto podés detectar.</p></a><a class="tile tone-sol" href="/calculadora-de-roi/" data-s="Calculadora de ROI ROI de una inversión o de una mejora, con escenarios. Marketing"><span class="g" aria-hidden="true">ROI</span><h3>Calculadora de ROI</h3><p>ROI de una inversión o de una mejora, con escenarios.</p></a><a class="tile tone-white" href="/priorizacion-ice-rice/" data-s="Priorización ICE y RICE Puntuá ideas con ICE o RICE y armá tu backlog ordenado. Marketing"><span class="g" aria-hidden="true">ICE</span><h3>Priorización ICE y RICE</h3><p>Puntuá ideas con ICE o RICE y armá tu backlog ordenado.</p></a></div>
+</main>
+<footer class="foot"><div class="wrap"><div class="cols">
+<div><a class="brand" href="/"><svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="4" y="4" width="26" height="26" rx="8" fill="#12264A"/><rect x="34" y="4" width="26" height="26" rx="8" fill="#74ACDF"/><rect x="4" y="34" width="26" height="26" rx="8" fill="#74ACDF"/><circle cx="47" cy="47" r="13" fill="#F5B41A"/></svg><span>Mini Apps</span></a>
+<p>Herramientas gratuitas, sin registro. Los resultados son orientativos y no reemplazan el asesoramiento profesional.</p></div>
+<ul><li><a href="/sobre-mini-apps/">Sobre Mini Apps</a></li><li><a href="/privacidad/">Privacidad</a></li><li><a href="/terminos/">Términos de uso</a></li><li><a href="/contacto/">Contacto</a></li></ul></div>
+<p>&copy; 2026 Mini Apps. Todos los derechos reservados.</p></div></footer>
+<script src="/assets/app.js"></script>
+<script>
+(function(){
+
+function logGamma(z){
+  var c=[676.5203681218851,-1259.1392167224028,771.32342877765313,-176.61502916214059,12.507343278686905,-0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];
+  if(z<0.5)return Math.log(Math.PI)-Math.log(Math.sin(Math.PI*z))-logGamma(1-z);
+  z-=1;var x=0.99999999999980993;
+  for(var i=0;i<c.length;i++)x+=c[i]/(z+i+1);
+  var t=z+c.length-0.5;
+  return 0.5*Math.log(2*Math.PI)+(z+0.5)*Math.log(t)-t+Math.log(x);
+}
+function erfc(x){
+  var z=Math.abs(x),t=1/(1+0.5*z);
+  var r=t*Math.exp(-z*z-1.26551223+t*(1.00002368+t*(0.37409196+t*(0.09678418+t*(-0.18628806+t*(0.27886807+t*(-1.13520398+t*(1.48851587+t*(-0.82215223+t*0.17087277)))))))));
+  return x>=0?r:2-r;
+}
+function normalCdf(z){return 0.5*erfc(-z/Math.SQRT2)}
+function inverseNormal(p){
+  if(p<=0||p>=1)return NaN;
+  var a=[-39.6968302866538,220.946098424521,-275.928510446969,138.357751867269,-30.6647980661472,2.50662827745924];
+  var b=[-54.4760987982241,161.585836858041,-155.698979859887,66.8013118877197,-13.2806815528857];
+  var c=[-0.00778489400243029,-0.322396458041136,-2.40075827716184,-2.54973253934373,4.37466414146497,2.93816398269878];
+  var d=[0.00778469570904146,0.32246712907004,2.445134137143,3.75440866190742];
+  var pl=0.02425,q,r;
+  if(p<pl){q=Math.sqrt(-2*Math.log(p));return (((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}
+  if(p>1-pl){q=Math.sqrt(-2*Math.log(1-p));return -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}
+  q=p-0.5;r=q*q;
+  return (((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q/(((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1);
+}
+function gammaQ(a,x){
+  if(x<=0)return 1;
+  var gln=logGamma(a),i;
+  if(x<a+1){
+    var ap=a,sum=1/a,del=sum;
+    for(i=0;i<500;i++){ap+=1;del*=x/ap;sum+=del;if(Math.abs(del)<Math.abs(sum)*1e-14)break}
+    return 1-sum*Math.exp(-x+a*Math.log(x)-gln);
+  }
+  var b=x+1-a,c=1/1e-30,d=1/b,h=d;
+  for(i=1;i<500;i++){
+    var an=-i*(i-a);b+=2;d=an*d+b;if(Math.abs(d)<1e-30)d=1e-30;
+    c=b+an/c;if(Math.abs(c)<1e-30)c=1e-30;d=1/d;var del2=d*c;h*=del2;if(Math.abs(del2-1)<1e-14)break;
+  }
+  return Math.exp(-x+a*Math.log(x)-gln)*h;
+}
+function sampleSize(p1,p2,conf,power){
+  var zA=inverseNormal(1-(1-conf)/2),zP=inverseNormal(power),pb=(p1+p2)/2,diff=Math.abs(p2-p1);
+  var num=Math.pow(zA*Math.sqrt(2*pb*(1-pb))+zP*Math.sqrt(p1*(1-p1)+p2*(1-p2)),2);
+  return Math.ceil(num/(diff*diff));
+}
+function mdeRelative(p1,n,conf,power){
+  var lo=0.000001,hi=5;
+  for(var i=0;i<80;i++){
+    var mid=(lo+hi)/2,p2=Math.min(0.999999,p1*(1+mid));
+    if(sampleSize(p1,p2,conf,power)>n)lo=mid;else hi=mid;
+  }
+  return hi;
+}
+
+var $=MA.$,box=$('#groups');
+var NAMES=['Control','Variante B','Variante C','Variante D','Variante E','Variante F'];
+function row(i,u,c){
+  var d=document.createElement('div');d.className='ab-row';
+  d.innerHTML='<span class="nm">'+NAMES[i]+'</span><input type="number" inputmode="numeric" step="1" min="0" class="gu" aria-label="Visitantes de '+NAMES[i]+'" value="'+u+'"><input type="number" inputmode="numeric" step="1" min="0" class="gc" aria-label="Conversiones de '+NAMES[i]+'" value="'+c+'">'+(i>1?'<button type="button" class="btn alt rm" aria-label="Quitar '+NAMES[i]+'">Quitar</button>':'<span></span>');
+  box.appendChild(d);
+}
+function pct(x,d){return MA.fmt(x*100,d==null?2:d)+' %'}
+function pv(p){return p<0.0001?'< 0,0001':MA.fmt(p,4)}
+function calc(){
+  var out=$('#out'),rows=MA.$$('.ab-row'),g=[];
+  rows.forEach(function(r,i){
+    var u=MA.num($('.gu',r)),c=MA.num($('.gc',r));
+    g.push({name:NAMES[i],u:u,c:c,ok:u!=null&&c!=null&&u>0&&c>=0&&c<=u});
+  });
+  var ctl=g[0];
+  if(!ctl.ok){out.innerHTML='<p class="muted">Completá visitantes y conversiones del control (las conversiones no pueden superar a los visitantes).</p>';return}
+  var ch=g.slice(1).filter(function(x){return x.ok});
+  if(!ch.length){out.innerHTML='<p class="muted">Completá al menos una variante para comparar.</p>';return}
+  var conf=Number($('#conf').value)/100,alpha=1-conf,zc=inverseNormal(1-alpha/2),k=ch.length;
+  var p1=ctl.c/ctl.u,days=MA.num($('#days'));
+  var all=[ctl].concat(ch),tot=0;all.forEach(function(x){tot+=x.u});
+  var chi=0,e=tot/all.length;all.forEach(function(x){chi+=Math.pow(x.u-e,2)/e});
+  var srmP=gammaQ((all.length-1)/2,chi/2),srmFail=srmP<0.001;
+  var best=null,html='',trs='';
+  ch.forEach(function(x){
+    var p2=x.c/x.u,diff=p2-p1,pool=(ctl.c+x.c)/(ctl.u+x.u);
+    var se=Math.sqrt(pool*(1-pool)*(1/ctl.u+1/x.u)),z=se===0?0:diff/se;
+    var p=2*(1-normalCdf(Math.abs(z)));p=Math.max(0,Math.min(1,p));
+    var se2=Math.sqrt(p1*(1-p1)/ctl.u+p2*(1-p2)/x.u),lo=diff-zc*se2,hi=diff+zc*se2;
+    var up=p1===0?null:diff/p1,sig=p<=alpha/k;
+    x.res={cr:p2,diff:diff,p:p,lo:lo,hi:hi,up:up,sig:sig};
+    var st=sig?(diff>0?'win':'lose'):'inc';
+    x.st=st;
+    if(sig&&diff>0&&(!best||diff>best.res.diff))best=x;
+    var lbl=st==='win'?'Ganadora':st==='lose'?'Perdedora':'Inconcluso';
+    trs+='<tr><td>'+x.name+'</td><td>'+pct(p2)+'</td><td>'+(up==null?'\u2014':(up>0?'+':'')+MA.fmt(up*100,2)+' %')+'</td><td>'+(diff>0?'+':'')+MA.fmt(diff*100,2)+' pp</td><td>'+MA.fmt(lo*100,2)+' a '+MA.fmt(hi*100,2)+' pp</td><td>'+pv(p)+'</td><td>'+MA.fmt((1-p)*100,1)+' %</td><td><span class="pill '+st+'">'+lbl+'</span></td></tr>';
+  });
+  var verdict,tone;
+  if(srmFail){verdict='No interpretar: el reparto de visitantes entre grupos no es parejo (posible SRM). Revisá cómo se asigna el tráfico antes de decidir.';tone='bad'}
+  else if(days!=null&&days>0&&days<14){verdict='Seguí corriendo el test: todavía no cumple los 14 días mínimos recomendados (dos ciclos semanales completos).';tone='warn'}
+  else if(best){verdict=(k>1?best.name+' gana':'La variante gana')+' con '+(best.res.up==null?'':(best.res.up>0?'+':'')+MA.fmt(best.res.up*100,2)+' % de uplift y ')+MA.fmt((1-best.res.p)*100,1)+' % de confianza.';tone='ok'}
+  else if(ch.some(function(x){return x.st==='lose'})&&!ch.some(function(x){return x.st==='inc'})){verdict='Ninguna variante supera al control: no conviene implementar.';tone='bad'}
+  else{verdict='Resultado inconcluso: no hay diferencia estadísticamente significativa. Seguí acumulando muestra o replanteá la hipótesis.';tone='warn'}
+  var thr=(1-alpha/k)*100;
+  html+='<div class="verdict '+tone+'"><small>Veredicto</small><strong>'+verdict+'</strong></div>';
+  html+='<div class="tblw"><table class="tbl"><thead><tr><th>Variante</th><th>Conversión</th><th>Uplift relativo</th><th>Diferencia</th><th>IC de la diferencia</th><th>Valor p</th><th>Confianza</th><th>Resultado</th></tr></thead><tbody><tr><td>Control</td><td>'+pct(p1)+'</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td></tr>'+trs+'</tbody></table></div>';
+  html+='<p class="muted" style="font-size:.93rem;margin:.8rem 0 0">Umbral aplicado: '+MA.fmt(thr,2)+' % de confianza'+(k>1?' (corregido por '+k+' comparaciones, método de Bonferroni)':'')+'. Reparto de tráfico: valor p = '+pv(srmP)+(srmFail?' (sospechoso)':' (sin señales de problema)')+'. pp = puntos porcentuales; IC = intervalo de confianza.</p>';
+  out.innerHTML=html;
+}
+$('#addv').addEventListener('click',function(){var n=MA.$$('.ab-row').length;if(n>=NAMES.length)return;row(n,'','');calc();$('#addv').disabled=MA.$$('.ab-row').length>=NAMES.length});
+box.addEventListener('click',function(e){var b=e.target.closest('.rm');if(!b)return;b.parentNode.remove();MA.$$('.ab-row').forEach(function(r,i){$('.nm',r).textContent=NAMES[i]});$('#addv').disabled=false;calc()});
+$('#tool').addEventListener('input',calc);$('#tool').addEventListener('change',calc);
+row(0,10000,500);row(1,10000,570);
+calc();
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora de tamaño de muestra y MDE para test A/B | Mini Apps</title>
+<meta name="description" content="Calculá cuántos visitantes necesitás por variante en un test A/B y cuánto tiempo tarda, o averiguá el efecto mínimo detectable (MDE) con tu tráfico.">
+<link rel="canonical" href="https://micro-apps.com.ar/calculadora-de-tamano-de-muestra-ab/">
+
+<meta name="theme-color" content="#12264A">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mini Apps">
+<meta property="og:locale" content="es_AR">
+<meta property="og:title" content="Calculadora de tamaño de muestra y MDE para test A/B | Mini Apps">
+<meta property="og:description" content="Calculá cuántos visitantes necesitás por variante en un test A/B y cuánto tiempo tarda, o averiguá el efecto mínimo detectable (MDE) con tu tráfico.">
+<meta property="og:url" content="https://micro-apps.com.ar/calculadora-de-tamano-de-muestra-ab/">
+<meta property="og:image" content="https://micro-apps.com.ar/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<!-- AdSense: descomentá y poné tu ID de editor cuando te aprueben la cuenta.
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Calculadora de tamaño de muestra y MDE para tests A/B", "url": "https://micro-apps.com.ar/calculadora-de-tamano-de-muestra-ab/", "description": "Calculá cuántos visitantes necesitás por variante en un test A/B y cuánto tiempo tarda, o averiguá el efecto mínimo detectable (MDE) con tu tráfico.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "es-AR", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "ARS"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Qué es el MDE?", "acceptedAnswer": {"@type": "Answer", "text": "El efecto mínimo detectable es la mejora más chica que tu test puede distinguir del azar con la muestra disponible. Si la mejora real es menor al MDE, probablemente el test no la detecte."}}, {"@type": "Question", "name": "¿Por qué necesito tantos visitantes para detectar mejoras chicas?", "acceptedAnswer": {"@type": "Answer", "text": "Porque la muestra necesaria crece de forma cuadrática: detectar una mejora a la mitad de tamaño requiere cuatro veces más visitantes."}}, {"@type": "Question", "name": "¿Qué pasa si no tengo tráfico suficiente?", "acceptedAnswer": {"@type": "Answer", "text": "Podés buscar cambios con mayor impacto esperado (un MDE más alto), medir una conversión más cercana al cambio, como el clic en lugar de la compra, o aceptar menor confianza o poder en decisiones de bajo riesgo."}}, {"@type": "Question", "name": "¿La mejora se expresa en forma relativa o absoluta?", "acceptedAnswer": {"@type": "Answer", "text": "Acá es relativa: un 10 % sobre una conversión del 3 % equivale a 0,3 puntos porcentuales, de 3 % a 3,3 %. La segunda herramienta muestra ambas expresiones."}}, {"@type": "Question", "name": "¿Por qué recomiendan al menos 14 días aunque se alcance la muestra antes?", "acceptedAnswer": {"@type": "Answer", "text": "Porque el comportamiento cambia según el día de la semana. Dos ciclos completos reducen el riesgo de sacar conclusiones de un patrón puntual."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Mini Apps", "item": "https://micro-apps.com.ar/"}, {"@type": "ListItem", "position": 2, "name": "Marketing", "item": "https://micro-apps.com.ar/#marketing"}, {"@type": "ListItem", "position": 3, "name": "Tamaño de muestra y MDE", "item": "https://micro-apps.com.ar/calculadora-de-tamano-de-muestra-ab/"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="site"><div class="wrap bar"><a class="brand" href="/" aria-label="Mini Apps, inicio"><svg width="36" height="36" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="4" y="4" width="26" height="26" rx="8" fill="#12264A"/><rect x="34" y="4" width="26" height="26" rx="8" fill="#74ACDF"/><rect x="4" y="34" width="26" height="26" rx="8" fill="#74ACDF"/><circle cx="47" cy="47" r="13" fill="#F5B41A"/></svg><span>Mini Apps</span></a><nav aria-label="Categorías"><a href="/#calculadoras">Calculadoras</a><a href="/#conversores">Conversores</a><a href="/#generadores">Generadores</a><a href="/#texto">Texto</a><a href="/#marketing">Marketing</a><a href="/#radioaficion">Radioafición</a><a href="/#impresion-3d">Impresión 3D</a><a href="/#documentos">Documentos y PDF</a></nav></div></header>
+<main id="main" class="wrap">
+<nav class="crumbs" aria-label="Ruta"><a href="/">Mini Apps</a><span class="sep">&rsaquo;</span><a href="/#marketing">Marketing</a><a href="/#radioaficion">Radioafición</a><a href="/#impresion-3d">Impresión 3D</a><a href="/#documentos">Documentos y PDF</a></nav>
+<h1 class="page-h1">Calculadora de tamaño de muestra y MDE para tests A/B</h1>
+<p class="lead">Planificá el test antes de lanzarlo: cuántos visitantes necesitás, cuántos días tarda y qué mejora mínima podés detectar.</p>
+<div class="panel" id="tool">
+<div class="calcs">
+<section class="calc" aria-labelledby="s1"><h2 id="s1">Tamaño de muestra</h2>
+<div class="row"><div class="field"><label for="b1">Conversión actual (%)</label><input id="b1" type="number" inputmode="decimal" step="any" value="3" step="any" min="0"></div><div class="field"><label for="m1">Mejora mínima a detectar (%, relativa)</label><input id="m1" type="number" inputmode="decimal" step="any" value="10" min="0"></div></div>
+<div class="row" style="margin-top:.8rem"><div class="field"><label for="c1">Confianza</label><select id="c1"><option value="90">90 %</option><option value="95" selected>95 %</option><option value="99">99 %</option></select></div>
+<div class="field"><label for="w1">Poder estadístico</label><select id="w1"><option value="70">70 %</option><option value="80" selected>80 %</option><option value="90">90 %</option></select></div></div>
+<div class="row" style="margin-top:.8rem"><div class="field"><label for="g1">Grupos (control incluido)</label><input id="g1" type="number" inputmode="decimal" step="any" value="2" step="1" min="2"></div><div class="field"><label for="t1">Tráfico diario total (opcional)</label><input id="t1" type="number" inputmode="decimal" step="any" value="" min="0"></div></div>
+<div class="outs"><div class="out main"><small>Visitantes por grupo</small><strong id="r-n" aria-live="polite">—</strong></div>
+<div class="out"><small>Visitantes en total</small><strong id="r-tot">—</strong></div>
+<div class="out"><small>Conversión esperada</small><strong id="r-p2">—</strong></div>
+<div class="out"><small>Duración estimada</small><strong id="r-d">—</strong></div></div></section>
+
+<section class="calc" aria-labelledby="s2"><h2 id="s2">Efecto mínimo detectable (MDE)</h2>
+<div class="row"><div class="field"><label for="b2">Conversión actual (%)</label><input id="b2" type="number" inputmode="decimal" step="any" value="3" min="0"></div><div class="field"><label for="n2">Visitantes por grupo</label><input id="n2" type="number" inputmode="decimal" step="any" value="20000" step="1" min="1"></div></div>
+<div class="row" style="margin-top:.8rem"><div class="field"><label for="c2">Confianza</label><select id="c2"><option value="90">90 %</option><option value="95" selected>95 %</option><option value="99">99 %</option></select></div>
+<div class="field"><label for="w2">Poder estadístico</label><select id="w2"><option value="70">70 %</option><option value="80" selected>80 %</option><option value="90">90 %</option></select></div></div>
+<div class="outs"><div class="out main"><small>MDE relativo</small><strong id="r-mde" aria-live="polite">—</strong></div>
+<div class="out"><small>Mejora en puntos porcentuales</small><strong id="r-pp">—</strong></div>
+<div class="out wide"><small>Conversión mínima detectable</small><strong id="r-p2m" style="font-size:1.3rem">—</strong></div></div></section>
+</div>
+</div>
+<aside class="ad" aria-label="Publicidad" data-slot="1"><!-- ADSENSE SLOT 1 --></aside>
+<article class="prose">
+<h2>Cómo funciona</h2>
+<p>Para comparar dos tasas de conversión con un test de dos colas, el tamaño de muestra por grupo es:</p>
+<p class="formula">n = [ z(α/2) × √(2 × p̄ × (1 − p̄)) + z(poder) × √(p₁(1 − p₁) + p₂(1 − p₂)) ]² ÷ (p₂ − p₁)²</p>
+<p>Donde p₁ es la conversión actual, p₂ la conversión que esperás lograr (p₁ × (1 + mejora)), p̄ el promedio de ambas, α = 1 − confianza y z el valor crítico de la distribución normal.</p>
+<h3>Qué significa cada parámetro</h3>
+<ul><li><strong>Mejora mínima a detectar (MDE):</strong> la menor mejora relativa que te interesa poder distinguir del azar. Cuanto más chica, más visitantes necesitás.</li>
+<li><strong>Confianza:</strong> la protección contra falsos positivos. El estándar es 95 %.</li>
+<li><strong>Poder estadístico:</strong> la probabilidad de detectar la mejora si realmente existe. El estándar es 80 %.</li>
+<li><strong>Grupos:</strong> la cantidad total de versiones, control incluido. La muestra total es la de un grupo multiplicada por esa cantidad.</li></ul>
+<p>La segunda herramienta resuelve el camino inverso: dado el tráfico que podés tener por grupo, calcula la mejora mínima que el test podría detectar, resolviendo la fórmula anterior por aproximaciones sucesivas.</p>
+<h2>Ejemplo</h2>
+<p>Tu página convierte al 3 % y querés detectar una mejora relativa del 10 % (de 3 % a 3,3 %), con 95 % de confianza y 80 % de poder. Necesitás unos <strong>53.000 visitantes por grupo</strong>. Con dos grupos son unos 106.000 en total, y con 5.000 visitas diarias el test tarda unos 22 días.</p>
+<aside class="ad" aria-label="Publicidad" data-slot="2"><!-- ADSENSE SLOT 2 --></aside>
+<h2>Preguntas frecuentes</h2>
+<h3>¿Qué es el MDE?</h3><p>El efecto mínimo detectable es la mejora más chica que tu test puede distinguir del azar con la muestra disponible. Si la mejora real es menor al MDE, probablemente el test no la detecte.</p><h3>¿Por qué necesito tantos visitantes para detectar mejoras chicas?</h3><p>Porque la muestra necesaria crece de forma cuadrática: detectar una mejora a la mitad de tamaño requiere cuatro veces más visitantes.</p><h3>¿Qué pasa si no tengo tráfico suficiente?</h3><p>Podés buscar cambios con mayor impacto esperado (un MDE más alto), medir una conversión más cercana al cambio, como el clic en lugar de la compra, o aceptar menor confianza o poder en decisiones de bajo riesgo.</p><h3>¿La mejora se expresa en forma relativa o absoluta?</h3><p>Acá es relativa: un 10 % sobre una conversión del 3 % equivale a 0,3 puntos porcentuales, de 3 % a 3,3 %. La segunda herramienta muestra ambas expresiones.</p><h3>¿Por qué recomiendan al menos 14 días aunque se alcance la muestra antes?</h3><p>Porque el comportamiento cambia según el día de la semana. Dos ciclos completos reducen el riesgo de sacar conclusiones de un patrón puntual.</p>
+<p class="updated">Última revisión: octubre de 2026.</p>
+</article>
+<h2 class="sec-h">Otras herramientas</h2>
+<div class="tiles small"><a class="tile tone-celeste" href="/calculadora-de-test-ab/" data-s="Calculadora de test A/B Significancia estadística, uplift y veredicto de tu test. Marketing"><span class="g" aria-hidden="true">A/B</span><h3>Calculadora de test A/B</h3><p>Significancia estadística, uplift y veredicto de tu test.</p></a><a class="tile tone-sol" href="/calculadora-de-roi/" data-s="Calculadora de ROI ROI de una inversión o de una mejora, con escenarios. Marketing"><span class="g" aria-hidden="true">ROI</span><h3>Calculadora de ROI</h3><p>ROI de una inversión o de una mejora, con escenarios.</p></a><a class="tile tone-white" href="/calculadora-de-porcentajes/" data-s="Calculadora de porcentajes Cuánto es el X %, qué porcentaje es, variación y descuentos. Calculadoras"><span class="g" aria-hidden="true">%</span><h3>Calculadora de porcentajes</h3><p>Cuánto es el X %, qué porcentaje es, variación y descuentos.</p></a></div>
+</main>
+<footer class="foot"><div class="wrap"><div class="cols">
+<div><a class="brand" href="/"><svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="4" y="4" width="26" height="26" rx="8" fill="#12264A"/><rect x="34" y="4" width="26" height="26" rx="8" fill="#74ACDF"/><rect x="4" y="34" width="26" height="26" rx="8" fill="#74ACDF"/><circle cx="47" cy="47" r="13" fill="#F5B41A"/></svg><span>Mini Apps</span></a>
+<p>Herramientas gratuitas, sin registro. Los resultados son orientativos y no reemplazan el asesoramiento profesional.</p></div>
+<ul><li><a href="/sobre-mini-apps/">Sobre Mini Apps</a></li><li><a href="/privacidad/">Privacidad</a></li><li><a href="/terminos/">Términos de uso</a></li><li><a href="/contacto/">Contacto</a></li></ul></div>
+<p>&copy; 2026 Mini Apps. Todos los derechos reservados.</p></div></footer>
+<script src="/assets/app.js"></script>
+<script>
+(function(){
+
+function logGamma(z){
+  var c=[676.5203681218851,-1259.1392167224028,771.32342877765313,-176.61502916214059,12.507343278686905,-0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];
+  if(z<0.5)return Math.log(Math.PI)-Math.log(Math.sin(Math.PI*z))-logGamma(1-z);
+  z-=1;var x=0.99999999999980993;
+  for(var i=0;i<c.length;i++)x+=c[i]/(z+i+1);
+  var t=z+c.length-0.5;
+  return 0.5*Math.log(2*Math.PI)+(z+0.5)*Math.log(t)-t+Math.log(x);
+}
+function erfc(x){
+  var z=Math.abs(x),t=1/(1+0.5*z);
+  var r=t*Math.exp(-z*z-1.26551223+t*(1.00002368+t*(0.37409196+t*(0.09678418+t*(-0.18628806+t*(0.27886807+t*(-1.13520398+t*(1.48851587+t*(-0.82215223+t*0.17087277)))))))));
+  return x>=0?r:2-r;
+}
+function normalCdf(z){return 0.5*erfc(-z/Math.SQRT2)}
+function inverseNormal(p){
+  if(p<=0||p>=1)return NaN;
+  var a=[-39.6968302866538,220.946098424521,-275.928510446969,138.357751867269,-30.6647980661472,2.50662827745924];
+  var b=[-54.4760987982241,161.585836858041,-155.698979859887,66.8013118877197,-13.2806815528857];
+  var c=[-0.00778489400243029,-0.322396458041136,-2.40075827716184,-2.54973253934373,4.37466414146497,2.93816398269878];
+  var d=[0.00778469570904146,0.32246712907004,2.445134137143,3.75440866190742];
+  var pl=0.02425,q,r;
+  if(p<pl){q=Math.sqrt(-2*Math.log(p));return (((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}
+  if(p>1-pl){q=Math.sqrt(-2*Math.log(1-p));return -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}
+  q=p-0.5;r=q*q;
+  return (((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q/(((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1);
+}
+function gammaQ(a,x){
+  if(x<=0)return 1;
+  var gln=logGamma(a),i;
+  if(x<a+1){
+    var ap=a,sum=1/a,del=sum;
+    for(i=0;i<500;i++){ap+=1;del*=x/ap;sum+=del;if(Math.abs(del)<Math.abs(sum)*1e-14)break}
+    return 1-sum*Math.exp(-x+a*Math.log(x)-gln);
+  }
+  var b=x+1-a,c=1/1e-30,d=1/b,h=d;
+  for(i=1;i<500;i++){
+    var an=-i*(i-a);b+=2;d=an*d+b;if(Math.abs(d)<1e-30)d=1e-30;
+    c=b+an/c;if(Math.abs(c)<1e-30)c=1e-30;d=1/d;var del2=d*c;h*=del2;if(Math.abs(del2-1)<1e-14)break;
+  }
+  return Math.exp(-x+a*Math.log(x)-gln)*h;
+}
+function sampleSize(p1,p2,conf,power){
+  var zA=inverseNormal(1-(1-conf)/2),zP=inverseNormal(power),pb=(p1+p2)/2,diff=Math.abs(p2-p1);
+  var num=Math.pow(zA*Math.sqrt(2*pb*(1-pb))+zP*Math.sqrt(p1*(1-p1)+p2*(1-p2)),2);
+  return Math.ceil(num/(diff*diff));
+}
+function mdeRelative(p1,n,conf,power){
+  var lo=0.000001,hi=5;
+  for(var i=0;i<80;i++){
+    var mid=(lo+hi)/2,p2=Math.min(0.999999,p1*(1+mid));
+    if(sampleSize(p1,p2,conf,power)>n)lo=mid;else hi=mid;
+  }
+  return hi;
+}
+
+var $=MA.$;
+function g(id){return MA.num($('#'+id))}
+function set(id,t){$('#'+id).textContent=t}
+function calc(){
+  var b=g('b1'),m=g('m1'),n=g('g1'),t=g('t1'),conf=Number($('#c1').value)/100,pw=Number($('#w1').value)/100;
+  var ids=['r-n','r-tot','r-p2','r-d'];
+  if(b==null||m==null||n==null||b<=0||b>=100||m<=0||n<2){ids.forEach(function(i){set(i,'\u2014')})}
+  else{
+    var p1=b/100,p2=Math.min(0.999999,p1*(1+m/100));
+    var per=sampleSize(p1,p2,conf,pw),tot=per*Math.floor(n);
+    set('r-n',MA.fmt(per,0));set('r-tot',MA.fmt(tot,0));set('r-p2',MA.fmt(p2*100,3)+' %');
+    if(t!=null&&t>0){var d=Math.ceil(tot/t);set('r-d',MA.fmt(d,0)+(d===1?' día':' días')+(d<14?' (mínimo recomendado: 14)':''))}else set('r-d','Ingresá tu tráfico diario');
+  }
+  var b2=g('b2'),n2=g('n2'),c2=Number($('#c2').value)/100,w2=Number($('#w2').value)/100;
+  if(b2==null||n2==null||b2<=0||b2>=100||n2<1){['r-mde','r-pp','r-p2m'].forEach(function(i){set(i,'\u2014')});return}
+  var q=b2/100,r=mdeRelative(q,n2,c2,w2);
+  set('r-mde',MA.fmt(r*100,2)+' %');set('r-pp',MA.fmt(q*r*100,3)+' pp');
+  set('r-p2m',MA.fmt(q*100,2)+' % \u2192 '+MA.fmt(Math.min(99.9999,q*(1+r)*100),3)+' %');
+}
+$('#tool').addEventListener('input',calc);$('#tool').addEventListener('change',calc);
+calc();
+
+})();
+</script>
+</body>
+</html>

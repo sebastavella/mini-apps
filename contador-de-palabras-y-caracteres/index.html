@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contador de palabras y caracteres online | Mini Apps</title>
+<meta name="description" content="Contá palabras, caracteres con y sin espacios, oraciones y párrafos de cualquier texto. Calcula el tiempo de lectura y controla límites como 160 o 280 caracteres.">
+<link rel="canonical" href="https://micro-apps.com.ar/contador-de-palabras-y-caracteres/">
+
+<meta name="theme-color" content="#12264A">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mini Apps">
+<meta property="og:locale" content="es_AR">
+<meta property="og:title" content="Contador de palabras y caracteres online | Mini Apps">
+<meta property="og:description" content="Contá palabras, caracteres con y sin espacios, oraciones y párrafos de cualquier texto. Calcula el tiempo de lectura y controla límites como 160 o 280 caracteres.">
+<meta property="og:url" content="https://micro-apps.com.ar/contador-de-palabras-y-caracteres/">
+<meta property="og:image" content="https://micro-apps.com.ar/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<!-- AdSense: descomentá y poné tu ID de editor cuando te aprueben la cuenta.
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Contador de palabras y caracteres", "url": "https://micro-apps.com.ar/contador-de-palabras-y-caracteres/", "description": "Contá palabras, caracteres con y sin espacios, oraciones y párrafos de cualquier texto. Calcula el tiempo de lectura y controla límites como 160 o 280 caracteres.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "es-AR", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "ARS"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Cómo cuenta las palabras la herramienta?", "acceptedAnswer": {"@type": "Answer", "text": "Cuenta cada grupo de caracteres separado por espacios o saltos de línea. Una palabra con guion, como \"cuarta-generación\", se cuenta como una sola."}}, {"@type": "Question", "name": "¿Los espacios cuentan como caracteres?", "acceptedAnswer": {"@type": "Answer", "text": "En el conteo de \"Caracteres\" sí. Si necesitás el total sin espacios, usá el campo \"Caracteres sin espacios\"."}}, {"@type": "Question", "name": "¿Cuántos caracteres conviene para una meta descripción?", "acceptedAnswer": {"@type": "Answer", "text": "Alrededor de 155 a 160 caracteres. Google recorta según el ancho en píxeles, así que es una referencia y no un límite exacto."}}, {"@type": "Question", "name": "¿Cuántas palabras tiene una página?", "acceptedAnswer": {"@type": "Answer", "text": "Como referencia, una hoja A4 a espacio simple con letra de 12 puntos ronda las 500 palabras, aunque varía con la tipografía y los márgenes."}}, {"@type": "Question", "name": "¿Se guarda el texto que pego?", "acceptedAnswer": {"@type": "Answer", "text": "No. El conteo se hace en tu navegador y el texto no se envía a ningún servidor."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Mini Apps", "item": "https://micro-apps.com.ar/"}, {"@type": "ListItem", "position": 2, "name": "Texto", "item": "https://micro-apps.com.ar/#texto"}, {"@type": "ListItem", "position": 3, "name": "Contador de palabras", "item": "https://micro-apps.com.ar/contador-de-palabras-y-caracteres/"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="site"><div class="wrap bar"><a class="brand" href="/" aria-label="Mini Apps, inicio"><svg width="36" height="36" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="4" y="4" width="26" height="26" rx="8" fill="#12264A"/><rect x="34" y="4" width="26" height="26" rx="8" fill="#74ACDF"/><rect x="4" y="34" width="26" height="26" rx="8" fill="#74ACDF"/><circle cx="47" cy="47" r="13" fill="#F5B41A"/></svg><span>Mini Apps</span></a><nav aria-label="Categorías"><a href="/#calculadoras">Calculadoras</a><a href="/#conversores">Conversores</a><a href="/#generadores">Generadores</a><a href="/#texto">Texto</a><a href="/#marketing">Marketing</a><a href="/#radioaficion">Radioafición</a><a href="/#impresion-3d">Impresión 3D</a><a href="/#documentos">Documentos y PDF</a></nav></div></header>
+<main id="main" class="wrap">
+<nav class="crumbs" aria-label="Ruta"><a href="/">Mini Apps</a><span class="sep">&rsaquo;</span><a href="/#texto">Texto</a></nav>
+<h1 class="page-h1">Contador de palabras y caracteres</h1>
+<p class="lead">Pegá o escribí tu texto y mirá los números en tiempo real. Nada se guarda ni se envía.</p>
+<div class="panel" id="tool">
+<div class="field"><label for="txt">Texto</label><textarea id="txt" placeholder="Escribí o pegá tu texto acá"></textarea></div>
+<div class="outs">
+<div class="out main"><small>Palabras</small><strong id="s-w">0</strong></div>
+<div class="out main"><small>Caracteres</small><strong id="s-c">0</strong></div>
+<div class="out"><small>Caracteres sin espacios</small><strong id="s-n">0</strong></div>
+<div class="out"><small>Oraciones</small><strong id="s-s">0</strong></div>
+<div class="out"><small>Párrafos</small><strong id="s-p">0</strong></div>
+<div class="out"><small>Tiempo de lectura</small><strong id="s-r" style="font-size:1.3rem">0 s</strong></div>
+<div class="out"><small>Tiempo hablando</small><strong id="s-h" style="font-size:1.3rem">0 s</strong></div></div>
+<div class="row" style="margin-top:1.1rem"><div class="field"><label for="lim">Límite de caracteres</label><select id="lim">
+<option value="0">Sin límite</option><option value="60">Título SEO (60)</option><option value="160">Meta descripción o SMS (160)</option><option value="280">Publicación en X (280)</option><option value="2200">Pie de foto en Instagram (2.200)</option></select></div></div>
+<p id="lim-msg" aria-live="polite" style="margin:.6rem 0 0;font-weight:600"></p>
+<div class="bar-lim" id="lim-bar" hidden><i id="lim-i"></i></div>
+<div class="btns"><button type="button" class="btn alt" id="clr">Borrar texto</button></div>
+</div>
+<aside class="ad" aria-label="Publicidad" data-slot="1"><!-- ADSENSE SLOT 1 --></aside>
+<article class="prose">
+<h2>Cómo funciona</h2>
+<p>La herramienta cuenta una palabra cada vez que encuentra una secuencia de caracteres sin espacios, separada de otras por espacios o saltos de línea. Los caracteres se cuentan uno por uno, incluyendo espacios, signos y emojis. Las oraciones se detectan por los signos de cierre (punto, interrogación, exclamación) y los párrafos por las líneas en blanco.</p>
+<p>Los tiempos se estiman con velocidades promedio:</p>
+<p class="formula">Tiempo de lectura = palabras ÷ 200 por minuto<br>Tiempo hablando = palabras ÷ 130 por minuto</p>
+<p>Son valores de referencia: una lectura técnica o una exposición con pausas puede tardar más.</p>
+<h2>Ejemplo</h2>
+<p>Un texto de 650 palabras se lee en unos <strong>3 min 15 s</strong> (650 ÷ 200) y se dice en voz alta en unos <strong>5 min</strong> (650 ÷ 130). Si escribís una meta descripción, el selector de límite te avisa cuántos caracteres te quedan antes de pasarte de 160.</p>
+<aside class="ad" aria-label="Publicidad" data-slot="2"><!-- ADSENSE SLOT 2 --></aside>
+<h2>Preguntas frecuentes</h2>
+<h3>¿Cómo cuenta las palabras la herramienta?</h3><p>Cuenta cada grupo de caracteres separado por espacios o saltos de línea. Una palabra con guion, como "cuarta-generación", se cuenta como una sola.</p><h3>¿Los espacios cuentan como caracteres?</h3><p>En el conteo de "Caracteres" sí. Si necesitás el total sin espacios, usá el campo "Caracteres sin espacios".</p><h3>¿Cuántos caracteres conviene para una meta descripción?</h3><p>Alrededor de 155 a 160 caracteres. Google recorta según el ancho en píxeles, así que es una referencia y no un límite exacto.</p><h3>¿Cuántas palabras tiene una página?</h3><p>Como referencia, una hoja A4 a espacio simple con letra de 12 puntos ronda las 500 palabras, aunque varía con la tipografía y los márgenes.</p><h3>¿Se guarda el texto que pego?</h3><p>No. El conteo se hace en tu navegador y el texto no se envía a ningún servidor.</p>
+<p class="updated">Última revisión: octubre de 2026.</p>
+</article>
+<h2 class="sec-h">Otras herramientas</h2>
+<div class="tiles small"><a class="tile tone-celeste" href="/conversor-de-mayusculas-y-minusculas/" data-s="Mayúsculas y minúsculas Pasá un texto a mayúsculas, minúsculas o tipo oración. Texto"><span class="g" aria-hidden="true">Aa</span><h3>Mayúsculas y minúsculas</h3><p>Pasá un texto a mayúsculas, minúsculas o tipo oración.</p></a><a class="tile tone-sol" href="/generador-de-qr/" data-s="Generador de códigos QR QR para enlaces, WiFi y WhatsApp. Descarga en PNG o SVG. Generadores"><span class="g" aria-hidden="true">QR</span><h3>Generador de códigos QR</h3><p>QR para enlaces, WiFi y WhatsApp. Descarga en PNG o SVG.</p></a><a class="tile tone-white" href="/calculadora-de-promedio-de-notas/" data-s="Calculadora de promedio Promedio simple o ponderado y la nota que necesitás. Calculadoras"><span class="g" aria-hidden="true">10</span><h3>Calculadora de promedio</h3><p>Promedio simple o ponderado y la nota que necesitás.</p></a></div>
+</main>
+<footer class="foot"><div class="wrap"><div class="cols">
+<div><a class="brand" href="/"><svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="4" y="4" width="26" height="26" rx="8" fill="#12264A"/><rect x="34" y="4" width="26" height="26" rx="8" fill="#74ACDF"/><rect x="4" y="34" width="26" height="26" rx="8" fill="#74ACDF"/><circle cx="47" cy="47" r="13" fill="#F5B41A"/></svg><span>Mini Apps</span></a>
+<p>Herramientas gratuitas, sin registro. Los resultados son orientativos y no reemplazan el asesoramiento profesional.</p></div>
+<ul><li><a href="/sobre-mini-apps/">Sobre Mini Apps</a></li><li><a href="/privacidad/">Privacidad</a></li><li><a href="/terminos/">Términos de uso</a></li><li><a href="/contacto/">Contacto</a></li></ul></div>
+<p>&copy; 2026 Mini Apps. Todos los derechos reservados.</p></div></footer>
+<script src="/assets/app.js"></script>
+<script>
+(function(){
+
+var $=MA.$;
+function t(sec){sec=Math.round(sec);if(sec<60)return sec+' s';var m=Math.floor(sec/60),s=sec%60;return m+' min'+(s?' '+s+' s':'')}
+function calc(){
+  var x=$('#txt').value;
+  var words=(x.match(/\S+/g)||[]).length;
+  var chars=Array.from(x).length;
+  var nos=Array.from(x.replace(/\s/g,'')).length;
+  var sent=x.split(/[.!?\u2026]+(?:\s|$)/).filter(function(s){return s.trim()}).length;
+  var par=x.split(/\n\s*\n/).filter(function(s){return s.trim()}).length;
+  $('#s-w').textContent=MA.fmt(words,0);$('#s-c').textContent=MA.fmt(chars,0);$('#s-n').textContent=MA.fmt(nos,0);
+  $('#s-s').textContent=MA.fmt(sent,0);$('#s-p').textContent=MA.fmt(par,0);
+  $('#s-r').textContent=t(words/200*60);$('#s-h').textContent=t(words/130*60);
+  var lim=Number($('#lim').value),msg=$('#lim-msg'),bar=$('#lim-bar'),i=$('#lim-i');
+  if(!lim){msg.textContent='';msg.className='';bar.hidden=true;return}
+  bar.hidden=false;var left=lim-chars;
+  i.style.width=Math.min(100,chars/lim*100)+'%';i.className=left<0?'over':'';
+  msg.className=left<0?'err':'';
+  msg.textContent=left>=0?'Te quedan '+MA.fmt(left,0)+' caracteres.':'Te pasaste por '+MA.fmt(-left,0)+' caracteres.';
+}
+$('#txt').addEventListener('input',calc);$('#lim').addEventListener('change',calc);
+$('#clr').addEventListener('click',function(){$('#txt').value='';calc();$('#txt').focus()});
+calc();
+
+})();
+</script>
+</body>
+</html>

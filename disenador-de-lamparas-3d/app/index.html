@@ -1,0 +1,858 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,follow"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap">
+<title>Diseñador de lámparas 3D (app)</title>
+<meta name="description" content="Diseñá una lámpara con base y pantalla roscadas y exportá piezas STL para impresión 3D.">
+<style>
+:root{
+  --bg:#ffffff;--panel:#ffffff;--panel2:#F1F5F9;--ink:#12264A;--muted:#4A5B73;--line:#D3DDE8;
+  --accent:#12264A;--accent2:#0B1A36;--gold:#F5B41A;--shadow:0 10px 30px rgba(18,38,74,.10);--field:#ffffff;--canvas:#DCE8F4
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:Figtree,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px;display:flex;flex-direction:column}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid color-mix(in srgb,var(--accent) 45%,transparent);outline-offset:2px}
+[hidden]{display:none!important}
+.eyebrow{display:block;font-size:10.5px;letter-spacing:.14em;color:var(--muted);font-weight:700}
+.note{font-size:12px;color:var(--muted);line-height:1.5;margin:6px 0}
+
+.app-header{height:64px;flex:none;display:flex;align-items:center;gap:16px;padding:0 18px;background:var(--panel);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:23px;letter-spacing:-.04em}
+.brand-mark{width:30px;height:30px;border-radius:9px;background:var(--accent);color:var(--bg);display:grid;place-items:center;font-size:16px}
+html[data-theme="dark"] .brand-mark{color:#182735}
+.brand-edition{font-size:9px;letter-spacing:.2em;border:1px solid var(--line);padding:3px 6px;border-radius:6px;color:var(--muted)}
+.header-divider{width:1px;height:30px;background:var(--line)}
+.project strong{display:block;font-size:14px}
+.project span{font-size:12px;color:var(--muted)}
+.pill{background:var(--gold);color:#3a2a08;font-weight:700;font-size:10px;padding:2px 6px;border-radius:99px}
+.header-actions{margin-left:auto;display:flex;gap:10px;align-items:center}
+.header-actions button,.header-actions summary{height:38px;padding:0 15px;border:1px solid var(--line);border-radius:11px;background:var(--panel2);font-weight:600;list-style:none;display:flex;align-items:center;gap:6px;cursor:pointer}
+.header-actions summary::-webkit-details-marker{display:none}
+.header-actions .primary{background:var(--accent);border-color:var(--accent);color:#fff}
+html[data-theme="dark"] .header-actions .primary{color:#182735}
+#fileMenu{position:relative}
+#fileMenuContent{position:absolute;right:0;top:44px;min-width:210px;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:6px;z-index:30;display:flex;flex-direction:column;gap:2px}
+#fileMenuContent button{border:0;background:transparent;justify-content:flex-start;height:36px;font-weight:500}
+#fileMenuContent button:hover{background:var(--panel2)}
+
+main{flex:1;min-height:0;display:grid;grid-template-columns:372px minmax(420px,1fr) 340px;gap:0}
+main.no-output{grid-template-columns:372px minmax(420px,1fr) 0}
+aside,.output{background:var(--panel);overflow:auto;height:780px;min-height:560px}
+aside{border-right:1px solid var(--line);padding:16px 16px 40px}
+.output{border-left:1px solid var(--line);padding:16px}
+main.no-output .output{display:none}
+.panel-heading,.output-heading{display:flex;justify-content:space-between;align-items:flex-start}
+h1,h2{margin:2px 0 0;font-family:"Bricolage Grotesque",system-ui,sans-serif;letter-spacing:-.03em}
+h1{font-size:22px}h2{font-size:19px}
+h3{margin:0;font-size:14px}
+.panel-counter{font-size:11px;color:var(--muted);font-weight:700}
+.panel-description{color:var(--muted);margin:4px 0 10px}
+.history-bar{display:flex;gap:8px;margin:8px 0}
+.history-bar button{flex:1;height:34px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);font-weight:600}
+.history-bar button:disabled{opacity:.4;cursor:default}
+#closeOutput{border:0;background:transparent;font-size:24px;line-height:1;color:var(--muted)}
+
+#controls details{border-top:1px solid var(--line);padding:6px 0}
+#controls summary{cursor:pointer;font-weight:700;font-size:14.5px;padding:10px 2px;list-style:none;display:flex;justify-content:space-between}
+#controls summary::after{content:"⌄";color:var(--muted)}
+#controls details[open]>summary::after{content:"⌃"}
+#controls summary::-webkit-details-marker{display:none}
+.field{margin:12px 2px}
+.field label,.field .lbl{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;font-weight:600;margin-bottom:5px;gap:8px}
+.field .lbl output{font-variant-numeric:tabular-nums;background:var(--field);border:1px solid var(--line);border-radius:8px;padding:3px 8px;font-size:12px;min-width:64px;text-align:right}
+.field input[type=range]{width:100%;appearance:none;-webkit-appearance:none;height:5px;border-radius:99px;background:linear-gradient(90deg,var(--accent) 0 var(--p,50%),color-mix(in srgb,var(--ink) 20%,transparent) var(--p,50%));margin:8px 0 4px}
+.field input[type=range]:disabled{opacity:.4}
+.field input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:var(--accent);border:2px solid var(--panel);box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.field input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--accent);border:2px solid var(--panel)}
+.field select{width:100%;height:38px;border:1px solid var(--line);border-radius:10px;background:var(--field);padding:0 10px}
+.field select:disabled{opacity:.5}
+.field .hint{font-size:11px;color:var(--muted);margin-top:2px}
+.field input[type=color]{width:100%;height:40px;border:1px solid var(--line);border-radius:10px;background:var(--field);padding:3px}
+.resetrow{display:flex;justify-content:flex-end;gap:12px}
+.resetrow button{border:0;background:none;font-size:11.5px;color:var(--muted);padding:0}
+.resetrow button:hover{color:var(--accent)}
+.control-error{color:#b3412f;font-size:12px;margin:4px 2px}
+.finish-options{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.finish-options button{height:38px;border:1px solid var(--line);border-radius:10px;background:var(--field);font-weight:600;font-size:12.5px}
+.finish-options button[aria-pressed=true]{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 18%,var(--field));color:var(--accent2)}
+html[data-theme="dark"] .finish-options button[aria-pressed=true]{color:var(--accent)}
+.preset-row{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+.preset-row button{height:36px;border:1px solid var(--line);border-radius:10px;background:var(--field);font-weight:600;font-size:12.5px}
+.preset-row button[aria-pressed=true]{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 18%,var(--field))}
+
+.workspace{display:flex;flex-direction:column;padding:12px 16px 0;min-width:0;height:780px;min-height:560px;position:relative}
+.canvas-heading{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:8px}
+.canvas-title{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:600;font-size:18px;letter-spacing:-.02em}
+.view-toolbar{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.segmented{display:flex;border:1px solid var(--line);border-radius:12px;background:var(--panel2);padding:3px}
+.segmented button{border:0;background:transparent;padding:7px 14px;border-radius:9px;font-weight:600}
+.segmented button.active{background:var(--accent);color:#fff}
+html[data-theme="dark"] .segmented button.active{color:#182735}
+.canvas-actions{display:flex;gap:8px}
+.canvas-actions button{height:36px;padding:0 13px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);font-weight:600}
+#viewport{flex:1;min-height:0;position:relative;border-radius:18px;overflow:hidden;background:radial-gradient(circle at 50% 38%,color-mix(in srgb,var(--canvas) 70%,#fff) 0,var(--canvas) 70%);border:1px solid var(--line)}
+#viewport canvas{display:block;width:100%;height:100%}
+#renderError{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:30px;color:#b3412f}
+.view-footer{display:flex;justify-content:space-between;align-items:center;padding:8px 2px;font-size:12px;color:var(--muted)}
+.view-footer label{display:flex;gap:6px;align-items:center}
+.scale{position:absolute;right:30px;bottom:56px;background:color-mix(in srgb,var(--panel) 85%,transparent);border:1px solid var(--line);border-radius:12px;padding:6px 12px;text-align:right;backdrop-filter:blur(6px);pointer-events:none}
+.scale strong{display:block;font-size:22px;font-family:"Bricolage Grotesque",system-ui,sans-serif}
+.scale span{font-size:11px;color:var(--muted)}
+
+.part{border:1px solid var(--line);border-radius:14px;padding:12px;margin:10px 0;background:var(--panel2)}
+.part-head{display:flex;gap:10px;align-items:center}
+.part-num{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:700;font-size:12px}
+html[data-theme="dark"] .part-num{color:#182735}
+.part-head span:not(.part-num){font-size:12px;color:var(--muted)}
+.part-size{margin:8px 0;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.download,#save{width:100%;height:40px;border:1px solid var(--line);border-radius:10px;background:var(--field);font-weight:600;display:flex;justify-content:space-between;align-items:center;padding:0 14px}
+.download.primary,#save.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+html[data-theme="dark"] .download.primary,html[data-theme="dark"] #save.primary{color:#182735}
+.export-caption{font-size:12px;color:var(--muted);margin:12px 0 0}
+.test-block{border:1px dashed var(--line);border-radius:14px;padding:12px;margin:12px 0;font-size:12.5px;line-height:1.5}
+.test-block p{margin:6px 0}
+.test-buttons{display:flex;gap:8px}
+.test-buttons button{flex:1;height:36px;border:1px solid var(--line);border-radius:10px;background:var(--field);font-weight:600}
+.output details summary{cursor:pointer;font-weight:600;padding:6px 0}
+.help p{font-size:12.5px;line-height:1.55;color:var(--muted)}
+#status{font-size:12px;color:var(--muted);margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+.app-statusbar{height:30px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:var(--panel);border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+.toast{position:fixed;left:50%;top:72px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:11px;font-size:12.5px;z-index:90;box-shadow:var(--shadow)}
+
+@media(max-width:1180px){
+  main,main.no-output{grid-template-columns:340px minmax(320px,1fr)}
+  .output{grid-column:1/-1;height:auto;min-height:0;border-left:0;border-top:1px solid var(--line)}
+  main.no-output .output{display:none}
+}
+@media(max-width:820px){
+  main,main.no-output{grid-template-columns:1fr}
+  aside,.workspace{height:auto;min-height:0}
+  .workspace{height:560px}
+  .project,.header-divider,.brand-edition{display:none}
+}
+</style>
+<script type="importmap">
+{"imports":{
+  "three":"/assets/vendor/three-0.170/three.module.min.js",
+  "three/addons/":"/assets/vendor/three-0.170/addons/"
+}}
+</script>
+</head>
+<body>
+<header class="app-header">
+  <div class="project"><strong>Lámpara de mesa</strong><span>Proyecto local <span class="pill">E27</span></span></div>
+  <div class="header-actions">
+    <details id="fileMenu"><summary>Archivo <span aria-hidden="true">⌄</span></summary>
+      <div id="fileMenuContent">
+        <button id="load">Abrir diseño</button>
+        <button id="saveProject">Guardar editable (.json)</button>
+        <button id="newDesign">Nuevo diseño</button>
+        <button id="themeToggle" type="button" aria-pressed="false" hidden>Modo oscuro</button>
+      </div>
+    </details>
+    <button id="outputToggle" class="primary" aria-controls="outputPanel" aria-expanded="true">Exportar <span aria-hidden="true">↗</span></button>
+  </div>
+  <input type="file" id="file" accept=".json" hidden>
+</header>
+
+<main id="main">
+  <aside>
+    <div class="panel-heading"><div><span class="eyebrow">DISEÑO PARAMÉTRICO</span><h1>Herramientas</h1></div><span class="panel-counter">01—06</span></div>
+    <div class="panel-description">Dale forma a tu próxima lámpara.</div>
+    <div class="history-bar"><button id="undo" disabled title="Ctrl+Z">↶ Deshacer</button><button id="redo" disabled title="Ctrl+Y">↷ Rehacer</button></div>
+    <p id="autosave" role="status" class="note"></p>
+    <div id="controls"></div>
+  </aside>
+
+  <section class="workspace" aria-label="Vista 3D de la lámpara">
+    <div class="canvas-heading"><div><span class="eyebrow">ESPACIO DE TRABAJO</span><span class="canvas-title">Tu diseño, en perspectiva</span></div></div>
+    <div class="view-toolbar">
+      <div class="segmented" id="views">
+        <button data-view="assembled" class="active">Armada</button>
+        <button data-view="exploded">Despiece</button>
+        <button data-view="shade">Pantalla</button>
+        <button data-view="base">Base</button>
+      </div>
+      <div class="canvas-actions"><button id="resetView" title="Centrar vista">Centrar</button></div>
+    </div>
+    <div id="viewport"><div id="renderError" hidden>No se pudo iniciar la vista 3D. Activá la aceleración gráfica del navegador y recargá la página.</div></div>
+    <div class="view-footer"><span>Arrastrá para girar · Rueda para acercar · Botón derecho para mover</span><label><input id="wire" type="checkbox"> Ver malla</label></div>
+    <div class="scale"><strong id="totalHeight">0</strong><span>mm de altura</span></div>
+  </section>
+
+  <section class="output" id="outputPanel" aria-label="Piezas y exportación">
+    <div class="output-heading"><div><span class="eyebrow">FABRICACIÓN</span><h2>Piezas y exportación</h2></div><button id="closeOutput" aria-label="Cerrar panel de exportación">×</button></div>
+    <div id="exportAll" style="margin-top:12px"><button id="save" class="primary">Descargar todo en STL</button></div>
+    <p class="export-caption">Piezas individuales · STL en milímetros</p>
+    <article class="part"><div class="part-head"><span class="part-num">01</span><div><h3>Pantalla</h3><span id="shadeDescription">Rosca hembra integrada</span></div></div><p id="shadeSize" class="part-size"></p><button class="download primary" data-export="shade">Descargar pantalla <span>↓ STL</span></button></article>
+    <article class="part"><div class="part-head"><span class="part-num">02</span><div><h3>Base</h3><span>Rosca macho + paso de cable</span></div></div><p id="baseSize" class="part-size"></p><button class="download" data-export="base">Descargar base <span>↓ STL</span></button></article>
+    <div id="vaseHelp" class="test-block" hidden><h3>Preparar vase mode</h3>
+      <p>Exportá solo la pantalla sólida. En el laminador: espiral activada, un perímetro, 0% relleno y 0 capas superiores. Para dejar abierta la parte inferior de la pantalla, usá 0 capas inferiores y revisá la adhesión.</p>
+      <p>El espesor de pared lo define el ancho de extrusión del laminador: recomendado 1 mm con boquilla de 0,8 mm. Imprimí la base por separado en modo normal.</p>
+      <a href="https://help.prusa3d.com/article/layers-and-perimeters_1748" target="_blank" rel="noopener">Guía de Spiral vase de Prusa ↗</a></div>
+    <div class="test-block" id="threadTests"><h3>Primero, una prueba pequeña</h3><p>Comprobá la holgura en tu impresora con estos dos anillos antes de imprimir la lámpara.</p><div class="test-buttons"><button data-export="testMale">Macho ↓</button><button data-export="testFemale">Hembra ↓</button></div></div>
+    <details><summary>Preparación para imprimir</summary><div class="help">
+      <p>Colocá las piezas con la cara plana sobre la cama. La pantalla puede necesitar soportes en la transición inferior: revisá las capas en tu laminador.</p>
+      <p>La holgura es radial: 0,35 mm deja 0,70 mm de diferencia entre diámetros. Ajustala con los anillos de prueba.</p>
+      <p>El alojamiento E27 es configurable, no una medida universal. Medí el portalámparas y verificá su pestaña o tuerca de sujeción.</p>
+      <p>Las piezas son una carcasa; no incluyen contactos eléctricos. Usá un conjunto LED y portalámparas comerciales, y comprobá la temperatura y las distancias antes de usarlo.</p>
+      <p>El espesor indicado es radial; los pliegues y pendientes cambian el espesor perpendicular. Revisá paredes y soportes en el laminador.</p>
+    </div></details>
+    <div id="status" role="status">Modelo paramétrico · medidas editables</div>
+  </section>
+</main>
+<footer class="app-statusbar"><span id="studioStatus">Diseño paramétrico · se procesa en tu navegador</span><span>Escala 1:1 · Milímetros</span></footer>
+<div id="toast" class="toast" hidden></div>
+
+<script type="module">
+import * as THREE from "three";
+import {OrbitControls} from "three/addons/controls/OrbitControls.js";
+
+/* GEOMETRY START — portado del motor original (Z arriba, milímetros) */
+const TAU=2*Math.PI;
+const clamp=(n,e=0,t=1)=>Math.min(t,Math.max(e,n));
+const ring=(r,z)=>()=>[r,z];
+
+const DEFAULTS=Object.freeze({
+  assembly:"classic",threadDiameter:109,threadDepth:1,socketHeight:40,lineWidth:1,baseEdge:"rounded",
+  openingProfile:null,torsionVersion:2,twistBottom:0,twistContour:true,rimTransition:35,rimSmooth:2,
+  twistMode:"uniform",fluteStyle:"round",fluteWidth:50,fluteZone:"all",bandZone:"all",textureZone:"all",zoneFade:20,
+  flutesEnabled:true,bandsEnabled:true,textureEnabled:true,finish:"matte",shape:"onda",
+  profile:[0.4,0.75,1,0.95,0.8,0.7],adapterFit:0.2,mode:"threaded",texture:"none",baseStyle:"pedestal",
+  rimOval:0,rimPetals:6,rimDepth:0,rimRotation:0,opening:100,bulge:0,taper:0,bands:0,bandCount:8,
+  textureDepth:1.5,textureCount:16,baseRelief:0,baseFlutes:24,diameter:180,height:170,wall:2,flutes:40,
+  amplitude:2,twist:12,baseDiameter:120,baseHeight:65,socketDiameter:33,socketDepth:28,pitch:4,
+  clearance:0.35,threadLength:12,color:"#e7b86b",baseColor:"#273d45"
+});
+const RANGES={
+  opening:[60,140],bulge:[-15,15],taper:[-20,20],bands:[0,3],bandCount:[2,20],textureDepth:[0,3],textureCount:[4,32],
+  baseRelief:[0,3],baseFlutes:[8,48],diameter:[120,260],height:[100,260],wall:[0.8,4],flutes:[0,64],amplitude:[0,4],
+  twist:[-180,180],twistBottom:[-180,180],baseDiameter:[58,190],baseHeight:[16,110],socketDiameter:[25,48],
+  socketDepth:[15,35],pitch:[3,10],clearance:[0.15,0.65],threadLength:[8,20],lineWidth:[0.6,1.2],fluteWidth:[25,75],
+  zoneFade:[5,40],rimOval:[0,30],rimPetals:[3,16],rimDepth:[0,10],rimRotation:[-180,180],rimTransition:[10,100],rimSmooth:[1.5,4]
+};
+const ENUMS={
+  shape:["onda","cono","globo","cilindro","tulipan","diamante","reloj","custom"],
+  twistMode:["uniform","progressive","upper","lower","reverse"],
+  fluteStyle:["round","angular","flat"],
+  fluteZone:["all","lower","middle","upper"],bandZone:["all","lower","middle","upper"],textureZone:["all","lower","middle","upper"],
+  finish:["matte","satin","translucent"],mode:["threaded","vase"],
+  texture:["none","diamonds","waves","scales","pleats"],
+  baseStyle:["pedestal","cylinder","cone","stepped","fluted"]
+};
+
+function validateParams(raw){
+  const e={...DEFAULTS,...raw,profile:[...(raw.profile||DEFAULTS.profile)]};
+  e.assembly="classic";
+  if(e.profile.length!==6||e.profile.some(t=>typeof t!=="number"||!Number.isFinite(t)||t<0.2||t>1.5))throw Error("Silueta no válida");
+  for(const [k,[lo,hi]] of Object.entries(RANGES)){
+    if(typeof e[k]!=="number"||!Number.isFinite(e[k])||e[k]<lo-1e-9||e[k]>hi+1e-9)throw Error("Valor fuera de rango: "+k);
+  }
+  for(const [k,list] of Object.entries(ENUMS))if(!list.includes(e[k]))throw Error("Opción no válida: "+k);
+  for(const k of ["bandCount","textureCount","baseFlutes","flutes"])if(!Number.isInteger(e[k]))throw Error("Cantidad no entera: "+k);
+  for(const k of ["color","baseColor"])if(!/^#[0-9a-f]{6}$/i.test(e[k]))throw Error("Color no válido");
+  if(e.socketDepth>e.baseHeight-12)throw Error("La base debe superar la profundidad del alojamiento en al menos 12 mm");
+  return e;
+}
+
+function dims(n){
+  const e=n.socketDiameter/2+5;
+  return {root:e,depth:1.3,collar:e+1.3+n.clearance+3,threadMax:2*(e+1.3),shadeZ:n.baseHeight,
+    baseTotal:n.baseHeight+n.threadLength,bodyStart:2,total:n.baseHeight+n.height};
+}
+function maleRadius(n,z,t){
+  const r=dims(n),i=(((z/n.pitch-t/TAU)%1)+1)%1,a=clamp(Math.min((i-0.12)/0.25,(0.88-i)/0.25));
+  return r.root+r.depth*a*clamp(z/1)*clamp((n.threadLength-z)/1);
+}
+function femaleRadius(n,z,t){
+  const r=dims(n),i=(((z/n.pitch-t/TAU)%1)+1)%1,a=clamp(Math.min((i-0.12)/0.25,(0.88-i)/0.25)),s=clamp(z/0.8);
+  return r.root+n.clearance+(r.depth+0.3)*(1-s)+r.depth*a*s;
+}
+function sweep(rings,seg=384){
+  const pos=[],idx=[];
+  for(const f of rings)for(let a=0;a<seg;a++){
+    const s=TAU*a/seg,[o,c]=f(s);pos.push(o*Math.cos(s),o*Math.sin(s),c);
+  }
+  for(let i=0;i<rings.length;i++)for(let a=0;a<seg;a++){
+    const s=i*seg+a,o=i*seg+((a+1)%seg),c=((i+1)%rings.length)*seg+((a+1)%seg),l=((i+1)%rings.length)*seg+a;
+    idx.push(s,o,c,s,c,l);
+  }
+  return {positions:new Float32Array(pos),indices:new Uint32Array(idx)};
+}
+function cappedSweep(rings,seg=384){
+  const pos=[],idx=[];
+  for(const f of rings)for(let c=0;c<seg;c++){
+    const l=TAU*c/seg,[u,h]=f(l);pos.push(u*Math.cos(l),u*Math.sin(l),h);
+  }
+  for(let o=0;o<rings.length-1;o++)for(let c=0;c<seg;c++){
+    const l=o*seg+c,u=o*seg+((c+1)%seg),h=u+seg,d=l+seg;idx.push(l,u,h,l,h,d);
+  }
+  const i=pos.length/3;pos.push(0,0,rings[0](0)[1]);
+  const a=pos.length/3;pos.push(0,0,rings.at(-1)(0)[1]);
+  const s=(rings.length-1)*seg;
+  for(let o=0;o<seg;o++){const c=(o+1)%seg;idx.push(i,c,o,a,s+o,s+c)}
+  return {positions:new Float32Array(pos),indices:new Uint32Array(idx)};
+}
+function maleThreadRings(n,z0){
+  const t=[],r=Math.ceil(n.threadLength/n.pitch*28);
+  for(let i=0;i<=r;i++){const a=n.threadLength*i/r;t.push(s=>[maleRadius(n,a,s),z0+a])}
+  return t;
+}
+function femaleThreadRings(n){
+  const e=Math.ceil(n.threadLength/n.pitch*28);
+  return Array.from({length:e+1},(_,r)=>{const i=r*n.threadLength/e;return a=>[femaleRadius(n,i,a),i]});
+}
+const cableSlot=u=>{const h=Math.atan2(Math.sin(u),Math.cos(u));return 8*Math.pow(Math.max(0,1-Math.abs(h)/0.36),0.45)};
+
+/* Base (macho). test=true → anillo de prueba macho */
+function buildBaseData(n,test=false){
+  const t=dims(n),r=test?3:n.baseHeight,i=test?t.collar+2:n.baseDiameter/2,a=n.socketDiameter/2,s=[];
+  if(test)s.push(ring(i,0),ring(i,r),ring(t.root,r));
+  else{
+    s.push(u=>[i,cableSlot(u)],ring(i,10));
+    const c=t.root+3;
+    const l=(u,h)=>d=>{
+      const m=h/r,P=n.baseRelief+(n.baseStyle==="fluted"?1.5:0);
+      return [u+P*Math.sin(n.baseFlutes*d)*Math.sin(Math.PI*m),h];
+    };
+    if(n.baseStyle==="stepped"){
+      const u=10+(r-10)*0.35,h=10+(r-10)*0.7,d=(i+c)/2;
+      s.push(l(i,u),l(d,u),l(d,h),l(c,h),ring(c,r));
+    }else{
+      for(let u=1;u<=40;u++){
+        const h=u/40,d=10+(r-10)*h,
+          m=n.baseStyle==="cylinder"?Math.max(0,(h-0.8)/0.2):n.baseStyle==="cone"?h:Math.sin(h*Math.PI/2);
+        s.push(l(i+(c-i)*m,d));
+      }
+    }
+    s.push(ring(t.root,r));
+  }
+  s.push(...maleThreadRings(n,r).slice(1));
+  s.push(ring(a,r+n.threadLength));
+  if(test)s.push(ring(a,0));
+  else{
+    s.push(ring(a,r+n.threadLength-n.socketDepth),ring(a-3,r+n.threadLength-n.socketDepth));
+    s.push(c=>[a-3,cableSlot(c)]);
+  }
+  return sweep(s);
+}
+
+/* Silueta base de cada forma (fracción e de 0 a 1) */
+function shapeRadius(n,e){
+  const t=dims(n).collar,r=n.diameter/2;let i;
+  if(n.shape==="custom"){
+    const a=Math.min(5,e*5),s=Math.min(4,Math.floor(a)),o=a-s,c=o*o*(3-2*o);
+    const l=s===0?t:Math.max(t,n.profile[s]*r),u=Math.max(t,n.profile[s+1]*r);
+    i=l+(u-l)*c;
+  }else if(n.shape==="cono")i=t+(r-t)*Math.min(e/0.35,1)-(e>0.35?((r-0.65*r)*(e-0.35))/0.65:0);
+  else if(n.shape==="globo")i=t+(r-t)*Math.pow(Math.sin(Math.PI*e*0.92),0.8);
+  else if(n.shape==="cilindro")i=t+(r-t)*Math.sin(Math.min(e/0.3,1)*Math.PI/2);
+  else if(n.shape==="tulipan")i=t+(r-t)*Math.pow(e,0.65);
+  else if(n.shape==="diamante")i=t+(r-t)*(e<0.55?e/0.55:1-0.55*(e-0.55)/0.45);
+  else if(n.shape==="reloj")i=t+(r-t)*Math.sin(Math.min(e/0.23,1)*Math.PI/2)*(1-0.48*Math.pow(Math.sin(Math.PI*e),2));
+  else i=t+(r-t)*Math.pow(Math.sin(Math.PI*e*0.78),0.75);
+  return i;
+}
+const smooth01=o=>{o=Math.max(0,Math.min(1,o));return o*o*(3-2*o)};
+function twistAt(n,e){
+  const mode=n.twistMode,t=e;
+  const k=mode==="progressive"?t*t:mode==="upper"?smooth01((t-0.5)*2):mode==="lower"?smooth01(t*2):mode==="reverse"?Math.sin(Math.PI*t):t;
+  return (n.twistBottom||0)+((n.twist||0)-(n.twistBottom||0))*k;
+}
+function rimBlend(n,e){
+  const tr=(n.rimTransition??35)/100;
+  return Math.pow(Math.max(0,Math.min(1,(e-(1-tr))/tr)),n.rimSmooth??2);
+}
+function twistWithRim(n,e){return twistAt(n,e)+(n.torsionVersion!==2&&n.twistContour?(n.rimRotation||0)*rimBlend(n,e):0)}
+function zoneFade(e,zone="all",fade=20){
+  if(zone==="all")return 1;
+  const [r,i]=zone==="lower"?[0,0.48]:zone==="middle"?[0.22,0.78]:[0.52,1],a=fade/100;
+  return (r===0?1:smooth01((e-r)/a))*(i===1?1:smooth01((i-e)/a));
+}
+function fluteWave(n,style="round",width=50){
+  const r=(((n/TAU)%1)+1)%1,i=width/100,a=r<i?(r/i)*0.5:0.5+((r-i)/(1-i))*0.5,s=Math.sin(a*TAU);
+  return style==="angular"?(2/Math.PI)*Math.asin(s):style==="flat"?Math.max(-1,Math.min(1,2.2*s)):s;
+}
+/* Radio de la pantalla a altura fraccional e y ángulo t */
+function shadeRadius(n,e,t){
+  const r=dims(n).collar,i=n.diameter/2;
+  let a=shapeRadius(n,e);
+  const s=Math.sin(Math.min(1,e*5)*Math.PI/2),o=t-twistWithRim(n,e)*Math.PI/180;
+  a+=((n.opening/100-1)*i*e*e*e)+n.bulge*Math.sin(Math.PI*e)+n.taper*e;
+  const c=(n.twistContour?o:t)-((n.torsionVersion===2||!n.twistContour)?((n.rimRotation||0)*Math.PI)/180:0);
+  a+=rimBlend(n,e)*(((n.rimOval||0)/100)*i*Math.cos(2*c)+(n.rimDepth||0)*Math.cos((n.rimPetals||6)*c));
+  let l=(n.flutesEnabled!==false?n.amplitude*fluteWave(n.flutes*o,n.fluteStyle,n.fluteWidth)*zoneFade(e,n.fluteZone,n.zoneFade):0)
+       +(n.bandsEnabled!==false?n.bands*Math.sin(TAU*n.bandCount*e)*zoneFade(e,n.bandZone,n.zoneFade):0);
+  let u=0;const h=n.textureCount*o,d=TAU*n.textureCount*e;
+  if(n.texture==="diamonds")u+=n.textureDepth*0.5*(Math.cos(h+d)+Math.cos(h-d));
+  if(n.texture==="waves")u+=n.textureDepth*Math.sin(h+2*Math.sin(TAU*3*e));
+  if(n.texture==="scales")u+=n.textureDepth*(2*Math.pow(Math.max(0,Math.cos(h+Math.PI*Math.sin(d))),2)*Math.pow(Math.max(0,Math.cos(d)),2)-0.5);
+  if(n.texture==="pleats")u+=n.textureDepth*(2/Math.PI)*Math.asin(Math.sin(h));
+  if(n.textureEnabled!==false)l+=u*zoneFade(e,n.textureZone,n.zoneFade);
+  return Math.max(r,a+l*s);
+}
+function shadeOuterRings(n,opts){
+  const t=dims(n).collar,r=2,i=n.height-r,a=[ring(t,0),ring(t,r)];
+  const s=opts?.steps??Math.max(100,n.texture==="none"?0:n.textureCount*10,n.bands?n.bandCount*10:0);
+  const o=(n.threadLength+1-r)/i;
+  const c=Array.from({length:s},(_,u)=>(u+1)/s).filter(l=>Math.abs(l-o)>1e-8);
+  c.push(o);c.sort((l,u)=>l-u);
+  for(const l of c)a.push(u=>[shadeRadius(n,l,u),r+i*l]);
+  return a;
+}
+/* Pantalla (hembra). test=true → anillo de prueba hembra */
+function buildShadeData(n,test=false,sampling){
+  const r=dims(n),seg=sampling?.radial??384;
+  if(!test&&n.mode==="vase")return cappedSweep(shadeOuterRings(n,sampling),seg);
+  const a=test?[ring(r.collar,0),ring(r.collar,n.threadLength+1)]:shadeOuterRings(n,sampling);
+  if(test)a.push(ring(r.root+n.clearance,n.threadLength+1));
+  else{
+    const s=a.filter(o=>o(0)[1]>=n.threadLength+1-1e-8).reverse().map(o=>c=>{const [l,u]=o(c);return [l-n.wall,u]});
+    a.push(...s);
+  }
+  if(sampling){
+    const s=Math.ceil(n.threadLength/n.pitch*sampling.threadSamples);
+    for(let o=s;o>=0;o--){const c=o*n.threadLength/s;a.push(l=>[femaleRadius(n,c,l),c])}
+  }else a.push(...femaleThreadRings(n).reverse());
+  return sweep(a,seg);
+}
+function previewSampling(n){
+  return {
+    radial:Math.ceil(Math.max(128,n.flutesEnabled?n.flutes*3:0,n.textureEnabled&&n.texture!=="none"?n.textureCount*4:0,n.rimPetals*4)/16)*16,
+    steps:Math.max(40,n.textureEnabled&&n.texture!=="none"?n.textureCount*2:0,n.bandsEnabled&&n.bands?n.bandCount*3:0),
+    threadSamples:12,bridgeSteps:6
+  };
+}
+function measure(m){
+  let vol=0;const t=[1/0,1/0,1/0],r=[-1/0,-1/0,-1/0],p=m.positions,x=m.indices;
+  for(let s=0;s<p.length;s++){const o=s%3;t[o]=Math.min(t[o],p[s]);r[o]=Math.max(r[o],p[s])}
+  for(let s=0;s<x.length;s+=3){
+    const o=x[s]*3,c=x[s+1]*3,l=x[s+2]*3;
+    vol+=(p[o]*(p[c+1]*p[l+2]-p[c+2]*p[l+1])+p[o+1]*(p[c+2]*p[l]-p[c]*p[l+2])+p[o+2]*(p[c]*p[l+1]-p[c+1]*p[l]))/6;
+  }
+  return {volume:vol/1e3,size:r.map((s,o)=>s-t[o]),triangles:x.length/3};
+}
+function toSTL(m){
+  const {positions:e,indices:t}=m,buf=new ArrayBuffer(84+(t.length/3)*50),dv=new DataView(buf);
+  new Uint8Array(buf).set(new TextEncoder().encode("Mini Apps lampara - millimeters - Z up"));
+  dv.setUint32(80,t.length/3,true);
+  let a=84;
+  for(let s=0;s<t.length;s+=3){
+    const o=t[s]*3,c=t[s+1]*3,l=t[s+2]*3;
+    const u=[e[c]-e[o],e[c+1]-e[o+1],e[c+2]-e[o+2]],h=[e[l]-e[o],e[l+1]-e[o+1],e[l+2]-e[o+2]];
+    const d=[u[1]*h[2]-u[2]*h[1],u[2]*h[0]-u[0]*h[2],u[0]*h[1]-u[1]*h[0]],mm=Math.hypot(...d);
+    for(let P=0;P<3;P++)dv.setFloat32(a+P*4,d[P]/(mm||1),true);
+    a+=12;
+    for(const P of [o,c,l])for(let g=0;g<3;g++){dv.setFloat32(a,e[P+g],true);a+=4}
+    a+=2;
+  }
+  return buf;
+}
+/* GEOMETRY END */
+
+/* ---------------- Utilidades de salida ---------------- */
+function mergeSideBySide(a,b,gap=20){
+  const ab=measure(a),offset=ab.size[0]/2+measure(b).size[0]/2+gap;
+  const pb=new Float32Array(b.positions);for(let i=0;i<pb.length;i+=3)pb[i]+=offset;
+  const pos=new Float32Array(a.positions.length+pb.length);pos.set(a.positions);pos.set(pb,a.positions.length);
+  const base=a.positions.length/3,idx=new Uint32Array(a.indices.length+b.indices.length);
+  idx.set(a.indices);for(let i=0;i<b.indices.length;i++)idx[a.indices.length+i]=b.indices[i]+base;
+  return {positions:pos,indices:idx};
+}
+function crc32(bytes){let e=0xffffffff;for(const t of bytes){e^=t;for(let r=0;r<8;r++)e=(e>>>1)^(e&1?0xedb88320:0)}return(e^0xffffffff)>>>0}
+function zipStore(files){
+  const enc=new TextEncoder(),locals=[],centrals=[];let off=0;
+  for(const [name,data] of files){
+    const nm=enc.encode(name),crc=crc32(data),lh=new Uint8Array(30+nm.length+data.length),dv=new DataView(lh.buffer);
+    dv.setUint32(0,0x04034b50,true);dv.setUint16(4,20,true);dv.setUint16(6,0x0800,true);dv.setUint32(14,crc,true);
+    dv.setUint32(18,data.length,true);dv.setUint32(22,data.length,true);dv.setUint16(26,nm.length,true);
+    lh.set(nm,30);lh.set(data,30+nm.length);locals.push(lh);
+    const ch=new Uint8Array(46+nm.length),cd=new DataView(ch.buffer);
+    cd.setUint32(0,0x02014b50,true);cd.setUint16(4,20,true);cd.setUint16(6,20,true);cd.setUint16(8,0x0800,true);
+    cd.setUint32(16,crc,true);cd.setUint32(20,data.length,true);cd.setUint32(24,data.length,true);cd.setUint16(28,nm.length,true);
+    cd.setUint32(42,off,true);ch.set(nm,46);centrals.push(ch);off+=lh.length;
+  }
+  const csize=centrals.reduce((s,c)=>s+c.length,0),end=new Uint8Array(22),ed=new DataView(end.buffer);
+  ed.setUint32(0,0x06054b50,true);ed.setUint16(8,files.length,true);ed.setUint16(10,files.length,true);
+  ed.setUint32(12,csize,true);ed.setUint32(16,off,true);
+  return new Blob([...locals,...centrals,end],{type:"application/zip"});
+}
+
+/* ---------------- Estado ---------------- */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const STORE="qlamps-v2-design";
+let P=structuredClone(DEFAULTS);
+try{const raw=JSON.parse(localStorage.getItem(STORE)||"null");if(raw)P=validateParams(raw)}catch(e){P=structuredClone(DEFAULTS)}
+let view="assembled",undoStack=[],redoStack=[],editing=false,lastGood=structuredClone(P);
+const snap=()=>JSON.stringify(P);
+function toast(t){const e=$("#toast");e.textContent=t;e.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>e.hidden=true,2200)}
+function setStatus(t){$("#status").textContent=t}
+
+/* ---------------- Esquema de controles ---------------- */
+const OPT={
+  mode:[["threaded","Hueca · pared definida"],["vase","Sólida · para vase mode"]],
+  shape:[["onda","Onda · orgánica"],["cono","Cono · clásico"],["globo","Globo · redondeado"],["cilindro","Cilindro"],["tulipan","Tulipán"],["diamante","Diamante"],["reloj","Reloj de arena"],["custom","Silueta personalizada"]],
+  texture:[["none","Sin textura adicional"],["diamonds","Rombos"],["waves","Ondas entrelazadas"],["scales","Escamas"],["pleats","Plisado"]],
+  baseStyle:[["pedestal","Pedestal curvo"],["cylinder","Cilíndrica"],["cone","Cónica"],["stepped","Escalonada"],["fluted","Acanalada"]],
+  twistMode:[["uniform","Uniforme"],["progressive","Progresivo"],["upper","Parte superior"],["lower","Parte inferior"],["reverse","Ida y vuelta"]],
+  fluteStyle:[["round","Redondeado"],["angular","Angular"],["flat","Plano"]],
+  fluteZone:[["all","Toda la pantalla"],["lower","Inferior"],["middle","Central"],["upper","Superior"]],
+  bandZone:[["all","Toda la pantalla"],["lower","Inferior"],["middle","Central"],["upper","Superior"]],
+  textureZone:[["all","Toda la pantalla"],["lower","Inferior"],["middle","Central"],["upper","Superior"]]
+};
+const R=(key,label,unit,step)=>({t:"range",key,label,unit,step});
+const S=(key,label)=>({t:"select",key,label});
+const GROUPS=[
+  ["Forma de pantalla",true,[S("mode","Tipo de geometría"),S("shape","Forma"),R("diameter","Diámetro nominal","mm",1),R("height","Altura","mm",1),
+    R("opening","Apertura superior","%",1),R("wall","Espesor de pantalla","mm",0.2),R("lineWidth","Ancho de línea vase","mm",0.1)]],
+  ["Silueta personalizada",false,[{t:"profile"}]],
+  ["Relieves combinables",true,[R("flutes","Pliegues","",1),R("amplitude","Relieve de pliegues","mm",0.2),R("twist","Giro superior","°",1),R("twistBottom","Giro inferior","°",1),
+    R("bands","Ondas horizontales","mm",0.2),R("bandCount","Cantidad de ondas","",1),S("texture","Textura adicional"),R("textureDepth","Profundidad de textura","mm",0.1),R("textureCount","Repeticiones","",1)]],
+  ["Ajuste avanzado de relieves",false,[S("fluteStyle","Estilo de pliegue"),R("fluteWidth","Ancho de pliegue","%",1),S("fluteZone","Zona de pliegues"),S("bandZone","Zona de ondas"),S("textureZone","Zona de textura"),
+    R("zoneFade","Suavizado de zonas","%",1),S("twistMode","Modo de giro"),R("bulge","Panza","mm",0.5),R("taper","Conicidad","mm",0.5)]],
+  ["Borde superior",false,[R("rimOval","Ovalado","%",1),R("rimPetals","Pétalos","",1),R("rimDepth","Profundidad de pétalos","mm",0.5),R("rimRotation","Rotación","°",1),R("rimTransition","Transición","%",1),R("rimSmooth","Suavidad","",0.1)]],
+  ["Base y montaje",true,[S("baseStyle","Forma de base"),R("baseDiameter","Diámetro de base","mm",1),R("baseHeight","Altura visible","mm",1),R("baseRelief","Relieve de base","mm",0.1),R("baseFlutes","Acanaladuras de base","",1),
+    R("socketDiameter","Alojamiento E27 Ø","mm",0.1),R("socketDepth","Profundidad del alojamiento","mm",1)]],
+  ["Rosca de unión",false,[R("pitch","Paso de rosca","mm",0.1),R("clearance","Holgura radial","mm",0.05),R("threadLength","Largo de rosca","mm",1)]],
+  ["Color y acabado",false,[{t:"color",key:"color",label:"Color de la pantalla"},{t:"color",key:"baseColor",label:"Color de la base"},{t:"finish"}]],
+  ["Iluminación de la vista",false,[{t:"lighting"}]]
+];
+
+/* ---------------- Iluminación ---------------- */
+const LIGHT_PRESETS={
+  studio:{name:"Estudio suave",ambient:2.4,key:3.5,fill:1.8,rim:2.1,color:16774375},
+  relief:{name:"Relieves",ambient:0.65,key:4,fill:0.35,rim:1.3,color:16774889},
+  silhouette:{name:"Contraluz",ambient:0.8,key:1.2,fill:0.4,rim:4.8,color:15988223},
+  warm:{name:"Cálida",ambient:1.3,key:3,fill:0.8,rim:1.4,color:16766107}
+};
+const LIGHT_DIR={studio:0,relief:75,silhouette:150,warm:25};
+let LIGHT={preset:"studio",direction:0,intensity:1,fill:1};
+try{const l=JSON.parse(localStorage.getItem("qlamps-editor-lighting-v1")||"null");if(l&&LIGHT_PRESETS[l.preset])LIGHT={...LIGHT,...l}}catch(e){}
+
+/* ---------------- Construcción del panel ---------------- */
+const controls=$("#controls");
+function fmt(v,step){return step<1?Number(v).toFixed(step<0.1?2:1):String(Math.round(v))}
+function fillRange(el){const mn=+el.min,mx=+el.max;el.style.setProperty("--p",((+el.value-mn)/(mx-mn)*100)+"%")}
+for(const [title,open,fields] of GROUPS){
+  const d=document.createElement("details");d.open=open;d.dataset.group=title;
+  const s=document.createElement("summary");s.textContent=title;d.append(s);
+  for(const f of fields){
+    const w=document.createElement("div");w.className="field";
+    if(f.t==="range"){
+      const [lo,hi]=RANGES[f.key];
+      w.dataset.field=f.key;
+      w.innerHTML=`<div class="lbl"><span>${f.label}</span><output id="o-${f.key}"></output></div><input type="range" data-key="${f.key}" min="${lo}" max="${hi}" step="${f.step}" aria-label="${f.label}"><div class="resetrow"><button type="button" data-reset="${f.key}">↺ Restablecer</button></div>`;
+      if(f.key==="opening")w.insertAdjacentHTML("beforeend",`<div class="hint" id="openingMm"></div>`);
+    }else if(f.t==="select"){
+      w.dataset.field=f.key;
+      w.innerHTML=`<label for="s-${f.key}"><span>${f.label}</span></label><select id="s-${f.key}" data-key="${f.key}">${OPT[f.key].map(([v,l])=>`<option value="${v}">${l}</option>`).join("")}</select>`;
+    }else if(f.t==="color"){
+      w.innerHTML=`<label for="c-${f.key}"><span>${f.label}</span><output id="o-${f.key}"></output></label><input type="color" id="c-${f.key}" data-key="${f.key}">`;
+    }else if(f.t==="finish"){
+      w.innerHTML=`<div class="lbl"><span>Acabado del conjunto</span></div><div class="finish-options"><button type="button" data-finish="matte">Mate</button><button type="button" data-finish="satin">Satinado</button><button type="button" data-finish="translucent">Translúcido</button></div><p class="note">Apariencia orientativa. La translucidez real depende del filamento y del espesor. No modifica el STL.</p>`;
+    }else if(f.t==="profile"){
+      w.dataset.field="profile";
+      w.innerHTML=`<p class="note">Seis puntos de radio relativo (0,2–1,5) de abajo hacia arriba. Solo se usa con la forma «Silueta personalizada».</p>`+
+        DEFAULTS.profile.map((_,i)=>`<div class="lbl"><span>Punto ${i+1}</span><output id="o-profile${i}"></output></div><input type="range" data-profile="${i}" min="0.2" max="1.5" step="0.01">`).join("");
+    }else if(f.t==="lighting"){
+      w.innerHTML=`<div class="preset-row">${Object.entries(LIGHT_PRESETS).map(([k,v])=>`<button type="button" data-light="${k}">${v.name}</button>`).join("")}</div>
+      <div class="lbl" style="margin-top:12px"><span>Dirección</span><output id="o-ldir"></output></div><input type="range" id="l-dir" min="-180" max="180" step="1">
+      <div class="lbl"><span>Intensidad</span><output id="o-lint"></output></div><input type="range" id="l-int" min="0.2" max="2" step="0.1">
+      <div class="lbl"><span>Luz de relleno</span><output id="o-lfill"></output></div><input type="range" id="l-fill" min="0" max="2" step="0.1">
+      <div class="resetrow"><button type="button" id="l-reset">↺ Restablecer iluminación</button></div>`;
+    }
+    d.append(w);
+  }
+  controls.append(d);
+}
+const errBox=document.createElement("div");errBox.className="control-error";errBox.hidden=true;errBox.setAttribute("role","alert");controls.prepend(errBox);
+
+function syncUI(){
+  for(const [k] of Object.entries(RANGES)){
+    const el=$(`[data-key="${k}"]`);if(!el)continue;
+    el.value=P[k];fillRange(el);
+    const o=$("#o-"+k);if(o)o.textContent=fmt(P[k],+el.step)+(el.closest(".field").querySelector(".lbl span")?(unitOf(k)?" "+unitOf(k):""):"");
+  }
+  for(const k of Object.keys(ENUMS)){const el=$(`select[data-key="${k}"]`);if(el)el.value=P[k]}
+  for(const k of ["color","baseColor"]){const el=$(`input[type=color][data-key="${k}"]`);if(el){el.value=P[k]};const o=$("#o-"+k);if(o)o.textContent=P[k].toUpperCase()}
+  $$("[data-profile]").forEach(el=>{const i=+el.dataset.profile;el.value=P.profile[i];fillRange(el);$("#o-profile"+i).textContent=P.profile[i].toFixed(2)});
+  $$("[data-finish]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.finish===P.finish)));
+  $('[data-group="Silueta personalizada"]').hidden=P.shape!=="custom";
+  const vase=P.mode==="vase";
+  $(`[data-key="wall"]`).disabled=vase;$(`[data-key="lineWidth"]`).disabled=!vase;
+  $("#vaseHelp").hidden=!vase;
+  $("#shadeDescription").textContent=vase?"Sólido vase · rosca hembra integrada":"Rosca hembra integrada";
+  $("#save").textContent=vase?"Descargar ZIP · pantalla vase + base":"Descargar todo en STL";
+  try{const t=dims(P),aperture=2*(Math.max(t.collar,shapeRadius(P,1)+(P.opening/100-1)*P.diameter/2+P.taper)-(vase?P.lineWidth:P.wall));
+    $("#openingMm").textContent=`≈ ${aperture.toFixed(1)} mm de apertura interior`}catch(e){}
+  $("#undo").disabled=!undoStack.length;$("#redo").disabled=!redoStack.length;
+  syncLightUI();
+}
+const UNITS={diameter:"mm",height:"mm",opening:"%",wall:"mm",lineWidth:"mm",amplitude:"mm",twist:"°",twistBottom:"°",bands:"mm",textureDepth:"mm",baseDiameter:"mm",baseHeight:"mm",baseRelief:"mm",socketDiameter:"mm",socketDepth:"mm",pitch:"mm",clearance:"mm",threadLength:"mm",fluteWidth:"%",zoneFade:"%",bulge:"mm",taper:"mm",rimOval:"%",rimDepth:"mm",rimRotation:"°",rimTransition:"%"};
+function unitOf(k){return UNITS[k]||""}
+function syncLightUI(){
+  $$("[data-light]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.light===LIGHT.preset)));
+  $("#l-dir").value=LIGHT.direction;$("#l-int").value=LIGHT.intensity;$("#l-fill").value=LIGHT.fill;
+  ["#l-dir","#l-int","#l-fill"].forEach(s=>fillRange($(s)));
+  $("#o-ldir").textContent=LIGHT.direction+"°";$("#o-lint").textContent=LIGHT.intensity.toFixed(1)+"×";$("#o-lfill").textContent=LIGHT.fill.toFixed(1)+"×";
+}
+
+/* ---------------- Historial y cambios ---------------- */
+function pushUndo(){undoStack.push(snap());if(undoStack.length>60)undoStack.shift();redoStack=[]}
+let rafId=0;
+function schedule(){cancelAnimationFrame(rafId);rafId=requestAnimationFrame(rebuild)}
+function applyChange(mutator,{push=true}={}){
+  const before=snap(),next=structuredClone(P);mutator(next);
+  try{
+    const ok=validateParams(next);errBox.hidden=true;
+    if(push&&!editing){undoStack.push(before);if(undoStack.length>60)undoStack.shift();redoStack=[]}
+    P=ok;lastGood=structuredClone(ok);
+  }catch(e){
+    errBox.textContent=e.message;errBox.hidden=false;
+    return false;
+  }
+  syncUI();schedule();saveLocal();return true;
+}
+function saveLocal(){try{localStorage.setItem(STORE,JSON.stringify(P));$("#autosave").textContent="Guardado automático en este navegador"}catch(e){$("#autosave").textContent="No se pudo guardar automáticamente"}}
+
+controls.addEventListener("input",e=>{
+  const t=e.target;
+  if(t.matches("input[type=range][data-key]")){
+    if(!editing){pushUndo();editing=true}
+    const k=t.dataset.key,v=Number(t.value);
+    applyChange(n=>{n[k]=v},{push:false});
+  }else if(t.matches("input[type=range][data-profile]")){
+    if(!editing){pushUndo();editing=true}
+    const i=+t.dataset.profile,v=Number(t.value);
+    applyChange(n=>{n.profile[i]=v},{push:false});
+  }else if(t.matches("input[type=color][data-key]")){
+    if(!editing){pushUndo();editing=true}
+    const k=t.dataset.key,v=t.value;applyChange(n=>{n[k]=v},{push:false});
+  }else if(t.id==="l-dir"){LIGHT.direction=+t.value;applyLight()}
+  else if(t.id==="l-int"){LIGHT.intensity=+t.value;applyLight()}
+  else if(t.id==="l-fill"){LIGHT.fill=+t.value;applyLight()}
+});
+controls.addEventListener("change",e=>{
+  const t=e.target;editing=false;
+  if(t.matches("select[data-key]")){const k=t.dataset.key,v=t.value;applyChange(n=>{n[k]=v});}
+  syncUI();
+});
+controls.addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;
+  if(b.dataset.reset){const k=b.dataset.reset;applyChange(n=>{n[k]=DEFAULTS[k]})}
+  else if(b.dataset.finish){applyChange(n=>{n.finish=b.dataset.finish})}
+  else if(b.dataset.light){LIGHT.preset=b.dataset.light;LIGHT.direction=LIGHT_DIR[b.dataset.light]??0;applyLight()}
+  else if(b.id==="l-reset"){LIGHT={preset:"studio",direction:0,intensity:1,fill:1};applyLight()}
+});
+function applyLight(){syncLightUI();updateLighting();try{localStorage.setItem("qlamps-editor-lighting-v1",JSON.stringify(LIGHT))}catch(e){}}
+
+function doUndo(){if(!undoStack.length)return;redoStack.push(snap());P=validateParams(JSON.parse(undoStack.pop()));errBox.hidden=true;syncUI();rebuild();saveLocal()}
+function doRedo(){if(!redoStack.length)return;undoStack.push(snap());P=validateParams(JSON.parse(redoStack.pop()));errBox.hidden=true;syncUI();rebuild();saveLocal()}
+$("#undo").onclick=doUndo;$("#redo").onclick=doRedo;
+document.addEventListener("keydown",e=>{
+  if(!(e.ctrlKey||e.metaKey)||e.altKey||e.target.matches("input,textarea,select"))return;
+  const k=e.key.toLowerCase();
+  if(k==="z"){e.preventDefault();e.shiftKey?doRedo():doUndo()}else if(k==="y"){e.preventDefault();doRedo()}
+});
+
+/* ---------------- Escena 3D ---------------- */
+const viewport=$("#viewport");
+let renderer,scene,camera,orbit,group,lights={},meshes={},ready=false,sceneReady=false;
+function initScene(){
+  scene=new THREE.Scene();
+  camera=new THREE.PerspectiveCamera(36,1,0.1,4000);camera.up.set(0,0,1);
+  renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setClearColor(0,0);
+  renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;
+  renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.12;
+  viewport.appendChild(renderer.domElement);
+  orbit=new OrbitControls(camera,renderer.domElement);
+  orbit.enableDamping=true;orbit.minDistance=100;orbit.maxDistance=1600;orbit.maxPolarAngle=Math.PI*0.93;
+  const amb=new THREE.HemisphereLight(0xffffff,0xb6c4db,2.4);scene.add(amb);
+  const key=new THREE.DirectionalLight(16774375,3.5);key.position.set(90,-100,520);key.castShadow=true;
+  key.shadow.mapSize.set(2048,2048);Object.assign(key.shadow.camera,{left:-260,right:260,top:350,bottom:-260,near:1,far:1000});
+  key.shadow.bias=-2e-5;key.shadow.normalBias=0.04;scene.add(key);
+  const fill=new THREE.DirectionalLight(15004415,1.8);fill.position.set(-250,80,250);scene.add(fill);
+  const rim=new THREE.DirectionalLight(14740223,2.1);rim.position.set(180,220,280);scene.add(rim);
+  lights={ambient:amb,key,fill,rim};
+  const c=document.createElement("canvas");c.width=c.height=128;const g=c.getContext("2d");
+  const grad=g.createRadialGradient(64,64,12,64,64,64);
+  grad.addColorStop(0,"rgba(23,34,53,.24)");grad.addColorStop(0.5,"rgba(23,34,53,.13)");grad.addColorStop(1,"rgba(23,34,53,0)");
+  g.fillStyle=grad;g.fillRect(0,0,128,128);
+  const tex=new THREE.CanvasTexture(c);
+  const blob=new THREE.Mesh(new THREE.PlaneGeometry(240,240),new THREE.MeshBasicMaterial({map:tex,transparent:true,depthWrite:false}));
+  blob.position.z=-0.3;scene.add(blob);
+  group=new THREE.Group();scene.add(group);
+  new ResizeObserver(resize).observe(viewport);
+  resize();updateLighting();
+  renderer.setAnimationLoop(()=>{orbit.update();renderer.render(scene,camera)});
+  sceneReady=true;
+}
+function resize(){
+  if(!renderer)return;const w=viewport.clientWidth,h=viewport.clientHeight;if(!w||!h)return;
+  renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();
+}
+function updateLighting(){
+  if(!sceneReady)return;
+  const r=LIGHT_PRESETS[LIGHT.preset],i=LIGHT.direction*Math.PI/180;
+  lights.ambient.intensity=r.ambient*LIGHT.fill;lights.key.intensity=r.key*LIGHT.intensity;
+  lights.fill.intensity=r.fill*LIGHT.fill;lights.rim.intensity=r.rim*LIGHT.intensity;lights.key.color.set(r.color);
+  const place=(l,[o,c,z])=>l.position.set(o*Math.cos(i)-c*Math.sin(i),o*Math.sin(i)+c*Math.cos(i),z);
+  place(lights.key,[90,-100,520]);place(lights.fill,[-250,80,250]);place(lights.rim,[180,220,280]);
+}
+function applyFinish(m,f){
+  m.roughness=f==="satin"?0.27:f==="translucent"?0.32:0.78;
+  m.clearcoat=f==="satin"?0.35:0;m.clearcoatRoughness=0.3;
+  m.transparent=f==="translucent";m.opacity=f==="translucent"?0.58:1;
+  m.transmission=0;m.forceSinglePass=true;m.thickness=0;m.ior=1.35;
+  m.shadowSide=THREE.FrontSide;m.depthWrite=true;m.needsUpdate=true;
+}
+function toGeometry(d){
+  const g=new THREE.BufferGeometry();
+  g.setAttribute("position",new THREE.BufferAttribute(d.positions,3));g.setIndex(new THREE.BufferAttribute(d.indices,1));
+  g.computeVertexNormals();return g;
+}
+let pieces={base:null,shade:null};
+function rebuild(){
+  const t0=performance.now();
+  try{
+    pieces.base=buildBaseData(P);
+    pieces.shade=buildShadeData(P,false,previewSampling(P));
+  }catch(e){console.error(e);setStatus("No se pudo generar la geometría: "+e.message);return}
+  for(const k of ["base","shade"]){
+    const m=measure(pieces[k]);
+    $("#"+k+"Size").textContent=m.size.map(s=>s.toFixed(1)).join(" × ")+" mm · "+Math.round(m.volume)+" cm³ de sólido";
+  }
+  if(!sceneReady){updateHeight();return}
+  for(const k of ["base","shade"]){
+    const old=meshes[k];
+    if(old){group.remove(old);old.geometry.dispose();old.material.dispose()}
+    const mat=new THREE.MeshPhysicalMaterial({color:k==="shade"?P.color:P.baseColor,roughness:0.75,metalness:0,side:THREE.DoubleSide,wireframe:$("#wire").checked});
+    applyFinish(mat,P.finish);
+    const mesh=new THREE.Mesh(toGeometry(pieces[k]),mat);
+    mesh.castShadow=true;mesh.receiveShadow=false;meshes[k]=mesh;group.add(mesh);
+  }
+  placeViews();
+  setStatus(`Modelo actualizado en ${Math.round(performance.now()-t0)} ms · medidas editables`);
+}
+function placeViews(){
+  if(!sceneReady||!meshes.base)return;
+  const only=["shade","base"].includes(view),ex=view==="exploded";
+  meshes.base.visible=!only||view==="base";meshes.shade.visible=!only||view==="shade";
+  meshes.shade.position.z=view==="shade"?0:dims(P).shadeZ+(ex?100:0);
+  $$("[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===view));
+  updateHeight();
+}
+function updateHeight(){
+  const d=dims(P);
+  $("#totalHeight").textContent=String(Number((view==="shade"?P.height:view==="base"?d.baseTotal:d.total).toFixed(1)));
+}
+function fitCamera(){
+  if(!sceneReady)return;
+  const box=new THREE.Box3();
+  for(const m of Object.values(meshes))if(m.visible){m.updateMatrixWorld(true);box.expandByObject(m)}
+  if(box.isEmpty())return;
+  const size=box.getSize(new THREE.Vector3()),ctr=box.getCenter(new THREE.Vector3());
+  const tn=Math.tan(camera.fov*Math.PI/360),asp=camera.aspect||1;
+  const dist=Math.max(size.z/2/tn,Math.max(size.x,size.y)/2/tn/asp)*1.5;
+  camera.position.copy(ctr).add(new THREE.Vector3(1.2,-1.65,0.7).normalize().multiplyScalar(dist));
+  orbit.target.copy(ctr);orbit.update();
+}
+$$("[data-view]").forEach(b=>b.onclick=()=>{view=b.dataset.view;placeViews();fitCamera()});
+$("#resetView").onclick=fitCamera;
+$("#wire").onchange=()=>Object.values(meshes).forEach(m=>m.material.wireframe=$("#wire").checked);
+
+/* ---------------- Exportación ---------------- */
+function download(data,name,type){
+  const url=URL.createObjectURL(data instanceof Blob?data:new Blob([data],{type}));
+  const a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),60000);
+}
+function fullPieces(){return {shade:buildShadeData(P),base:buildBaseData(P)}}
+$$("[data-export]").forEach(b=>b.onclick=()=>{
+  const which=b.dataset.export;setStatus("Generando STL en alta resolución…");
+  setTimeout(()=>{
+    try{
+      let m,name;
+      if(which==="shade"){m=buildShadeData(P);name=P.mode==="vase"?"lampara-pantalla-vase-mm.stl":"lampara-pantalla-mm.stl"}
+      else if(which==="base"){m=buildBaseData(P);name="lampara-base-mm.stl"}
+      else if(which==="testMale"){m=buildBaseData(P,true);name="lampara-prueba-macho-mm.stl"}
+      else{m=buildShadeData(P,true);name="lampara-prueba-hembra-mm.stl"}
+      download(toSTL(m),name,"model/stl");setStatus("STL generado. Importalo en tu laminador en milímetros.");
+    }catch(e){setStatus("No se pudo exportar: "+e.message)}
+  },30);
+});
+$("#save").onclick=()=>{
+  setStatus("Generando archivos en alta resolución…");
+  setTimeout(()=>{
+    try{
+      const {shade,base}=fullPieces();
+      if(P.mode==="vase"){
+        const enc=new TextEncoder();
+        const readme=`Lámpara 3D - pantalla con rosca hembra y base con rosca macho.\n\nPANTALLA: espiral/vase, 1 perímetro, sin relleno, 0 capas superiores. Fondo: 0 capas inferiores para dejar el paso abierto.\nAncho de línea elegido: ${P.lineWidth} mm. Recomendado: al menos 0,8 mm; ideal boquilla 0,8 mm.\n\nBASE: imprimir por separado en modo normal. No activar espiral.\n\nProbá primero los anillos de tolerancia y revisá las capas. El ajuste físico debe verificarse con tu impresora y material.\n`;
+        download(zipStore([["lampara-pantalla-vase-mm.stl",new Uint8Array(toSTL(shade))],["lampara-base-normal-mm.stl",new Uint8Array(toSTL(base))],["LEEME-impresion.txt",enc.encode(readme)]]),"lampara-piezas-vase.zip","application/zip");
+        setStatus("ZIP iniciado: pantalla vase y base normal separadas.");
+      }else{
+        download(toSTL(mergeSideBySide(base,shade)),"lampara-lampara-completa-mm.stl","model/stl");
+        setStatus("Descarga STL iniciada: pantalla y base separadas sobre la cama.");
+      }
+    }catch(e){setStatus("No se pudo exportar: "+e.message)}
+  },30);
+};
+$("#saveProject").onclick=()=>{
+  download(JSON.stringify({application:"Luma",version:1,parameters:P},null,2),"lampara-diseno.json","application/json");
+  $("#fileMenu").open=false;
+};
+$("#load").onclick=()=>{$("#file").click();$("#fileMenu").open=false};
+$("#file").onchange=async e=>{
+  const f=e.target.files[0];if(!f)return;
+  try{
+    if(f.size>1e5)throw Error("Archivo demasiado grande");
+    const t=JSON.parse(await f.text());
+    if(t.application!=="Luma"||t.version!==1)throw Error("El archivo no es un diseño compatible");
+    const ok=validateParams(t.parameters);pushUndo();P=ok;errBox.hidden=true;syncUI();rebuild();fitCamera();saveLocal();
+    setStatus("Diseño abierto correctamente");
+  }catch(err){setStatus("No se pudo abrir: "+err.message)}
+  e.target.value="";
+};
+$("#newDesign").onclick=()=>{pushUndo();P=structuredClone(DEFAULTS);errBox.hidden=true;syncUI();rebuild();fitCamera();saveLocal();$("#fileMenu").open=false;toast("Nuevo diseño")};
+
+/* ---------------- Tema y paneles ---------------- */
+function setTheme(dark){
+  if(dark)document.documentElement.dataset.theme="dark";else delete document.documentElement.dataset.theme;
+  try{localStorage.setItem("luma-theme",dark?"dark":"light")}catch(e){}
+  $("#themeToggle").textContent=dark?"Modo claro":"Modo oscuro";$("#themeToggle").setAttribute("aria-pressed",String(dark));
+}
+$("#themeToggle").onclick=()=>setTheme(document.documentElement.dataset.theme!=="dark");
+setTheme(document.documentElement.dataset.theme==="dark");
+function setOutput(open){
+  $("#main").classList.toggle("no-output",!open);$("#outputToggle").setAttribute("aria-expanded",String(open));
+  setTimeout(()=>{resize();fitCamera()},50);
+}
+$("#outputToggle").onclick=()=>setOutput($("#main").classList.contains("no-output"));
+$("#closeOutput").onclick=()=>setOutput(false);
+document.addEventListener("click",e=>{const m=$("#fileMenu");if(m.open&&!m.contains(e.target))m.open=false});
+
+/* ---------------- Inicio ---------------- */
+try{initScene()}catch(err){console.error(err);$("#renderError").hidden=false}
+syncUI();rebuild();fitCamera();
+window.addEventListener("pagehide",saveLocal);
+window.__qlamps={get params(){return P},dims,buildBaseData,buildShadeData,measure};
+</script>
+<script>
+(function(){
+  var last=0;
+  function post(){
+    var v=Math.ceil(document.body.getBoundingClientRect().height);
+    if(!v||Math.abs(v-last)<2)return;last=v;
+    try{parent.postMessage({ma:'h',slug:'disenador-de-lamparas-3d',h:v},location.origin)}catch(e){}
+  }
+  if(window.ResizeObserver)new ResizeObserver(post).observe(document.body);
+  addEventListener('load',post);addEventListener('resize',post);setInterval(post,700);post();
+})();
+</script></body>
+</html>

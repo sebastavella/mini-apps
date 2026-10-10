@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora de IMC (índice de masa corporal) | Mini Apps</title>
+<meta name="description" content="Calculá tu índice de masa corporal (IMC) con tu peso y altura. Te mostramos la categoría según la OMS y el rango de peso para tu estatura.">
+<link rel="canonical" href="https://micro-apps.com.ar/calculadora-de-imc/">
+
+<meta name="theme-color" content="#12264A">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mini Apps">
+<meta property="og:locale" content="es_AR">
+<meta property="og:title" content="Calculadora de IMC (índice de masa corporal) | Mini Apps">
+<meta property="og:description" content="Calculá tu índice de masa corporal (IMC) con tu peso y altura. Te mostramos la categoría según la OMS y el rango de peso para tu estatura.">
+<meta property="og:url" content="https://micro-apps.com.ar/calculadora-de-imc/">
+<meta property="og:image" content="https://micro-apps.com.ar/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<!-- AdSense: descomentá y poné tu ID de editor cuando te aprueben la cuenta.
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Calculadora de IMC (índice de masa corporal)", "url": "https://micro-apps.com.ar/calculadora-de-imc/", "description": "Calculá tu índice de masa corporal (IMC) con tu peso y altura. Te mostramos la categoría según la OMS y el rango de peso para tu estatura.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "es-AR", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "ARS"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Qué es el IMC y cómo se calcula?", "acceptedAnswer": {"@type": "Answer", "text": "Es el cociente entre el peso en kilos y el cuadrado de la altura en metros. Sirve como indicador general para clasificar el peso en adultos."}}, {"@type": "Question", "name": "¿Cuál es un IMC normal?", "acceptedAnswer": {"@type": "Answer", "text": "Para adultos, la OMS considera normal un IMC entre 18,5 y 24,9."}}, {"@type": "Question", "name": "¿El IMC sirve para deportistas?", "acceptedAnswer": {"@type": "Answer", "text": "Tiene limitaciones. Una persona con mucha masa muscular puede tener un IMC alto sin exceso de grasa. En esos casos se usan otras medidas, como el perímetro de cintura o la composición corporal."}}, {"@type": "Question", "name": "¿Se puede usar con niños y adolescentes?", "acceptedAnswer": {"@type": "Answer", "text": "No con estos rangos. En menores de 18 años el IMC se interpreta con curvas de percentiles según edad y sexo, que debe evaluar un pediatra."}}, {"@type": "Question", "name": "¿Existe un peso ideal único?", "acceptedAnswer": {"@type": "Answer", "text": "No. Lo que podemos mostrarte es un rango de peso que corresponde a un IMC normal para tu altura. El valor adecuado para cada persona depende de más factores."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Mini Apps", "item": "https://micro-apps.com.ar/"}, {"@type": "ListItem", "position": 2, "name": "Calculadoras", "item": "https://micro-apps.com.ar/#calculadoras"}, {"@type": "ListItem", "position": 3, "name": "Calculadora de IMC", "item": "https://micro-apps.com.ar/calculadora-de-imc/"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="site"><div class="wrap bar"><a class="brand" href="/" aria-label="Mini Apps, inicio"><svg width="36" height="36" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="4" y="4" width="26" height="26" rx="8" fill="#12264A"/><rect x="34" y="4" width="26" height="26" rx="8" fill="#74ACDF"/><rect x="4" y="34" width="26" height="26" rx="8" fill="#74ACDF"/><circle cx="47" cy="47" r="13" fill="#F5B41A"/></svg><span>Mini Apps</span></a><nav aria-label="Categorías"><a href="/#calculadoras">Calculadoras</a><a href="/#conversores">Conversores</a><a href="/#generadores">Generadores</a><a href="/#texto">Texto</a><a href="/#marketing">Marketing</a><a href="/#radioaficion">Radioafición</a><a href="/#impresion-3d">Impresión 3D</a><a href="/#documentos">Documentos y PDF</a></nav></div></header>
+<main id="main" class="wrap">
+<nav class="crumbs" aria-label="Ruta"><a href="/">Mini Apps</a><span class="sep">&rsaquo;</span><a href="/#calculadoras">Calculadoras</a></nav>
+<h1 class="page-h1">Calculadora de IMC (índice de masa corporal)</h1>
+<p class="lead">Ingresá peso y altura. El IMC es un valor orientativo para adultos y no reemplaza una evaluación médica.</p>
+<div class="panel" id="tool">
+<div class="row"><div class="field"><label for="w">Peso (kg)</label><input id="w" type="number" inputmode="decimal" step="any" value="70" min="1"></div><div class="field"><label for="h">Altura (cm)</label><input id="h" type="number" inputmode="decimal" step="any" value="175" min="50"></div></div>
+<div class="outs"><div class="out main"><small>Tu IMC</small><strong id="o-bmi" aria-live="polite">—</strong></div>
+<div class="out"><small>Categoría (adultos, OMS)</small><strong id="o-cat" style="font-size:1.3rem">—</strong></div>
+<div class="out"><small>Rango de peso para tu altura</small><strong id="o-rng" style="font-size:1.3rem">—</strong></div></div>
+<div class="bmi" role="img" aria-label="Escala de IMC"><i style="width:14%;background:#9CC5EA"></i><i style="width:26%;background:#8FD1A8"></i><i style="width:20%;background:#F5B41A"></i><i style="width:40%;background:#F08A5D"></i><span class="mk" id="mk"></span></div>
+<div class="bmi-lbl"><span>15</span><span>18,5</span><span>25</span><span>30</span><span>40</span></div>
+</div>
+<aside class="ad" aria-label="Publicidad" data-slot="1"><!-- ADSENSE SLOT 1 --></aside>
+<article class="prose">
+<h2>Cómo funciona</h2>
+<p>El índice de masa corporal relaciona el peso con la altura:</p>
+<p class="formula">IMC = peso (kg) ÷ altura (m)²</p>
+<p>La Organización Mundial de la Salud (OMS) clasifica los valores para adultos así:</p>
+<table class="tbl"><thead><tr><th>IMC</th><th>Categoría</th></tr></thead><tbody>
+<tr><td>Menos de 18,5</td><td>Bajo peso</td></tr>
+<tr><td>18,5 a 24,9</td><td>Peso normal</td></tr>
+<tr><td>25 a 29,9</td><td>Sobrepeso</td></tr>
+<tr><td>30 o más</td><td>Obesidad</td></tr></tbody></table>
+<p class="note">El IMC es una referencia general: no distingue entre masa muscular y grasa, y no se interpreta igual en menores de 18 años, embarazadas ni adultos mayores. Ante cualquier duda sobre tu salud, consultá con un profesional.</p>
+<h2>Ejemplo</h2>
+<p>Una persona de 70 kg que mide 1,75 m tiene un IMC de 70 ÷ (1,75 × 1,75) = 70 ÷ 3,0625 = <strong>22,9</strong>, dentro del rango de peso normal. Para esa altura, el rango de peso con IMC entre 18,5 y 24,9 va de 56,7 a 76,3 kg.</p>
+<aside class="ad" aria-label="Publicidad" data-slot="2"><!-- ADSENSE SLOT 2 --></aside>
+<h2>Preguntas frecuentes</h2>
+<h3>¿Qué es el IMC y cómo se calcula?</h3><p>Es el cociente entre el peso en kilos y el cuadrado de la altura en metros. Sirve como indicador general para clasificar el peso en adultos.</p><h3>¿Cuál es un IMC normal?</h3><p>Para adultos, la OMS considera normal un IMC entre 18,5 y 24,9.</p><h3>¿El IMC sirve para deportistas?</h3><p>Tiene limitaciones. Una persona con mucha masa muscular puede tener un IMC alto sin exceso de grasa. En esos casos se usan otras medidas, como el perímetro de cintura o la composición corporal.</p><h3>¿Se puede usar con niños y adolescentes?</h3><p>No con estos rangos. En menores de 18 años el IMC se interpreta con curvas de percentiles según edad y sexo, que debe evaluar un pediatra.</p><h3>¿Existe un peso ideal único?</h3><p>No. Lo que podemos mostrarte es un rango de peso que corresponde a un IMC normal para tu altura. El valor adecuado para cada persona depende de más factores.</p>
+<p class="updated">Última revisión: octubre de 2026.</p>
+</article>
+<h2 class="sec-h">Otras herramientas</h2>
+<div class="tiles small"><a class="tile tone-celeste" href="/calculadora-de-edad/" data-s="Calculadora de edad y fechas Edad exacta y días entre dos fechas. Calculadoras"><span class="g" aria-hidden="true">31</span><h3>Calculadora de edad y fechas</h3><p>Edad exacta y días entre dos fechas.</p></a><a class="tile tone-sol" href="/calculadora-de-propinas/" data-s="Calculadora de propinas Calculá la propina y dividí la cuenta entre todos. Calculadoras"><span class="g" aria-hidden="true">÷</span><h3>Calculadora de propinas</h3><p>Calculá la propina y dividí la cuenta entre todos.</p></a><a class="tile tone-white" href="/conversor-de-unidades/" data-s="Conversor de unidades Longitud, peso, temperatura, volumen, área y más. Conversores"><span class="g" aria-hidden="true">⇄</span><h3>Conversor de unidades</h3><p>Longitud, peso, temperatura, volumen, área y más.</p></a></div>
+</main>
+<footer class="foot"><div class="wrap"><div class="cols">
+<div><a class="brand" href="/"><svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="4" y="4" width="26" height="26" rx="8" fill="#12264A"/><rect x="34" y="4" width="26" height="26" rx="8" fill="#74ACDF"/><rect x="4" y="34" width="26" height="26" rx="8" fill="#74ACDF"/><circle cx="47" cy="47" r="13" fill="#F5B41A"/></svg><span>Mini Apps</span></a>
+<p>Herramientas gratuitas, sin registro. Los resultados son orientativos y no reemplazan el asesoramiento profesional.</p></div>
+<ul><li><a href="/sobre-mini-apps/">Sobre Mini Apps</a></li><li><a href="/privacidad/">Privacidad</a></li><li><a href="/terminos/">Términos de uso</a></li><li><a href="/contacto/">Contacto</a></li></ul></div>
+<p>&copy; 2026 Mini Apps. Todos los derechos reservados.</p></div></footer>
+<script src="/assets/app.js"></script>
+<script>
+(function(){
+
+var $=MA.$;
+function calc(){
+  var w=MA.num($('#w')),h=MA.num($('#h'));
+  if(w==null||h==null||w<=0||h<=0){['o-bmi','o-cat','o-rng'].forEach(function(i){$('#'+i).textContent='\u2014'});$('#mk').style.left='0';return}
+  var m=h/100,b=w/(m*m);
+  $('#o-bmi').textContent=MA.fmt(b,1);
+  var c=b<18.5?'Bajo peso':b<25?'Peso normal':b<30?'Sobrepeso':'Obesidad';
+  $('#o-cat').textContent=c;
+  $('#o-rng').textContent=MA.fmt(18.5*m*m,1)+' a '+MA.fmt(24.9*m*m,1)+' kg';
+  var p=(Math.min(40,Math.max(15,b))-15)/25*100;
+  $('#mk').style.left=p+'%';
+}
+$('#tool').addEventListener('input',calc);
+calc();
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conversor de 3MF de MakerWorld para Flashforge AD5X | Mini Apps</title>
+<meta name="description" content="Convertí un .3mf de MakerWorld (Bambu Studio) en un proyecto listo para la Flashforge AD5X: cama de 220 × 220 mm, boquilla y filamentos. Compará 3MF y calculá la purga multicolor.">
+<link rel="canonical" href="https://micro-apps.com.ar/conversor-3mf-flashforge-ad5x/">
+
+<meta name="theme-color" content="#12264A">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mini Apps">
+<meta property="og:locale" content="es_AR">
+<meta property="og:title" content="Conversor de 3MF de MakerWorld para Flashforge AD5X | Mini Apps">
+<meta property="og:description" content="Convertí un .3mf de MakerWorld (Bambu Studio) en un proyecto listo para la Flashforge AD5X: cama de 220 × 220 mm, boquilla y filamentos. Compará 3MF y calculá la purga multicolor.">
+<meta property="og:url" content="https://micro-apps.com.ar/conversor-3mf-flashforge-ad5x/">
+<meta property="og:image" content="https://micro-apps.com.ar/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<!-- AdSense: descomentá y poné tu ID de editor cuando te aprueben la cuenta.
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Conversor 3MF para Flashforge AD5X", "url": "https://micro-apps.com.ar/conversor-3mf-flashforge-ad5x/", "description": "Convertí un .3mf de MakerWorld (Bambu Studio) en un proyecto listo para la Flashforge AD5X: cama de 220 × 220 mm, boquilla y filamentos. Compará 3MF y calculá la purga multicolor.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "es-AR", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "ARS"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Mi archivo se sube a algún servidor?", "acceptedAnswer": {"@type": "Answer", "text": "No. La conversión ocurre en tu navegador con JavaScript: el .3mf se lee y se reescribe en tu dispositivo, y la descarga se genera ahí mismo."}}, {"@type": "Question", "name": "¿Qué es el perfil base y por qué conviene usarlo?", "acceptedAnswer": {"@type": "Answer", "text": "Es un .3mf que guardaste desde tu laminador con la AD5X ya configurada. La herramienta copia de ahí los ajustes de impresora, filamento y proceso, así que el resultado coincide con tu configuración real en lugar de una aproximación."}}, {"@type": "Question", "name": "¿Por qué se descartan las velocidades y aceleraciones?", "acceptedAnswer": {"@type": "Answer", "text": "Están pensadas para la cinemática de las Bambu. En otra máquina no aceleran la impresión: la empeoran. Es mejor que rijan las de tu perfil."}}, {"@type": "Question", "name": "¿Por qué los objetos aparecían fuera de la cama?", "acceptedAnswer": {"@type": "Answer", "text": "Los archivos de Bambu guardan las posiciones con el origen de una cama de 256 mm. La herramienta mueve todo al sistema de la AD5X y te muestra si la pieza entra en 220 × 220 mm."}}, {"@type": "Question", "name": "¿Funciona con modelos multicolor?", "acceptedAnswer": {"@type": "Answer", "text": "Sí: se conservan los colores y el filamento asignado a cada pieza. El IFS de la AD5X carga 4 filamentos, y si el modelo usa más, la herramienta te avisa."}}, {"@type": "Question", "name": "¿Y si mi laminador ignora los ajustes?", "acceptedAnswer": {"@type": "Answer", "text": "Revisá que lo abriste como proyecto y no arrastrándolo a la cama. Si sigue igual, cargá un perfil base y probá de nuevo."}}, {"@type": "Question", "name": "¿Cómo acomoda las piezas?", "acceptedAnswer": {"@type": "Answer", "text": "Mide el contorno de cada pieza, la endereza si elegís “Mover y rotar” y las reparte con un empaquetado por rectángulos, de las más grandes a las más chicas. Deja 6 mm entre piezas y 4 mm del borde, y reserva lugar para la torre de purga en multicolor. Usa el rectángulo que envuelve a la pieza, no su forma exacta, así que no llega a encastrar piezas curvas. Solo rota alrededor del eje vertical."}}, {"@type": "Question", "name": "¿Qué tan exacta es la calculadora de purga?", "acceptedAnswer": {"@type": "Answer", "text": "El volumen por cambio sale de la matriz, que es exacta. La cantidad de cambios es una estimación por capas y no ve colores pintados a mano, así que podés escribir el número real que te da el laminador. Los gramos usan la densidad del filamento del archivo."}}, {"@type": "Question", "name": "¿Por qué la vista 3D no muestra todo?", "acceptedAnswer": {"@type": "Answer", "text": "Muestra la geometría con el color del filamento asignado a cada pieza. Los modificadores no se dibujan porque no se imprimen. En modelos muy pesados, o si el navegador no soporta WebGL, cae a cajas o a la vista 2D."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Mini Apps", "item": "https://micro-apps.com.ar/"}, {"@type": "ListItem", "position": 2, "name": "Impresión 3D", "item": "https://micro-apps.com.ar/#impresion-3d"}, {"@type": "ListItem", "position": 3, "name": "Conversor 3MF para Flashforge AD5X", "item": "https://micro-apps.com.ar/conversor-3mf-flashforge-ad5x/"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="site"><div class="wrap bar"><a class="brand" href="/" aria-label="Mini Apps, inicio"><svg width="36" height="36" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="4" y="4" width="26" height="26" rx="8" fill="#12264A"/><rect x="34" y="4" width="26" height="26" rx="8" fill="#74ACDF"/><rect x="4" y="34" width="26" height="26" rx="8" fill="#74ACDF"/><circle cx="47" cy="47" r="13" fill="#F5B41A"/></svg><span>Mini Apps</span></a><nav aria-label="Categorías"><a href="/#calculadoras">Calculadoras</a><a href="/#conversores">Conversores</a><a href="/#generadores">Generadores</a><a href="/#texto">Texto</a><a href="/#marketing">Marketing</a><a href="/#radioaficion">Radioafición</a><a href="/#impresion-3d">Impresión 3D</a><a href="/#documentos">Documentos y PDF</a></nav></div></header>
+<main id="main" class="wrap">
+<nav class="crumbs" aria-label="Ruta"><a href="/">Mini Apps</a><span class="sep">&rsaquo;</span><a href="/#impresion-3d">Impresión 3D</a><a href="/#documentos">Documentos y PDF</a></nav>
+<h1 class="page-h1">Conversor de 3MF de MakerWorld para la Flashforge AD5X</h1>
+<p class="lead">Subí el .3mf que bajaste de MakerWorld y descargá un proyecto con la cama, la boquilla y el G-code de la AD5X, sin perder lo que definió el creador. Gratis, sin cuenta, y el archivo no sale de tu navegador.</p>
+<div class="panel flush" id="tool">
+<iframe id="appframe" class="appframe" src="/conversor-3mf-flashforge-ad5x/app/" title="Conversor 3MF para Flashforge AD5X" style="height:1800px" loading="eager"></iframe>
+<noscript><p style="padding:1.2rem">Esta herramienta necesita JavaScript activado.</p></noscript>
+</div>
+<p class="appnote">Tu archivo se procesa en el navegador: no se sube a ningún servidor.</p>
+<aside class="ad" aria-label="Publicidad" data-slot="1"><!-- ADSENSE SLOT 1 --></aside>
+<article class="prose">
+<h2>Por qué los archivos de MakerWorld no laminan bien en una Flashforge</h2>
+<p>Un .3mf de MakerWorld sale de Bambu Studio y trae la configuración completa de una impresora Bambu Lab: máquina, cama, G-code y filamentos del AMS. En una Flashforge nada de eso coincide, y el laminador descarta el proyecto o lo carga a medias.</p>
+<div class="tblw"><table class="tbl"><thead><tr><th>Antes (3MF sin convertir)</th><th>Después (convertido)</th></tr></thead><tbody>
+<tr><td>Impresora desconocida: Bambu Lab X1 Carbon</td><td>Impresora: Flashforge AD5X</td></tr>
+<tr><td>Cama de 256 × 256 mm con otro origen</td><td>Cama de 220 × 220 mm, objetos recentrados</td></tr>
+<tr><td>G-code de inicio y fin de otra máquina</td><td>Capas, relleno, paredes y soportes del creador</td></tr></tbody></table></div>
+<h2>Cómo convertir un .3mf en tres pasos</h2>
+<ol>
+<li><strong>Bajá el .3mf.</strong> En MakerWorld descargá el perfil de impresión en formato 3MF, no solo el modelo.</li>
+<li><strong>Soltalo sobre la cama.</strong> Vas a ver si entra en 220 × 220 mm. Si querés, sumá un perfil base con tus ajustes.</li>
+<li><strong>Abrilo como proyecto.</strong> Descargá el resultado y abrilo en Orca-Flashforge u OrcaSlicer con la AD5X seleccionada.</li>
+</ol>
+<p><strong>Hacé esto:</strong> Archivo → Abrir proyecto, o doble clic sobre el archivo. <strong>No hagas esto:</strong> arrastrarlo a la cama; el laminador importa solo la geometría e ignora la configuración.</p>
+<h2>Qué se conserva, qué se reemplaza y qué se descarta</h2>
+<p>La calidad la define el autor del modelo. La máquina la define tu impresora. En cada conversión ves la lista completa antes de descargar.</p>
+<div class="tblw"><table class="tbl"><thead><tr><th>Conservado</th><th>Reemplazado</th><th>Descartado</th></tr></thead><tbody><tr>
+<td>Altura de capa, relleno (porcentaje y patrón), paredes y capas superiores e inferiores, soportes (tipo y ángulo), costura, temperaturas y colores y filamentos por pieza</td>
+<td>Impresora (AD5X), área de impresión de 220 × 220 × 220 mm, diámetro de boquilla, filamento genérico del mismo tipo, G-code de inicio y fin, límites de máquina y posición de los objetos</td>
+<td>Velocidades, aceleraciones, G-code y datos de laminado de Bambu, y valores −1 que Flash Studio rechaza</td></tr></tbody></table></div>
+<p>Las temperaturas se limitan a 300 °C de boquilla y 110 °C de cama. Las velocidades y aceleraciones están ajustadas a la cinemática de Bambu: copiarlas empeora la impresión. Con un perfil base, impresora, filamento y proceso salen de tu propio laminador.</p>
+<h3>Comparar dos 3MF y calcular la purga</h3>
+<p>Además del conversor, la herramienta compara dos proyectos y muestra qué ajustes cambian, útil para entender por qué un laminador ignora algo. Y calcula cuánto filamento se descarta en la torre de purga en trabajos multicolor, con la matriz de purga editable.</p>
+<p class="note">Esta herramienta no está afiliada a Bambu Lab ni a Flashforge. Revisá siempre la cama, la boquilla y los filamentos en el laminador antes de imprimir.</p>
+<h2>Ejemplo</h2>
+<p>Bajás de MakerWorld un modelo multicolor para una placa de 256 × 256 mm. Lo soltás sobre la cama del conversor, elegís boquilla de 0,4 mm y dejás marcada la opción de recentrar. La herramienta te muestra si el modelo entra en 220 × 220 mm y cuántos filamentos usa (el IFS de la AD5X carga 4). Descargás el 3MF y lo abrís como proyecto en Orca-Flashforge.</p>
+<aside class="ad" aria-label="Publicidad" data-slot="2"><!-- ADSENSE SLOT 2 --></aside>
+<h2>Preguntas frecuentes</h2>
+<h3>¿Mi archivo se sube a algún servidor?</h3><p>No. La conversión ocurre en tu navegador con JavaScript: el .3mf se lee y se reescribe en tu dispositivo, y la descarga se genera ahí mismo.</p><h3>¿Qué es el perfil base y por qué conviene usarlo?</h3><p>Es un .3mf que guardaste desde tu laminador con la AD5X ya configurada. La herramienta copia de ahí los ajustes de impresora, filamento y proceso, así que el resultado coincide con tu configuración real en lugar de una aproximación.</p><h3>¿Por qué se descartan las velocidades y aceleraciones?</h3><p>Están pensadas para la cinemática de las Bambu. En otra máquina no aceleran la impresión: la empeoran. Es mejor que rijan las de tu perfil.</p><h3>¿Por qué los objetos aparecían fuera de la cama?</h3><p>Los archivos de Bambu guardan las posiciones con el origen de una cama de 256 mm. La herramienta mueve todo al sistema de la AD5X y te muestra si la pieza entra en 220 × 220 mm.</p><h3>¿Funciona con modelos multicolor?</h3><p>Sí: se conservan los colores y el filamento asignado a cada pieza. El IFS de la AD5X carga 4 filamentos, y si el modelo usa más, la herramienta te avisa.</p><h3>¿Y si mi laminador ignora los ajustes?</h3><p>Revisá que lo abriste como proyecto y no arrastrándolo a la cama. Si sigue igual, cargá un perfil base y probá de nuevo.</p><h3>¿Cómo acomoda las piezas?</h3><p>Mide el contorno de cada pieza, la endereza si elegís “Mover y rotar” y las reparte con un empaquetado por rectángulos, de las más grandes a las más chicas. Deja 6 mm entre piezas y 4 mm del borde, y reserva lugar para la torre de purga en multicolor. Usa el rectángulo que envuelve a la pieza, no su forma exacta, así que no llega a encastrar piezas curvas. Solo rota alrededor del eje vertical.</p><h3>¿Qué tan exacta es la calculadora de purga?</h3><p>El volumen por cambio sale de la matriz, que es exacta. La cantidad de cambios es una estimación por capas y no ve colores pintados a mano, así que podés escribir el número real que te da el laminador. Los gramos usan la densidad del filamento del archivo.</p><h3>¿Por qué la vista 3D no muestra todo?</h3><p>Muestra la geometría con el color del filamento asignado a cada pieza. Los modificadores no se dibujan porque no se imprimen. En modelos muy pesados, o si el navegador no soporta WebGL, cae a cajas o a la vista 2D.</p>
+<p class="updated">Última revisión: octubre de 2026.</p>
+</article>
+<h2 class="sec-h">Otras herramientas</h2>
+<div class="tiles small"><a class="tile tone-celeste" href="/disenador-de-lamparas-3d/" data-s="Diseñador de lámparas 3D Diseñá una lámpara con rosca y exportá las piezas en STL. Impresión 3D"><span class="g" aria-hidden="true">3D</span><h3>Diseñador de lámparas 3D</h3><p>Diseñá una lámpara con rosca y exportá las piezas en STL.</p></a><a class="tile tone-celeste" href="/conversor-de-unidades/" data-s="Conversor de unidades Longitud, peso, temperatura, volumen, área y más. Conversores"><span class="g" aria-hidden="true">⇄</span><h3>Conversor de unidades</h3><p>Longitud, peso, temperatura, volumen, área y más.</p></a><a class="tile tone-navy" href="/calculadora-de-porcentajes/" data-s="Calculadora de porcentajes Cuánto es el X %, qué porcentaje es, variación y descuentos. Calculadoras"><span class="g" aria-hidden="true">%</span><h3>Calculadora de porcentajes</h3><p>Cuánto es el X %, qué porcentaje es, variación y descuentos.</p></a></div>
+</main>
+<footer class="foot"><div class="wrap"><div class="cols">
+<div><a class="brand" href="/"><svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="4" y="4" width="26" height="26" rx="8" fill="#12264A"/><rect x="34" y="4" width="26" height="26" rx="8" fill="#74ACDF"/><rect x="4" y="34" width="26" height="26" rx="8" fill="#74ACDF"/><circle cx="47" cy="47" r="13" fill="#F5B41A"/></svg><span>Mini Apps</span></a>
+<p>Herramientas gratuitas, sin registro. Los resultados son orientativos y no reemplazan el asesoramiento profesional.</p></div>
+<ul><li><a href="/sobre-mini-apps/">Sobre Mini Apps</a></li><li><a href="/privacidad/">Privacidad</a></li><li><a href="/terminos/">Términos de uso</a></li><li><a href="/contacto/">Contacto</a></li></ul></div>
+<p>&copy; 2026 Mini Apps. Todos los derechos reservados.</p></div></footer>
+<script src="/assets/app.js"></script>
+<script>
+(function(){var f=document.getElementById("appframe");addEventListener("message",function(e){if(e.origin!==location.origin||!e.data||e.data.ma!=="h"||e.source!==f.contentWindow)return;f.style.height=Math.max(320,e.data.h)+"px"})})();
+</script>
+</body></html>

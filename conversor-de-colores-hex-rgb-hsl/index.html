@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conversor de colores HEX, RGB y HSL | Mini Apps</title>
+<meta name="description" content="Convertí colores entre HEX, RGB y HSL, elegilos con un selector y comprobá el contraste de texto según WCAG. Copiá el código CSS con un clic.">
+<link rel="canonical" href="https://micro-apps.com.ar/conversor-de-colores-hex-rgb-hsl/">
+
+<meta name="theme-color" content="#12264A">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mini Apps">
+<meta property="og:locale" content="es_AR">
+<meta property="og:title" content="Conversor de colores HEX, RGB y HSL | Mini Apps">
+<meta property="og:description" content="Convertí colores entre HEX, RGB y HSL, elegilos con un selector y comprobá el contraste de texto según WCAG. Copiá el código CSS con un clic.">
+<meta property="og:url" content="https://micro-apps.com.ar/conversor-de-colores-hex-rgb-hsl/">
+<meta property="og:image" content="https://micro-apps.com.ar/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<!-- AdSense: descomentá y poné tu ID de editor cuando te aprueben la cuenta.
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Conversor de colores HEX, RGB y HSL", "url": "https://micro-apps.com.ar/conversor-de-colores-hex-rgb-hsl/", "description": "Convertí colores entre HEX, RGB y HSL, elegilos con un selector y comprobá el contraste de texto según WCAG. Copiá el código CSS con un clic.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "es-AR", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "ARS"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Cómo paso un color de HEX a RGB?", "acceptedAnswer": {"@type": "Answer", "text": "Separá el código HEX en tres pares y convertí cada uno de hexadecimal a decimal. Por ejemplo, #FF8000 son FF = 255, 80 = 128 y 00 = 0, es decir rgb(255, 128, 0)."}}, {"@type": "Question", "name": "¿Qué significa HSL?", "acceptedAnswer": {"@type": "Answer", "text": "Son las siglas en inglés de matiz, saturación y luminosidad. Describe el color como lo percibimos: qué tono es, qué tan vivo y qué tan claro."}}, {"@type": "Question", "name": "¿Qué es un HEX de 3 dígitos?", "acceptedAnswer": {"@type": "Answer", "text": "Es una forma abreviada cuando cada par de dígitos se repite. #FFF equivale a #FFFFFF y #09C a #0099CC."}}, {"@type": "Question", "name": "¿Por qué importa el contraste?", "acceptedAnswer": {"@type": "Answer", "text": "Un texto con poco contraste es difícil de leer, sobre todo para personas con baja visión o en pantallas con mucho brillo. Cumplir al menos el nivel AA es una buena práctica de diseño web."}}, {"@type": "Question", "name": "¿Por qué el valor HSL cambia un poco si lo edito?", "acceptedAnswer": {"@type": "Answer", "text": "Los valores de HSL se redondean a números enteros. Al convertirlos a RGB puede haber una diferencia de un punto en algún canal."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Mini Apps", "item": "https://micro-apps.com.ar/"}, {"@type": "ListItem", "position": 2, "name": "Conversores", "item": "https://micro-apps.com.ar/#conversores"}, {"@type": "ListItem", "position": 3, "name": "Conversor de colores", "item": "https://micro-apps.com.ar/conversor-de-colores-hex-rgb-hsl/"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="site"><div class="wrap bar"><a class="brand" href="/" aria-label="Mini Apps, inicio"><svg width="36" height="36" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="4" y="4" width="26" height="26" rx="8" fill="#12264A"/><rect x="34" y="4" width="26" height="26" rx="8" fill="#74ACDF"/><rect x="4" y="34" width="26" height="26" rx="8" fill="#74ACDF"/><circle cx="47" cy="47" r="13" fill="#F5B41A"/></svg><span>Mini Apps</span></a><nav aria-label="Categorías"><a href="/#calculadoras">Calculadoras</a><a href="/#conversores">Conversores</a><a href="/#generadores">Generadores</a><a href="/#texto">Texto</a><a href="/#marketing">Marketing</a><a href="/#radioaficion">Radioafición</a><a href="/#impresion-3d">Impresión 3D</a><a href="/#documentos">Documentos y PDF</a></nav></div></header>
+<main id="main" class="wrap">
+<nav class="crumbs" aria-label="Ruta"><a href="/">Mini Apps</a><span class="sep">&rsaquo;</span><a href="/#conversores">Conversores</a></nav>
+<h1 class="page-h1">Conversor de colores HEX, RGB y HSL</h1>
+<p class="lead">Editá cualquier formato y los demás se actualizan. Además te mostramos si el color tiene buen contraste con texto blanco o negro.</p>
+<div class="panel" id="tool">
+<div class="qr-grid"><div>
+<div class="swatch" id="sw"></div>
+<div class="row"><div class="field"><label for="pick">Selector</label><input id="pick" type="color" value="#74acdf"></div>
+<div class="field"><label for="hex">HEX</label><input id="hex" type="text" value="#74ACDF" maxlength="7" autocomplete="off" spellcheck="false"></div></div>
+<p class="lbl" style="margin:1rem 0 .3rem" id="rgblbl">RGB</p>
+<div class="row" role="group" aria-labelledby="rgblbl">
+<input id="r" type="number" min="0" max="255" step="1" aria-label="Rojo, de 0 a 255"><input id="g" type="number" min="0" max="255" step="1" aria-label="Verde, de 0 a 255"><input id="b" type="number" min="0" max="255" step="1" aria-label="Azul, de 0 a 255"></div>
+<p class="lbl" style="margin:1rem 0 .3rem" id="hsllbl">HSL</p>
+<div class="row" role="group" aria-labelledby="hsllbl">
+<input id="h" type="number" min="0" max="360" step="1" aria-label="Matiz, de 0 a 360"><input id="s" type="number" min="0" max="100" step="1" aria-label="Saturación, de 0 a 100"><input id="l" type="number" min="0" max="100" step="1" aria-label="Luminosidad, de 0 a 100"></div></div>
+<div><p class="lbl" style="margin:0">Códigos para CSS</p>
+<div class="copyrow"><code id="o-hex"></code><button type="button" class="btn alt" data-copy="#o-hex">Copiar</button></div>
+<div class="copyrow"><code id="o-rgb"></code><button type="button" class="btn alt" data-copy="#o-rgb">Copiar</button></div>
+<div class="copyrow"><code id="o-hsl"></code><button type="button" class="btn alt" data-copy="#o-hsl">Copiar</button></div>
+<p class="lbl" style="margin:1.4rem 0 0">Contraste del texto sobre este color</p>
+<div class="contrast">
+<div class="cbox" id="cw" style="color:#fff"><b>Texto blanco</b><span id="cw-t"></span></div>
+<div class="cbox" id="cb" style="color:#000"><b>Texto negro</b><span id="cb-t"></span></div></div></div></div>
+</div>
+<aside class="ad" aria-label="Publicidad" data-slot="1"><!-- ADSENSE SLOT 1 --></aside>
+<article class="prose">
+<h2>Cómo funciona</h2>
+<p>Los tres formatos describen el mismo color de maneras distintas:</p>
+<ul><li><strong>HEX:</strong> tres pares de dígitos hexadecimales (00 a FF) para rojo, verde y azul. <code>#74ACDF</code> significa rojo 74, verde AC, azul DF. La versión corta de 3 dígitos (<code>#FFF</code>) duplica cada dígito.</li>
+<li><strong>RGB:</strong> la misma información en decimal, de 0 a 255 por canal.</li>
+<li><strong>HSL:</strong> matiz (0 a 360°, la posición en el círculo cromático), saturación y luminosidad (0 a 100 %). Es el más cómodo para armar variantes más claras u oscuras de un color.</li></ul>
+<h3>Contraste de texto</h3>
+<p>El contraste mide cuánto se distingue un texto de su fondo. Las pautas de accesibilidad WCAG piden una relación de al menos 4,5:1 para texto normal (nivel AA) y 7:1 para el nivel AAA. Para texto grande, 3:1 alcanza.</p>
+<p class="formula">Contraste = (luminancia clara + 0,05) ÷ (luminancia oscura + 0,05)</p>
+<h2>Ejemplo</h2>
+<p>El celeste <code>#74ACDF</code> equivale a <code>rgb(116, 172, 223)</code> y a <code>hsl(209, 63%, 66%)</code>. Con texto negro tiene un contraste alto y cumple AAA, mientras que con texto blanco queda por debajo de 3:1, así que conviene usar negro o un azul oscuro.</p>
+<aside class="ad" aria-label="Publicidad" data-slot="2"><!-- ADSENSE SLOT 2 --></aside>
+<h2>Preguntas frecuentes</h2>
+<h3>¿Cómo paso un color de HEX a RGB?</h3><p>Separá el código HEX en tres pares y convertí cada uno de hexadecimal a decimal. Por ejemplo, #FF8000 son FF = 255, 80 = 128 y 00 = 0, es decir rgb(255, 128, 0).</p><h3>¿Qué significa HSL?</h3><p>Son las siglas en inglés de matiz, saturación y luminosidad. Describe el color como lo percibimos: qué tono es, qué tan vivo y qué tan claro.</p><h3>¿Qué es un HEX de 3 dígitos?</h3><p>Es una forma abreviada cuando cada par de dígitos se repite. #FFF equivale a #FFFFFF y #09C a #0099CC.</p><h3>¿Por qué importa el contraste?</h3><p>Un texto con poco contraste es difícil de leer, sobre todo para personas con baja visión o en pantallas con mucho brillo. Cumplir al menos el nivel AA es una buena práctica de diseño web.</p><h3>¿Por qué el valor HSL cambia un poco si lo edito?</h3><p>Los valores de HSL se redondean a números enteros. Al convertirlos a RGB puede haber una diferencia de un punto en algún canal.</p>
+<p class="updated">Última revisión: octubre de 2026.</p>
+</article>
+<h2 class="sec-h">Otras herramientas</h2>
+<div class="tiles small"><a class="tile tone-celeste" href="/conversor-de-unidades/" data-s="Conversor de unidades Longitud, peso, temperatura, volumen, área y más. Conversores"><span class="g" aria-hidden="true">⇄</span><h3>Conversor de unidades</h3><p>Longitud, peso, temperatura, volumen, área y más.</p></a><a class="tile tone-sol" href="/generador-de-qr/" data-s="Generador de códigos QR QR para enlaces, WiFi y WhatsApp. Descarga en PNG o SVG. Generadores"><span class="g" aria-hidden="true">QR</span><h3>Generador de códigos QR</h3><p>QR para enlaces, WiFi y WhatsApp. Descarga en PNG o SVG.</p></a><a class="tile tone-white" href="/conversor-de-mayusculas-y-minusculas/" data-s="Mayúsculas y minúsculas Pasá un texto a mayúsculas, minúsculas o tipo oración. Texto"><span class="g" aria-hidden="true">Aa</span><h3>Mayúsculas y minúsculas</h3><p>Pasá un texto a mayúsculas, minúsculas o tipo oración.</p></a></div>
+</main>
+<footer class="foot"><div class="wrap"><div class="cols">
+<div><a class="brand" href="/"><svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="4" y="4" width="26" height="26" rx="8" fill="#12264A"/><rect x="34" y="4" width="26" height="26" rx="8" fill="#74ACDF"/><rect x="4" y="34" width="26" height="26" rx="8" fill="#74ACDF"/><circle cx="47" cy="47" r="13" fill="#F5B41A"/></svg><span>Mini Apps</span></a>
+<p>Herramientas gratuitas, sin registro. Los resultados son orientativos y no reemplazan el asesoramiento profesional.</p></div>
+<ul><li><a href="/sobre-mini-apps/">Sobre Mini Apps</a></li><li><a href="/privacidad/">Privacidad</a></li><li><a href="/terminos/">Términos de uso</a></li><li><a href="/contacto/">Contacto</a></li></ul></div>
+<p>&copy; 2026 Mini Apps. Todos los derechos reservados.</p></div></footer>
+<script src="/assets/app.js"></script>
+<script>
+(function(){
+
+var $=MA.$;
+function clamp(v,a,b){return Math.min(b,Math.max(a,v))}
+function toHex(r,g,b){return '#'+[r,g,b].map(function(x){return ('0'+Math.round(x).toString(16)).slice(-2)}).join('').toUpperCase()}
+function parseHex(s){
+  s=s.trim().replace(/^#/,'');
+  if(/^[0-9a-f]{3}$/i.test(s))s=s.split('').map(function(c){return c+c}).join('');
+  if(!/^[0-9a-f]{6}$/i.test(s))return null;
+  return [parseInt(s.slice(0,2),16),parseInt(s.slice(2,4),16),parseInt(s.slice(4,6),16)];
+}
+function rgb2hsl(r,g,b){
+  r/=255;g/=255;b/=255;
+  var mx=Math.max(r,g,b),mn=Math.min(r,g,b),l=(mx+mn)/2,d=mx-mn,h=0,s=0;
+  if(d){
+    s=d/(1-Math.abs(2*l-1));
+    if(mx===r)h=((g-b)/d)%6;else if(mx===g)h=(b-r)/d+2;else h=(r-g)/d+4;
+    h*=60;if(h<0)h+=360;
+  }
+  return [h,s*100,l*100];
+}
+function hsl2rgb(h,s,l){
+  s/=100;l/=100;
+  var c=(1-Math.abs(2*l-1))*s,x=c*(1-Math.abs((h/60)%2-1)),m=l-c/2,r=0,g=0,b=0;
+  if(h<60){r=c;g=x}else if(h<120){r=x;g=c}else if(h<180){g=c;b=x}else if(h<240){g=x;b=c}else if(h<300){r=x;b=c}else{r=c;b=x}
+  return [(r+m)*255,(g+m)*255,(b+m)*255];
+}
+function lum(r,g,b){
+  var a=[r,g,b].map(function(v){v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4)});
+  return 0.2126*a[0]+0.7152*a[1]+0.0722*a[2];
+}
+function verdict(ratio){
+  var t=MA.fmt(ratio,2)+':1. ';
+  return t+(ratio>=7?'Cumple AAA':ratio>=4.5?'Cumple AA':ratio>=3?'Solo texto grande (AA)':'No cumple');
+}
+function paint(r,g,b,skip){
+  r=Math.round(clamp(r,0,255));g=Math.round(clamp(g,0,255));b=Math.round(clamp(b,0,255));
+  var hsl=rgb2hsl(r,g,b),H=Math.round(hsl[0]),S=Math.round(hsl[1]),L=Math.round(hsl[2]),hex=toHex(r,g,b);
+  if(skip!=='hex')$('#hex').value=hex;
+  if(skip!=='pick')$('#pick').value=hex.toLowerCase();
+  if(skip!=='rgb'){$('#r').value=r;$('#g').value=g;$('#b').value=b}
+  if(skip!=='hsl'){$('#h').value=H;$('#s').value=S;$('#l').value=L}
+  $('#sw').style.background=hex;
+  $('#o-hex').textContent=hex;
+  $('#o-rgb').textContent='rgb('+r+', '+g+', '+b+')';
+  $('#o-hsl').textContent='hsl('+H+', '+S+'%, '+L+'%)';
+  var Lc=lum(r,g,b);
+  $('#cw').style.background=hex;$('#cb').style.background=hex;
+  $('#cw-t').textContent=verdict(1.05/(Lc+0.05));
+  $('#cb-t').textContent=verdict((Lc+0.05)/0.05);
+}
+$('#pick').addEventListener('input',function(){var c=parseHex(this.value);if(c)paint(c[0],c[1],c[2],'pick')});
+$('#hex').addEventListener('input',function(){var c=parseHex(this.value);if(c)paint(c[0],c[1],c[2],'hex')});
+['r','g','b'].forEach(function(id){$('#'+id).addEventListener('input',function(){
+  var r=MA.num($('#r')),g=MA.num($('#g')),b=MA.num($('#b'));
+  if(r!=null&&g!=null&&b!=null)paint(r,g,b,'rgb');
+})});
+['h','s','l'].forEach(function(id){$('#'+id).addEventListener('input',function(){
+  var h=MA.num($('#h')),s=MA.num($('#s')),l=MA.num($('#l'));
+  if(h==null||s==null||l==null)return;
+  var c=hsl2rgb(clamp(h,0,360)%360,clamp(s,0,100),clamp(l,0,100));paint(c[0],c[1],c[2],'hsl');
+})});
+paint(116,172,223);
+
+})();
+</script>
+</body>
+</html>
