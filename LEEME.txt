@@ -38,3 +38,12 @@ Categoría Documentos y PDF (nueva):
   comprimir-pdf, word-a-pdf, excel-a-pdf      -> usan la API (carpeta pdf-api, fuera de este sitio)
   Antes de publicar: desplegá la API (ver pdf-api/README.md) y poné su dirección en assets/config.js
   (window.MA_API). Si la API no está en línea, esas tres herramientas muestran un error de conexión.
+
+
+== GOOGLE TAG MANAGER ==
+ID GTM-MBJJ4RPZ insertado en todas las páginas (head + noscript tras <body>). Las apps embebidas (/…/app/ y /assets/apps/) no lo cargan: la página contenedora ya cuenta la visita.
+Si tenés tráfico del EEE/Reino Unido, necesitás un banner de consentimiento (CMP) o Consent Mode antes de activar AdSense/Analytics en GTM.
+
+== GENERADORES 3D (engranajes, llaveros, tapas) ==
+App compartida: assets/apps/toolkit-3d/ (index.html + app.js), se elige con ?m=gear|key|cap. Tres páginas: generador-de-engranajes-3d, generador-de-llaveros-3d, generador-de-tapas-de-botella-3d.
+Three.js y las tipografías de los llaveros (OFL) están alojadas en assets/vendor/. La pestaña de lámparas del toolkit original era idéntica a disenador-de-lamparas-3d, por eso no se duplicó.
